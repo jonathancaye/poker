@@ -1,0 +1,99 @@
+{
+  "rounds": [
+    {
+      "id": "r178399147785770d7",
+      "roundNumber": 1,
+      "buyIn": 100,
+      "prizes": [
+        400,
+        250,
+        150,
+        0
+      ],
+      "standings": [
+        "ETTI HILLER",
+        "VANDERLEI RAZINI",
+        "AMANDIO JUNIOR",
+        "JONATHAN CAYE",
+        "FERNANDO MUPPET",
+        "NILSON TOMELI",
+        "FABIANO MACHADO",
+        "JEAN HOFFMANN"
+      ]
+    },
+    {
+      "id": "r178399163770472b9",
+      "roundNumber": 2,
+      "buyIn": 100,
+      "prizes": [
+        650,
+        400,
+        250,
+        0
+      ],
+      "standings": [
+        "FERNANDO MUPPET",
+        "NILSON TOMELI",
+        "VINICIUS TOMELIN",
+        "LEANDRO ANGELO",
+        "VANDERLEI RAZINI",
+        "CHARLES DE SOUZA",
+        "JEFERSON MONTAGNA",
+        "ETTI HILLER",
+        "JONATHAN CAYE",
+        "JEAN HOFFMANN",
+        "GABRIEL CANTARELLI",
+        "EDWARD LOPES",
+        "FABIANO MACHADO"
+      ]
+    }
+  ],
+  "players": [
+    "ETTI HILLER",
+    "VANDERLEI RAZINI",
+    "AMANDIO JUNIOR",
+    "JONATHAN CAYE",
+    "FERNANDO MUPPET",
+    "NILSON TOMELI",
+    "FABIANO MACHADO",
+    "JEAN HOFFMANN",
+    "VINICIUS TOMELIN",
+    "LEANDRO ANGELO",
+    "CHARLES DE SOUZA",
+    "JEFERSON MONTAGNA",
+    "GABRIEL CANTARELLI",
+    "EDWARD LOPES",
+    "FABRICIO AVI",
+    "JEAN PIERRE",
+    "JULIANO BORGES",
+    "MARCIONEI DA CUNHA",
+    "RAFAEL GAUCHE"
+  ],
+  "totalRounds": 22,
+  "roundDates": {
+    "1": "2026-07-02",
+    "2": "2026-07-09",
+    "3": "2026-07-16",
+    "4": "2026-07-23",
+    "5": "2026-07-30",
+    "6": "2026-08-06",
+    "7": "2026-08-13",
+    "8": "2026-08-20",
+    "9": "2026-08-27",
+    "10": "2026-09-03",
+    "11": "2026-09-10",
+    "12": "2026-09-17",
+    "13": "2026-09-24",
+    "14": "2026-10-01",
+    "15": "2026-10-08",
+    "16": "2026-10-15",
+    "17": "2026-10-22",
+    "18": "2026-10-29",
+    "19": "2026-11-05",
+    "20": "2026-11-12",
+    "21": "2026-11-19",
+    "22": "2026-11-26"
+  },
+  "topPositions": 4,
+  "publishedAt": "2026-07-14T19:35:41.953Z"
+}
