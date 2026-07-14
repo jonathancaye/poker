@@ -92,6 +92,7 @@
   tbody tr:last-child td{border-bottom:none;}
   td.num, th.num{text-align:right; font-family:'Space Mono',monospace;}
   td.player{font-weight:600;}
+  td.player-cell{display:flex; align-items:center; gap:10px; font-weight:600;}
 
   /* Tabela do ranking vira lista de cards no celular, recolhidos por padrão */
   .toggle-arrow{display:none; margin-left:auto; font-size:11px; color:var(--text-muted); transition:transform .2s ease; flex-shrink:0;}
@@ -106,8 +107,7 @@
     table.rank-table td{border-bottom:1px solid rgba(44,87,68,0.4); padding:9px 14px;}
     table.rank-table td:last-child{border-bottom:none;}
     table.rank-table td.player-cell{
-      display:flex; align-items:center; gap:10px; background:var(--surface-2);
-      font-size:15px; padding:11px 14px; cursor:pointer; -webkit-tap-highlight-color:transparent;
+      background:var(--surface-2); font-size:15px; padding:11px 14px; cursor:pointer; -webkit-tap-highlight-color:transparent;
     }
     table.rank-table td.player-cell .toggle-arrow{display:inline-block;}
     table.rank-table tr.expanded td.player-cell .toggle-arrow{transform:rotate(180deg);}
@@ -182,7 +182,7 @@
     <div class="suit s1">♠</div>
     <div class="suit s2">♦</div>
     <p class="eyebrow">Temporada 2026</p>
-    <h1>Pôker Clube — Ranking</h1>
+    <h1>Diretoria Poker Clube</h1>
     <p class="sub">Ranking, pontos e profit calculados a partir da última rodada publicada.</p>
   </header>
 
@@ -226,6 +226,7 @@
   </section>
 
   <footer class="view-footer" id="viewFooter">
+    <p id="topNInfoNote"></p>
     <p>Em caso de empate: mais 1ºs lugares, depois mais 2ºs, depois mais 3ºs, depois mais rodadas jogadas e por último ordem alfabética.</p>
     <p class="updated-note" id="updatedNote"></p>
   </footer>
@@ -372,8 +373,7 @@ function renderGeral(){
       <th>Jogador</th><th class="num">Pts</th><th class="num">Rodadas</th>
       <th class="num">Buy-in total</th><th class="num">Prêmio total</th><th class="num">Profit</th>
       <th style="text-align:center;">Top ${topN}</th>
-    </tr></thead><tbody>${rows}</tbody></table>
-    <p class="hint small-note" style="margin-top:14px; margin-bottom:0;">Coluna "Top ${topN}": considera ${roundsRemaining} rodada${roundsRemaining===1?'':'s'} restante${roundsRemaining===1?'':'s'} na temporada. "Na disputa" = ainda é matematicamente possível terminar entre os ${topN} primeiros mesmo no pior cenário. "Eliminado" = já não é mais possível.</p>`;
+    </tr></thead><tbody>${rows}</tbody></table>`;
 
   el.querySelectorAll('table.rank-table tbody tr').forEach(tr=>{
     const cell = tr.querySelector('.player-cell');
@@ -470,6 +470,16 @@ function renderRoundsList(){
   }).join('');
 }
 
+function renderFooterNote(){
+  const topN = data.topPositions || 4;
+  const totalRounds = data.totalRounds || 22;
+  const roundsRemaining = Math.max(0, totalRounds - data.rounds.length);
+  const el = document.getElementById('topNInfoNote');
+  if(el){
+    el.textContent = `Coluna "Top ${topN}": considera ${roundsRemaining} rodada${roundsRemaining===1?'':'s'} restante${roundsRemaining===1?'':'s'} na temporada. "Na disputa" = ainda é matematicamente possível terminar entre os ${topN} primeiros mesmo no pior cenário. "Eliminado" = já não é mais possível.`;
+  }
+}
+
 /* ---------- Carregamento dos dados publicados ---------- */
 async function loadPublishedData(){
   try{
@@ -493,6 +503,7 @@ async function loadPublishedData(){
   }
   renderTimeline();
   renderGeral();
+  renderFooterNote();
 }
 
 loadPublishedData();
