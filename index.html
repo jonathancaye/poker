@@ -93,7 +93,8 @@
   td.num, th.num{text-align:right; font-family:'Space Mono',monospace;}
   td.player{font-weight:600;}
 
-  /* Tabela do ranking vira lista de cards no celular */
+  /* Tabela do ranking vira lista de cards no celular, recolhidos por padrão */
+  .toggle-arrow{display:none; margin-left:auto; font-size:11px; color:var(--text-muted); transition:transform .2s ease; flex-shrink:0;}
   @media (max-width:640px){
     table.rank-table{font-size:13px;}
     table.rank-table thead{display:none;}
@@ -106,9 +107,12 @@
     table.rank-table td:last-child{border-bottom:none;}
     table.rank-table td.player-cell{
       display:flex; align-items:center; gap:10px; background:var(--surface-2);
-      font-size:15px; padding:11px 14px;
+      font-size:15px; padding:11px 14px; cursor:pointer; -webkit-tap-highlight-color:transparent;
     }
-    table.rank-table td:not(.player-cell){
+    table.rank-table td.player-cell .toggle-arrow{display:inline-block;}
+    table.rank-table tr.expanded td.player-cell .toggle-arrow{transform:rotate(180deg);}
+    table.rank-table tr:not(.expanded) td:not(.player-cell){display:none;}
+    table.rank-table tr.expanded td:not(.player-cell){
       display:flex; justify-content:space-between; align-items:center; text-align:right; font-family:'Space Mono',monospace;
     }
     table.rank-table td:not(.player-cell)::before{
@@ -355,7 +359,7 @@ function renderGeral(){
       : `<span class="status-pill eliminated" title="Eliminado matematicamente do Top ${topN}">Eliminado</span>`;
     const rowClass = alive ? '' : ' class="eliminated-row"';
     return `<tr${rowClass}>
-      <td class="player-cell">${chipBadge(pos)}<span>${escapeHtml(s.name)}</span></td>
+      <td class="player-cell">${chipBadge(pos)}<span>${escapeHtml(s.name)}</span><span class="toggle-arrow">▾</span></td>
       <td class="num" data-label="Pts">${s.points}</td>
       <td class="num" data-label="Rodadas">${s.roundsPlayed}</td>
       <td class="num" data-label="Buy-in total">${fmtMoney(s.buyInTotal)}</td>
@@ -370,6 +374,11 @@ function renderGeral(){
       <th style="text-align:center;">Top ${topN}</th>
     </tr></thead><tbody>${rows}</tbody></table>
     <p class="hint small-note" style="margin-top:14px; margin-bottom:0;">Coluna "Top ${topN}": considera ${roundsRemaining} rodada${roundsRemaining===1?'':'s'} restante${roundsRemaining===1?'':'s'} na temporada. "Na disputa" = ainda é matematicamente possível terminar entre os ${topN} primeiros mesmo no pior cenário. "Eliminado" = já não é mais possível.</p>`;
+
+  el.querySelectorAll('table.rank-table tbody tr').forEach(tr=>{
+    const cell = tr.querySelector('.player-cell');
+    if(cell) cell.addEventListener('click', ()=> tr.classList.toggle('expanded'));
+  });
 }
 
 const EVO_COLORS = ['#E8C766','#5CB587','#D97C4D','#7EA8D8','#C1443A','#B98CD9','#E0A5C4','#8FBF7F','#D9C25C','#6FB8C9'];
