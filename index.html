@@ -25,6 +25,7 @@
   }
   ::selection{background:var(--gold); color:#1B1203;}
   .wrap{max-width:960px; margin:0 auto; padding:28px 20px 80px;}
+  @media (max-width:640px){ .wrap{padding:14px 12px 60px;} }
 
   header.top{
     position:relative; padding:26px 24px 22px; border:1px solid var(--border);
@@ -37,6 +38,12 @@
   .eyebrow{font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-soft); margin:0 0 6px;}
   h1{font-family:'Fraunces',serif; font-weight:700; font-size:32px; margin:0 0 4px; letter-spacing:-0.01em;}
   header.top p.sub{margin:0; color:var(--text-muted); font-size:14px;}
+  @media (max-width:640px){
+    header.top{padding:18px 16px 16px; margin-bottom:14px; border-radius:10px;}
+    h1{font-size:22px;}
+    header.top p.sub{font-size:12.5px;}
+    .eyebrow{font-size:10px;}
+  }
 
   .timeline-card{padding:18px 22px; margin-bottom:16px;}
   .timeline-head{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:12px; gap:10px; flex-wrap:wrap;}
@@ -46,6 +53,12 @@
   .timeline-tick{flex:1 1 0; min-width:6px; height:10px; border-radius:3px; background:var(--bg-deep); border:1px solid var(--border);}
   .timeline-tick.filled{background:linear-gradient(160deg, var(--gold-soft), var(--gold)); border-color:var(--gold);}
   .timeline-next{margin-top:12px; font-family:'Space Mono',monospace; font-size:12.5px; color:var(--text-muted);}
+  @media (max-width:640px){
+    .timeline-card{padding:14px 16px;}
+    .timeline-label{font-size:13.5px;}
+    .timeline-count, .timeline-next{font-size:11.5px;}
+    .timeline-tick{height:14px; min-width:9px;}
+  }
 
   nav.tabs{display:flex; gap:6px; margin-bottom:20px; flex-wrap:wrap; border-bottom:1px solid var(--border);}
   nav.tabs button{
@@ -54,6 +67,10 @@
   }
   nav.tabs button.active{color:var(--text); background:var(--surface); border:1px solid var(--border); border-bottom:1px solid var(--surface);}
   nav.tabs button:hover:not(.active){color:var(--text);}
+  @media (max-width:640px){
+    nav.tabs{gap:0; margin-bottom:14px;}
+    nav.tabs button{flex:1; padding:11px 6px; font-size:12px; text-align:center;}
+  }
 
   section.panel{display:none;}
   section.panel.active{display:block; animation:fade .18s ease;}
@@ -63,6 +80,11 @@
   .card + .card{margin-top:16px;}
   h2.section-title{font-family:'Fraunces',serif; font-size:19px; font-weight:600; margin:0 0 4px;}
   p.hint{color:var(--text-muted); font-size:13px; margin:0 0 18px;}
+  @media (max-width:640px){
+    .card{padding:14px;}
+    h2.section-title{font-size:16px;}
+    p.hint{font-size:12px; margin:0 0 14px;}
+  }
 
   table{width:100%; border-collapse:collapse; font-size:14px;}
   thead th{text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-muted); font-weight:600; padding:0 10px 10px; border-bottom:1px solid var(--border);}
@@ -70,6 +92,30 @@
   tbody tr:last-child td{border-bottom:none;}
   td.num, th.num{text-align:right; font-family:'Space Mono',monospace;}
   td.player{font-weight:600;}
+
+  /* Tabela do ranking vira lista de cards no celular */
+  @media (max-width:640px){
+    table.rank-table{font-size:13px;}
+    table.rank-table thead{display:none;}
+    table.rank-table, table.rank-table tbody, table.rank-table tr, table.rank-table td{display:block; width:100%;}
+    table.rank-table tr{
+      border:1px solid var(--border); border-radius:10px; margin-bottom:10px;
+      overflow:hidden; background:var(--bg-deep);
+    }
+    table.rank-table td{border-bottom:1px solid rgba(44,87,68,0.4); padding:9px 14px;}
+    table.rank-table td:last-child{border-bottom:none;}
+    table.rank-table td.player-cell{
+      display:flex; align-items:center; gap:10px; background:var(--surface-2);
+      font-size:15px; padding:11px 14px;
+    }
+    table.rank-table td:not(.player-cell){
+      display:flex; justify-content:space-between; align-items:center; text-align:right; font-family:'Space Mono',monospace;
+    }
+    table.rank-table td:not(.player-cell)::before{
+      content:attr(data-label); font-family:'Inter',sans-serif; font-weight:600; font-size:11px;
+      text-transform:uppercase; letter-spacing:.03em; color:var(--text-muted); text-align:left;
+    }
+  }
 
   .chip-badge{
     width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;
@@ -105,11 +151,20 @@
   .round-card ol li{margin-bottom:3px;}
   @media (max-width:560px){ .round-card ol{columns:1;} }
   .round-card .prizes{font-size:12.5px; color:var(--text-muted); margin:8px 0 10px; font-family:'Space Mono',monospace;}
+  @media (max-width:640px){
+    .round-card{padding:12px;}
+    .round-card .round-head h3{font-size:15px;}
+  }
 
   .banner{background:rgba(212,166,42,0.1); border:1px solid var(--gold); color:var(--gold-soft); border-radius:var(--radius-sm); padding:12px 14px; font-size:13.5px; font-weight:600; margin-bottom:16px;}
 
-  .evo-scroll{overflow-x:auto; padding-bottom:6px;}
+  .evo-scroll{overflow-x:auto; padding-bottom:6px; -webkit-overflow-scrolling:touch;}
   .evo-scroll svg{display:block;}
+  .evo-hint{
+    display:none; font-family:'Space Mono',monospace; font-size:11px; color:var(--text-muted);
+    margin-bottom:10px;
+  }
+  @media (max-width:640px){ .evo-hint{display:block;} }
 
   .updated-note{
     text-align:center; font-family:'Space Mono',monospace; font-size:11.5px; color:var(--text-muted); margin-top:6px;
@@ -123,7 +178,7 @@
     <div class="suit s1">♠</div>
     <div class="suit s2">♦</div>
     <p class="eyebrow">Temporada 2026</p>
-    <h1>Diretoria Poker Clube</h1>
+    <h1>Pôker Clube — Ranking</h1>
     <p class="sub">Ranking, pontos e profit calculados a partir da última rodada publicada.</p>
   </header>
 
@@ -300,18 +355,17 @@ function renderGeral(){
       : `<span class="status-pill eliminated" title="Eliminado matematicamente do Top ${topN}">Eliminado</span>`;
     const rowClass = alive ? '' : ' class="eliminated-row"';
     return `<tr${rowClass}>
-      <td>${chipBadge(pos)}</td>
-      <td class="player">${escapeHtml(s.name)}</td>
-      <td class="num">${s.points}</td>
-      <td class="num">${s.roundsPlayed}</td>
-      <td class="num">${fmtMoney(s.buyInTotal)}</td>
-      <td class="num">${fmtMoney(s.prizeTotal)}</td>
-      <td class="num ${profitClass(s.profit)}">${fmtPercent(s.profit)}</td>
-      <td class="chance-cell">${chanceHtml}</td>
+      <td class="player-cell">${chipBadge(pos)}<span>${escapeHtml(s.name)}</span></td>
+      <td class="num" data-label="Pts">${s.points}</td>
+      <td class="num" data-label="Rodadas">${s.roundsPlayed}</td>
+      <td class="num" data-label="Buy-in total">${fmtMoney(s.buyInTotal)}</td>
+      <td class="num" data-label="Prêmio total">${fmtMoney(s.prizeTotal)}</td>
+      <td class="num ${profitClass(s.profit)}" data-label="Profit">${fmtPercent(s.profit)}</td>
+      <td class="chance-cell" data-label="Top ${topN}">${chanceHtml}</td>
     </tr>`;
   }).join('');
-  el.innerHTML = `<table><thead><tr>
-      <th></th><th>Jogador</th><th class="num">Pts</th><th class="num">Rodadas</th>
+  el.innerHTML = `<table class="rank-table"><thead><tr>
+      <th>Jogador</th><th class="num">Pts</th><th class="num">Rodadas</th>
       <th class="num">Buy-in total</th><th class="num">Prêmio total</th><th class="num">Profit</th>
       <th style="text-align:center;">Top ${topN}</th>
     </tr></thead><tbody>${rows}</tbody></table>
@@ -380,7 +434,7 @@ function renderEvolucao(){
   const svg = `<svg viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
       ${gridLines}${xLabels}${lines}
     </svg>`;
-  el.innerHTML = `<div class="evo-scroll">${svg}</div>`;
+  el.innerHTML = `<p class="evo-hint">→ arraste para o lado para ver todas as rodadas</p><div class="evo-scroll">${svg}</div>`;
 }
 
 function renderRoundsList(){
