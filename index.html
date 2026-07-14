@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pôker Clube 2026 — Ranking</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0F2E23; --bg-deep: #0A2018; --surface: #163B2C; --surface-2: #1D4837;
+    --border: #2C5744; --text: #F5EFE0; --text-muted: #9FB8AC;
+    --gold: #D4A62A; --gold-soft: #E8C766; --silver: #C7CDD1; --bronze: #C97C4D;
+    --red: #C1443A; --green-pos: #5CB587; --radius: 12px; --radius-sm: 8px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(212,166,42,0.07), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, rgba(92,181,135,0.06), transparent 55%),
+      var(--bg);
+    color:var(--text); font-family:'Inter',sans-serif; min-height:100vh;
+  }
+  ::selection{background:var(--gold); color:#1B1203;}
+  .wrap{max-width:960px; margin:0 auto; padding:28px 20px 80px;}
+
+  header.top{
+    position:relative; padding:26px 24px 22px; border:1px solid var(--border);
+    border-radius:var(--radius); background:linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 130%);
+    overflow:hidden; margin-bottom:22px;
+  }
+  header.top .suit{position:absolute; font-size:120px; opacity:0.05; line-height:1; font-family:'Fraunces',serif; color:var(--text); pointer-events:none;}
+  header.top .suit.s1{ top:-30px; right:-10px; transform:rotate(8deg);}
+  header.top .suit.s2{ bottom:-45px; right:120px; transform:rotate(-10deg); font-size:90px;}
+  .eyebrow{font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-soft); margin:0 0 6px;}
+  h1{font-family:'Fraunces',serif; font-weight:700; font-size:32px; margin:0 0 4px; letter-spacing:-0.01em;}
+  header.top p.sub{margin:0; color:var(--text-muted); font-size:14px;}
+
+  .timeline-card{padding:18px 22px; margin-bottom:16px;}
+  .timeline-head{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:12px; gap:10px; flex-wrap:wrap;}
+  .timeline-label{font-family:'Fraunces',serif; font-weight:600; font-size:15px;}
+  .timeline-count{font-family:'Space Mono',monospace; font-size:12.5px; color:var(--gold-soft);}
+  .timeline-track{display:flex; gap:4px; flex-wrap:wrap;}
+  .timeline-tick{flex:1 1 0; min-width:6px; height:10px; border-radius:3px; background:var(--bg-deep); border:1px solid var(--border);}
+  .timeline-tick.filled{background:linear-gradient(160deg, var(--gold-soft), var(--gold)); border-color:var(--gold);}
+  .timeline-next{margin-top:12px; font-family:'Space Mono',monospace; font-size:12.5px; color:var(--text-muted);}
+
+  nav.tabs{display:flex; gap:6px; margin-bottom:20px; flex-wrap:wrap; border-bottom:1px solid var(--border);}
+  nav.tabs button{
+    font-family:'Inter',sans-serif; font-weight:600; font-size:13.5px; color:var(--text-muted);
+    background:transparent; border:none; padding:10px 16px; cursor:pointer; border-radius:8px 8px 0 0; position:relative; top:1px;
+  }
+  nav.tabs button.active{color:var(--text); background:var(--surface); border:1px solid var(--border); border-bottom:1px solid var(--surface);}
+  nav.tabs button:hover:not(.active){color:var(--text);}
+
+  section.panel{display:none;}
+  section.panel.active{display:block; animation:fade .18s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(3px);} to{opacity:1; transform:none;}}
+
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px;}
+  .card + .card{margin-top:16px;}
+  h2.section-title{font-family:'Fraunces',serif; font-size:19px; font-weight:600; margin:0 0 4px;}
+  p.hint{color:var(--text-muted); font-size:13px; margin:0 0 18px;}
+
+  table{width:100%; border-collapse:collapse; font-size:14px;}
+  thead th{text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-muted); font-weight:600; padding:0 10px 10px; border-bottom:1px solid var(--border);}
+  tbody td{padding:10px; border-bottom:1px solid rgba(44,87,68,0.5); vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  td.num, th.num{text-align:right; font-family:'Space Mono',monospace;}
+  td.player{font-weight:600;}
+
+  .chip-badge{
+    width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-family:'Space Mono',monospace; font-weight:700; font-size:13px; border:2px dashed rgba(245,239,224,0.3);
+  }
+  .chip-badge.rank-1{background:radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 75%); color:#1B1203;}
+  .chip-badge.rank-2{background:radial-gradient(circle at 35% 30%, #EDEFF1, var(--silver) 75%); color:#1B1203;}
+  .chip-badge.rank-3{background:radial-gradient(circle at 35% 30%, #E3A87A, var(--bronze) 75%); color:#2A1200;}
+  .chip-badge.rank-other{background:var(--surface-2); color:var(--text); border-color:var(--border);}
+
+  .profit-pos{color:var(--green-pos); font-weight:700;}
+  .profit-neg{color:var(--red); font-weight:700;}
+  .profit-zero{color:var(--text-muted);}
+
+  .chance-cell{text-align:center;}
+  .status-pill{display:inline-block; padding:4px 11px; border-radius:999px; font-family:'Space Mono',monospace; font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; white-space:nowrap;}
+  .status-pill.alive{background:rgba(92,181,135,0.16); color:var(--green-pos); border:1px solid rgba(92,181,135,0.45);}
+  .status-pill.eliminated{background:rgba(159,184,172,0.08); color:var(--text-muted); border:1px solid var(--border);}
+  tr.eliminated-row{background:rgba(193,68,58,0.05);}
+  tr.eliminated-row td{opacity:0.5;}
+
+  .view-footer{margin-top:26px; padding-top:18px; border-top:1px solid var(--border); text-align:center;}
+  .view-footer p{color:var(--text-muted); font-size:12.5px; font-style:italic; margin:0;}
+
+  .empty-state{text-align:center; padding:44px 20px; color:var(--text-muted);}
+  .empty-state .glyph{font-family:'Fraunces',serif; font-size:34px; color:var(--gold-soft); margin-bottom:10px;}
+
+  .round-card{border:1px solid var(--border); border-radius:var(--radius-sm); padding:16px; background:var(--bg-deep); margin-bottom:12px;}
+  .round-card .round-head{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:10px; flex-wrap:wrap; gap:8px;}
+  .round-card .round-head h3{font-family:'Fraunces',serif; font-size:17px; margin:0; font-weight:600;}
+  .round-card .meta{font-family:'Space Mono',monospace; font-size:12px; color:var(--text-muted);}
+  .round-card ol{margin:0; padding-left:22px; font-size:13.5px; columns:2; column-gap:24px;}
+  .round-card ol li{margin-bottom:3px;}
+  @media (max-width:560px){ .round-card ol{columns:1;} }
+  .round-card .prizes{font-size:12.5px; color:var(--text-muted); margin:8px 0 10px; font-family:'Space Mono',monospace;}
+
+  .banner{background:rgba(212,166,42,0.1); border:1px solid var(--gold); color:var(--gold-soft); border-radius:var(--radius-sm); padding:12px 14px; font-size:13.5px; font-weight:600; margin-bottom:16px;}
+
+  .evo-scroll{overflow-x:auto; padding-bottom:6px;}
+  .evo-scroll svg{display:block;}
+
+  .updated-note{
+    text-align:center; font-family:'Space Mono',monospace; font-size:11.5px; color:var(--text-muted); margin-top:6px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="suit s1">♠</div>
+    <div class="suit s2">♦</div>
+    <p class="eyebrow">Temporada 2026</p>
+    <h1>Pôker Clube — Ranking</h1>
+    <p class="sub">Ranking, pontos e profit calculados a partir da última rodada publicada.</p>
+  </header>
+
+  <div class="card timeline-card" id="timelineCard">
+    <div class="timeline-head">
+      <span class="timeline-label">Progresso da temporada</span>
+      <span class="timeline-count" id="timelineCount"></span>
+    </div>
+    <div class="timeline-track" id="timelineTrack"></div>
+    <div class="timeline-next" id="timelineNext"></div>
+  </div>
+
+  <nav class="tabs" id="viewTabs">
+    <button class="tab-btn active" data-tab="geral">Ranking Geral</button>
+    <button class="tab-btn" data-tab="evolucao">Evolução</button>
+    <button class="tab-btn" data-tab="historico">Histórico</button>
+  </nav>
+
+  <section class="panel active" id="tab-geral">
+    <div class="card">
+      <h2 class="section-title">Ranking geral</h2>
+      <p class="hint">Ordenado por pontos acumulados na temporada.</p>
+      <div id="geralContent"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="tab-evolucao">
+    <div class="card">
+      <h2 class="section-title">Evolução do ranking</h2>
+      <p class="hint">Posição acumulada, rodada a rodada, dos atuais 10 primeiros colocados.</p>
+      <div id="evolucaoContent"></div>
+    </div>
+  </section>
+
+  <section class="panel" id="tab-historico">
+    <div class="card">
+      <h2 class="section-title">Histórico de rodadas</h2>
+      <p class="hint">Todas as rodadas já publicadas na temporada.</p>
+      <div id="historicoContent"></div>
+    </div>
+  </section>
+
+  <footer class="view-footer" id="viewFooter">
+    <p>Em caso de empate: mais 1ºs lugares, depois mais 2ºs, depois mais 3ºs, depois mais rodadas jogadas e por último ordem alfabética.</p>
+    <p class="updated-note" id="updatedNote"></p>
+  </footer>
+
+</div>
+
+<script>
+/* ---------- Dados e regras de pontuação (idêntico ao painel de administração) ---------- */
+const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
+function pointsForPosition(pos){ return pos <= 10 ? POS_POINTS[pos-1] : 1; }
+
+let data = { rounds: [], players: [], totalRounds: 22, topPositions: 4, roundDates: {} };
+
+function fmtMoney(v){ return (v||0).toLocaleString('pt-BR', {style:'currency', currency:'BRL'}); }
+function fmtPercent(v){ return (v>=0?'+':'') + v.toFixed(1) + '%'; }
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function computeStatsFromRounds(roundsSubset){
+  const stats = {};
+  roundsSubset.forEach(round=>{
+    round.standings.forEach((name, idx)=>{
+      const pos = idx+1;
+      if(!stats[name]) stats[name] = {name, points:0, roundsPlayed:0, buyInTotal:0, prizeTotal:0, firsts:0, seconds:0, thirds:0};
+      const s = stats[name];
+      s.points += pointsForPosition(pos);
+      s.roundsPlayed += 1;
+      s.buyInTotal += Number(round.buyIn)||0;
+      if(pos === 1) s.firsts += 1;
+      if(pos === 2) s.seconds += 1;
+      if(pos === 3) s.thirds += 1;
+      if(pos <= 4){ s.prizeTotal += Number(round.prizes[pos-1])||0; }
+    });
+  });
+  return Object.values(stats).map(s=>{
+    const profit = s.buyInTotal > 0 ? ((s.prizeTotal - s.buyInTotal)/s.buyInTotal)*100 : 0;
+    return {...s, profit};
+  });
+}
+function computeStats(){ return computeStatsFromRounds(data.rounds); }
+
+function comparePlayers(a, b){
+  if(b.points !== a.points) return b.points - a.points;
+  if(b.firsts !== a.firsts) return b.firsts - a.firsts;
+  if(b.seconds !== a.seconds) return b.seconds - a.seconds;
+  if(b.thirds !== a.thirds) return b.thirds - a.thirds;
+  if(b.roundsPlayed !== a.roundsPlayed) return b.roundsPlayed - a.roundsPlayed;
+  return a.name.localeCompare(b.name, 'pt-BR');
+}
+
+function formatDateBR(iso){
+  const parts = String(iso).split('-');
+  if(parts.length !== 3) return iso;
+  const [y,m,d] = parts;
+  return `${d}/${m}/${y}`;
+}
+
+function renderTimeline(){
+  const total = data.totalRounds || 22;
+  const played = data.rounds.length;
+  document.getElementById('timelineCount').textContent = `${played} de ${total} rodadas`;
+  const track = document.getElementById('timelineTrack');
+  let ticks = '';
+  for(let i=1;i<=total;i++){
+    const filled = i<=played;
+    ticks += `<div class="timeline-tick${filled?' filled':''}" title="Rodada ${i}${filled?' — realizada':''}"></div>`;
+  }
+  track.innerHTML = ticks;
+  const nextEl = document.getElementById('timelineNext');
+  const nextRoundNum = played + 1;
+  if(played >= total){
+    nextEl.textContent = 'Temporada concluída.';
+  } else {
+    const nextDate = data.roundDates[nextRoundNum];
+    nextEl.textContent = nextDate
+      ? `Próxima rodada (${nextRoundNum}): ${formatDateBR(nextDate)}`
+      : `Próxima rodada (${nextRoundNum}): data a definir`;
+  }
+}
+
+document.querySelectorAll('#viewTabs .tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#viewTabs .tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+    renderForTab(btn.dataset.tab);
+  });
+});
+function renderForTab(tab){
+  if(tab==='geral') renderGeral();
+  if(tab==='evolucao') renderEvolucao();
+  if(tab==='historico') renderRoundsList();
+}
+
+function chipBadge(pos){
+  const cls = pos===1?'rank-1':pos===2?'rank-2':pos===3?'rank-3':'rank-other';
+  return `<div class="chip-badge ${cls}">${pos}</div>`;
+}
+function profitClass(v){
+  if(v > 0.05) return 'profit-pos';
+  if(v < -0.05) return 'profit-neg';
+  return 'profit-zero';
+}
+function emptyState(title, sub){
+  return `<div class="empty-state"><div class="glyph">♠ ♥</div><div style="font-weight:600; color:var(--text); margin-bottom:4px;">${title}</div><div>${sub}</div></div>`;
+}
+
+function renderGeral(){
+  const el = document.getElementById('geralContent');
+  const stats = computeStats().sort(comparePlayers);
+  if(stats.length === 0){
+    el.innerHTML = emptyState('Nenhuma rodada publicada ainda', 'Assim que o organizador publicar a primeira rodada, o ranking aparece aqui.');
+    return;
+  }
+  const topN = data.topPositions || 4;
+  const totalRounds = data.totalRounds || 22;
+  const roundsRemaining = Math.max(0, totalRounds - data.rounds.length);
+  const floor = stats.length >= topN ? stats[topN-1].points + roundsRemaining : null;
+
+  const rows = stats.map((s,idx)=>{
+    const pos = idx+1;
+    let alive = true;
+    if(floor !== null && pos > topN){
+      const ceiling = s.points + 26*roundsRemaining;
+      alive = ceiling >= floor;
+    }
+    const chanceHtml = alive
+      ? `<span class="status-pill alive" title="Ainda com chance matemática de Top ${topN}">Na disputa</span>`
+      : `<span class="status-pill eliminated" title="Eliminado matematicamente do Top ${topN}">Eliminado</span>`;
+    const rowClass = alive ? '' : ' class="eliminated-row"';
+    return `<tr${rowClass}>
+      <td>${chipBadge(pos)}</td>
+      <td class="player">${escapeHtml(s.name)}</td>
+      <td class="num">${s.points}</td>
+      <td class="num">${s.roundsPlayed}</td>
+      <td class="num">${fmtMoney(s.buyInTotal)}</td>
+      <td class="num">${fmtMoney(s.prizeTotal)}</td>
+      <td class="num ${profitClass(s.profit)}">${fmtPercent(s.profit)}</td>
+      <td class="chance-cell">${chanceHtml}</td>
+    </tr>`;
+  }).join('');
+  el.innerHTML = `<table><thead><tr>
+      <th></th><th>Jogador</th><th class="num">Pts</th><th class="num">Rodadas</th>
+      <th class="num">Buy-in total</th><th class="num">Prêmio total</th><th class="num">Profit</th>
+      <th style="text-align:center;">Top ${topN}</th>
+    </tr></thead><tbody>${rows}</tbody></table>
+    <p class="hint small-note" style="margin-top:14px; margin-bottom:0;">Coluna "Top ${topN}": considera ${roundsRemaining} rodada${roundsRemaining===1?'':'s'} restante${roundsRemaining===1?'':'s'} na temporada. "Na disputa" = ainda é matematicamente possível terminar entre os ${topN} primeiros mesmo no pior cenário. "Eliminado" = já não é mais possível.</p>`;
+}
+
+const EVO_COLORS = ['#E8C766','#5CB587','#D97C4D','#7EA8D8','#C1443A','#B98CD9','#E0A5C4','#8FBF7F','#D9C25C','#6FB8C9'];
+
+function renderEvolucao(){
+  const el = document.getElementById('evolucaoContent');
+  const sortedRounds = [...data.rounds].sort((a,b)=>a.roundNumber-b.roundNumber);
+  if(sortedRounds.length < 2){
+    el.innerHTML = emptyState('Ainda não há dados suficientes', 'São necessárias ao menos 2 rodadas publicadas para ver a evolução do ranking.');
+    return;
+  }
+  const finalStats = computeStats().sort(comparePlayers);
+  const top10Names = finalStats.slice(0,10).map(s=>s.name);
+
+  const rankSeries = {};
+  top10Names.forEach(n=> rankSeries[n] = []);
+  let maxRank = 10;
+  const cumulative = [];
+  sortedRounds.forEach((round, i)=>{
+    cumulative.push(round);
+    const statsUpToHere = computeStatsFromRounds(cumulative).sort(comparePlayers);
+    statsUpToHere.forEach((s, idx)=>{
+      const rank = idx+1;
+      if(top10Names.includes(s.name)){
+        rankSeries[s.name].push({roundIdx:i, rank});
+        if(rank > maxRank) maxRank = rank;
+      }
+    });
+  });
+
+  const colWidth = 58, leftPad = 34, rightPad = 150, topPad = 24, rowH = 25;
+  const n = sortedRounds.length;
+  const width = leftPad + (n-1)*colWidth + rightPad + 20;
+  const height = topPad + maxRank*rowH + 44;
+  const xFor = i => leftPad + i*colWidth;
+  const yFor = rank => topPad + (rank-0.5)*rowH;
+
+  let gridLines = '';
+  for(let r=1;r<=maxRank;r++){
+    gridLines += `<line x1="${leftPad-8}" y1="${yFor(r)}" x2="${leftPad+(n-1)*colWidth+8}" y2="${yFor(r)}" stroke="rgba(245,239,224,0.06)" stroke-width="1"/>`;
+    gridLines += `<text x="${leftPad-16}" y="${yFor(r)+4}" font-family="Space Mono, monospace" font-size="11" fill="#9FB8AC" text-anchor="end">${r}</text>`;
+  }
+  let xLabels = '';
+  sortedRounds.forEach((round,i)=>{
+    xLabels += `<text x="${xFor(i)}" y="${topPad+maxRank*rowH+22}" font-family="Space Mono, monospace" font-size="11" fill="#9FB8AC" text-anchor="middle">${round.roundNumber}</text>`;
+  });
+  xLabels += `<text x="${leftPad+(n-1)*colWidth/2}" y="${topPad+maxRank*rowH+38}" font-family="Space Mono, monospace" font-size="10" fill="#6E9284" text-anchor="middle" letter-spacing="1">RODADA</text>`;
+
+  let lines = '';
+  top10Names.forEach((name, idx)=>{
+    const color = EVO_COLORS[idx % EVO_COLORS.length];
+    const series = rankSeries[name];
+    if(series.length===0) return;
+    const pointsAttr = series.map(pt => `${xFor(pt.roundIdx)},${yFor(pt.rank)}`).join(' ');
+    const dots = series.map(pt => `<circle cx="${xFor(pt.roundIdx)}" cy="${yFor(pt.rank)}" r="3.5" fill="${color}"/>`).join('');
+    const last = series[series.length-1];
+    lines += `<polyline points="${pointsAttr}" fill="none" stroke="${color}" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" opacity="0.9"/>`;
+    lines += dots;
+    lines += `<text x="${xFor(last.roundIdx)+11}" y="${yFor(last.rank)+4}" font-family="Inter, sans-serif" font-size="12.5" font-weight="600" fill="${color}">${escapeHtml(name)}</text>`;
+  });
+
+  const svg = `<svg viewBox="0 0 ${width} ${height}" width="${width}" height="${height}" xmlns="http://www.w3.org/2000/svg">
+      ${gridLines}${xLabels}${lines}
+    </svg>`;
+  el.innerHTML = `<div class="evo-scroll">${svg}</div>`;
+}
+
+function renderRoundsList(){
+  const el = document.getElementById('historicoContent');
+  if(data.rounds.length === 0){
+    el.innerHTML = emptyState('Nenhuma rodada publicada ainda', 'As rodadas publicadas vão aparecer aqui, em ordem.');
+    return;
+  }
+  const sorted = [...data.rounds].sort((a,b)=> b.roundNumber - a.roundNumber);
+  el.innerHTML = sorted.map(r=>{
+    const items = r.standings.map((name,idx)=>{
+      const pos = idx+1;
+      const prizeStr = pos<=4 && r.prizes[pos-1] > 0 ? ` — ${fmtMoney(r.prizes[pos-1])}` : '';
+      return `<li>${escapeHtml(name)} <span style="color:var(--text-muted)">(${pointsForPosition(pos)} pt${pointsForPosition(pos)>1?'s':''}${prizeStr})</span></li>`;
+    }).join('');
+    return `<div class="round-card">
+        <div class="round-head">
+          <h3>Rodada ${r.roundNumber}</h3>
+          <span class="meta">${r.standings.length} jogadores · buy-in ${fmtMoney(r.buyIn)}</span>
+        </div>
+        <div class="prizes">Premiação: 1º ${fmtMoney(r.prizes[0])} · 2º ${fmtMoney(r.prizes[1])} · 3º ${fmtMoney(r.prizes[2])} · 4º ${fmtMoney(r.prizes[3])}</div>
+        <ol>${items}</ol>
+      </div>`;
+  }).join('');
+}
+
+/* ---------- Carregamento dos dados publicados ---------- */
+async function loadPublishedData(){
+  try{
+    const res = await fetch('dados.json?t=' + Date.now());
+    if(!res.ok) throw new Error('sem dados.json');
+    const parsed = await res.json();
+    if(!Array.isArray(parsed.rounds)) throw new Error('formato inválido');
+    data = parsed;
+    if(!Array.isArray(data.players)) data.players = [];
+    if(typeof data.totalRounds !== 'number' || data.totalRounds < 1) data.totalRounds = 22;
+    if(typeof data.topPositions !== 'number' || data.topPositions < 1) data.topPositions = 4;
+    if(!data.roundDates || typeof data.roundDates !== 'object') data.roundDates = {};
+    document.getElementById('updatedNote').textContent = data.publishedAt
+      ? `Última publicação: ${new Date(data.publishedAt).toLocaleString('pt-BR')}`
+      : '';
+  }catch(e){
+    document.getElementById('geralContent').innerHTML = emptyState(
+      'Nenhum dado publicado ainda',
+      'Assim que o organizador publicar a primeira rodada (arquivo dados.json), o ranking aparece aqui.'
+    );
+  }
+  renderTimeline();
+  renderGeral();
+}
+
+loadPublishedData();
+</script>
+</body>
+</html>
