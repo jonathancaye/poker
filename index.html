@@ -158,6 +158,11 @@
   .round-card ol li{margin-bottom:3px;}
   @media (max-width:560px){ .round-card ol{columns:1;} }
   .round-card .prizes{font-size:12.5px; color:var(--text-muted); margin:8px 0 10px; font-family:'Space Mono',monospace;}
+  .guest-tag{
+    display:inline-block; padding:2px 8px; border-radius:999px; font-family:'Space Mono',monospace; font-size:10px;
+    font-weight:700; letter-spacing:.03em; text-transform:uppercase; white-space:nowrap;
+    background:rgba(217,124,77,0.16); color:var(--bronze); border:1px solid rgba(217,124,77,0.5); margin-left:6px;
+  }
   @media (max-width:640px){
     .round-card{padding:12px;}
     .round-card .round-head h3{font-size:15px;}
@@ -249,20 +254,27 @@ function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
 
+function stName(entry){ return typeof entry === 'string' ? entry : entry.name; }
+function stIsGuest(entry){ return typeof entry === 'string' ? false : !!entry.guest; }
+
 function computeStatsFromRounds(roundsSubset){
   const stats = {};
   roundsSubset.forEach(round=>{
-    round.standings.forEach((name, idx)=>{
-      const pos = idx+1;
+    let memberRank = 0;
+    round.standings.forEach((entry, idx)=>{
+      const rawPos = idx+1;
+      if(stIsGuest(entry)) return;
+      memberRank += 1;
+      const name = stName(entry);
       if(!stats[name]) stats[name] = {name, points:0, roundsPlayed:0, buyInTotal:0, prizeTotal:0, firsts:0, seconds:0, thirds:0};
       const s = stats[name];
-      s.points += pointsForPosition(pos);
+      s.points += pointsForPosition(memberRank);
       s.roundsPlayed += 1;
       s.buyInTotal += Number(round.buyIn)||0;
-      if(pos === 1) s.firsts += 1;
-      if(pos === 2) s.seconds += 1;
-      if(pos === 3) s.thirds += 1;
-      if(pos <= 4){ s.prizeTotal += Number(round.prizes[pos-1])||0; }
+      if(memberRank === 1) s.firsts += 1;
+      if(memberRank === 2) s.seconds += 1;
+      if(memberRank === 3) s.thirds += 1;
+      if(rawPos <= 4){ s.prizeTotal += Number(round.prizes[rawPos-1])||0; }
     });
   });
   return Object.values(stats).map(s=>{
@@ -457,10 +469,22 @@ function renderRoundsList(){
   }
   const sorted = [...data.rounds].sort((a,b)=> b.roundNumber - a.roundNumber);
   el.innerHTML = sorted.map(r=>{
-    const items = r.standings.map((name,idx)=>{
+    let memberRank = 0;
+    const items = r.standings.map((entry,idx)=>{
       const pos = idx+1;
+      const name = stName(entry);
+      const isGuest = stIsGuest(entry);
       const prizeStr = pos<=4 && r.prizes[pos-1] > 0 ? ` — ${fmtMoney(r.prizes[pos-1])}` : '';
-      return `<li>${escapeHtml(name)} <span style="color:var(--text-muted)">(${pointsForPosition(pos)} pt${pointsForPosition(pos)>1?'s':''}${prizeStr})</span></li>`;
+      let ptsStr;
+      if(isGuest){
+        ptsStr = 'convidado';
+      } else {
+        memberRank += 1;
+        const pts = pointsForPosition(memberRank);
+        ptsStr = `${pts} pt${pts>1?'s':''}`;
+      }
+      const guestTag = isGuest ? '<span class="guest-tag">Convidado</span>' : '';
+      return `<li>${escapeHtml(name)}${guestTag} <span style="color:var(--text-muted)">(${ptsStr}${prizeStr})</span></li>`;
     }).join('');
     return `<div class="round-card">
         <div class="round-head">
