@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pôker Clube 2026 — Lançamento da Rodada</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0F2E23;
+    --bg-deep: #0A2018;
+    --surface: #163B2C;
+    --surface-2: #1D4837;
+    --border: #2C5744;
+    --text: #F5EFE0;
+    --text-muted: #9FB8AC;
+    --gold: #D4A62A;
+    --gold-soft: #E8C766;
+    --silver: #C7CDD1;
+    --bronze: #C97C4D;
+    --red: #C1443A;
+    --green-pos: #5CB587;
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(1200px 600px at 15% -10%, rgba(212,166,42,0.07), transparent 60%),
+      radial-gradient(900px 500px at 100% 0%, rgba(92,181,135,0.06), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+  }
+  ::selection{background:var(--gold); color:#1B1203;}
+  .wrap{max-width:960px; margin:0 auto; padding:28px 20px 80px;}
+
+  header.top{
+    position:relative; padding:26px 24px 22px; border:1px solid var(--border);
+    border-radius:var(--radius); background:linear-gradient(160deg, var(--surface) 0%, var(--surface-2) 130%);
+    overflow:hidden; margin-bottom:22px;
+  }
+  header.top .suit{position:absolute; font-size:120px; opacity:0.05; line-height:1; font-family:'Fraunces',serif; color:var(--text); pointer-events:none;}
+  header.top .suit.s1{ top:-30px; right:-10px; transform:rotate(8deg);}
+  header.top .suit.s2{ bottom:-45px; right:120px; transform:rotate(-10deg); font-size:90px;}
+  .eyebrow{font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-soft); margin:0 0 6px;}
+  h1{font-family:'Fraunces',serif; font-weight:700; font-size:28px; margin:0 0 4px; letter-spacing:-0.01em;}
+  header.top p.sub{margin:0; color:var(--text-muted); font-size:14px;}
+
+  nav.tabs{display:flex; gap:6px; margin-bottom:20px; flex-wrap:wrap; border-bottom:1px solid var(--border);}
+  nav.tabs button{
+    font-family:'Inter',sans-serif; font-weight:600; font-size:13.5px; color:var(--text-muted);
+    background:transparent; border:none; padding:10px 16px; cursor:pointer; border-radius:8px 8px 0 0; position:relative; top:1px;
+  }
+  nav.tabs button.active{color:var(--text); background:var(--surface); border:1px solid var(--border); border-bottom:1px solid var(--surface);}
+  nav.tabs button:hover:not(.active){color:var(--text);}
+
+  section.panel{display:none;}
+  section.panel.active{display:block; animation:fade .18s ease;}
+  @keyframes fade{from{opacity:0; transform:translateY(3px);} to{opacity:1; transform:none;}}
+
+  .card{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:22px;}
+  .card + .card{margin-top:16px;}
+  h2.section-title{font-family:'Fraunces',serif; font-size:19px; font-weight:600; margin:0 0 4px;}
+  p.hint{color:var(--text-muted); font-size:13px; margin:0 0 18px;}
+
+  label{display:block; font-size:12px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:.04em; margin-bottom:6px;}
+  input[type=text], input[type=number]{
+    width:100%; background:var(--bg-deep); border:1px solid var(--border); color:var(--text);
+    border-radius:var(--radius-sm); padding:10px 12px; font-family:'Inter',sans-serif; font-size:14px; outline:none;
+  }
+  input:focus{border-color:var(--gold);}
+  input::placeholder{color:#5C7A6C;}
+
+  .row-grid{display:grid; gap:14px; margin-bottom:16px;}
+  .row-grid.cols-2{grid-template-columns:1fr 1fr;}
+  .row-grid.cols-3{grid-template-columns:1fr 1fr 1fr;}
+  .row-grid.cols-4{grid-template-columns:repeat(4,1fr);}
+  @media (max-width:640px){ .row-grid.cols-3{grid-template-columns:1fr 1fr;} .row-grid.cols-4{grid-template-columns:1fr 1fr;} }
+
+  .btn{
+    font-family:'Inter',sans-serif; font-weight:600; font-size:13.5px; border-radius:var(--radius-sm);
+    padding:10px 16px; cursor:pointer; border:1px solid var(--border); background:var(--surface-2); color:var(--text);
+  }
+  .btn:hover{border-color:var(--gold-soft);}
+  .btn.primary{background:linear-gradient(160deg, var(--gold-soft), var(--gold)); color:#211502; border:none; font-weight:700;}
+  .btn.primary:hover{filter:brightness(1.06);}
+  .btn.primary:disabled{opacity:.4; cursor:not-allowed; filter:none;}
+  .btn.ghost{background:transparent;}
+  .btn.small{padding:6px 11px; font-size:12.5px;}
+  .btn.danger:hover{border-color:var(--red); color:var(--red);}
+  .actions-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px; align-items:center;}
+
+  table{width:100%; border-collapse:collapse; font-size:14px;}
+  thead th{text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.05em; color:var(--text-muted); font-weight:600; padding:0 10px 10px; border-bottom:1px solid var(--border);}
+  tbody td{padding:10px; border-bottom:1px solid rgba(44,87,68,0.5); vertical-align:middle;}
+  tbody tr:last-child td{border-bottom:none;}
+  td.num, th.num{text-align:right; font-family:'Space Mono',monospace;}
+  td.player{font-weight:600;}
+
+  .player-row{display:flex; align-items:center; gap:10px; padding:9px 4px; border-bottom:1px solid rgba(44,87,68,0.5);}
+  .player-row:last-child{border-bottom:none;}
+  .player-row .pname{flex:1; font-weight:600;}
+  .player-row .pos-tag{
+    font-family:'Space Mono',monospace; font-size:12px; color:var(--gold-soft); min-width:60px; text-align:right;
+  }
+  .remove-x{background:transparent; border:1px solid var(--border); color:var(--text-muted); border-radius:8px; width:30px; height:30px; cursor:pointer; font-size:15px; line-height:1;}
+  .remove-x:hover{border-color:var(--red); color:var(--red);}
+
+  .status-pill{display:inline-block; padding:3px 10px; border-radius:999px; font-family:'Space Mono',monospace; font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; white-space:nowrap;}
+  .status-pill.alive{background:rgba(92,181,135,0.16); color:var(--green-pos); border:1px solid rgba(92,181,135,0.45);}
+  .status-pill.out{background:rgba(159,184,172,0.08); color:var(--text-muted); border:1px solid var(--border);}
+  .status-pill.champ{background:rgba(212,166,42,0.16); color:var(--gold-soft); border:1px solid rgba(212,166,42,0.5);}
+
+  .chip-badge{
+    width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-family:'Space Mono',monospace; font-weight:700; font-size:12.5px; border:2px dashed rgba(245,239,224,0.3); flex-shrink:0;
+  }
+  .chip-badge.rank-1{background:radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 75%); color:#1B1203;}
+  .chip-badge.rank-2{background:radial-gradient(circle at 35% 30%, #EDEFF1, var(--silver) 75%); color:#1B1203;}
+  .chip-badge.rank-3{background:radial-gradient(circle at 35% 30%, #E3A87A, var(--bronze) 75%); color:#2A1200;}
+  .chip-badge.rank-other{background:var(--surface-2); color:var(--text); border-color:var(--border);}
+
+  .empty-state{text-align:center; padding:36px 20px; color:var(--text-muted);}
+  .empty-state .glyph{font-family:'Fraunces',serif; font-size:30px; color:var(--gold-soft); margin-bottom:8px;}
+
+  .table-block{border:1px solid var(--border); border-radius:var(--radius-sm); padding:14px 16px; background:var(--bg-deep); margin-bottom:12px;}
+  .table-block h3{font-family:'Fraunces',serif; font-size:16px; margin:0 0 10px; font-weight:600;}
+  .seat-row{display:flex; justify-content:space-between; padding:5px 0; font-size:13.5px; border-bottom:1px dashed rgba(44,87,68,0.6);}
+  .seat-row:last-child{border-bottom:none;}
+  .seat-row .seat-pos{font-family:'Space Mono',monospace; color:var(--gold-soft); font-weight:700; min-width:64px;}
+
+  .banner{background:rgba(212,166,42,0.1); border:1px solid var(--gold); color:var(--gold-soft); border-radius:var(--radius-sm); padding:12px 14px; font-size:13.5px; font-weight:600; margin-bottom:16px;}
+  .banner.success{background:rgba(92,181,135,0.12); border-color:var(--green-pos); color:var(--green-pos);}
+  .banner.muted{background:rgba(159,184,172,0.08); border-color:var(--border); color:var(--text-muted);}
+  .banner .banner-action{margin-left:10px; font-weight:700; text-decoration:underline; cursor:pointer; background:none; border:none; color:inherit; font-size:inherit; font-family:inherit; padding:0;}
+  .banner.success{background:rgba(92,181,135,0.12); border-color:var(--green-pos); color:var(--green-pos);}
+
+  textarea#jsonOutput{
+    width:100%; min-height:160px; background:var(--bg-deep); border:1px solid var(--border); color:var(--text);
+    border-radius:var(--radius-sm); padding:12px; font-family:'Space Mono',monospace; font-size:12.5px; resize:vertical;
+  }
+
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
+    background:var(--surface-2); border:1px solid var(--gold); color:var(--text);
+    padding:12px 20px; border-radius:10px; font-size:13.5px; font-weight:600;
+    opacity:0; pointer-events:none; transition:all .25s ease; z-index:50;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="top">
+    <div class="suit s1">♠</div>
+    <div class="suit s2">♦</div>
+    <p class="eyebrow">Temporada 2026 — Ferramenta do organizador</p>
+    <h1>Sorteio de mesas &amp; Lançamento da rodada</h1>
+    <p class="sub">Cadastre os jogadores do dia, sorteie as mesas e registre as eliminações ao vivo. No final, gere o arquivo para importar no painel do campeonato.</p>
+  </header>
+
+  <nav class="tabs" id="mainTabs">
+    <button class="tab-btn active" data-tab="sorteio">Sorteio de Mesas</button>
+    <button class="tab-btn" data-tab="rodada">Lançamento da Rodada</button>
+  </nav>
+
+  <!-- ============ SORTEIO DE MESAS ============ -->
+  <section class="panel active" id="tab-sorteio">
+    <div id="syncBanner"></div>
+    <div class="card">
+      <h2 class="section-title">Jogadores presentes hoje</h2>
+      <p class="hint">A lista é carregada automaticamente a partir dos jogadores já cadastrados no painel público. Ajuste aqui se alguém faltar ou se houver um convidado.</p>
+      <div class="row-grid cols-2" style="align-items:end;">
+        <div>
+          <label for="newParticipantName">Nome do jogador</label>
+          <input type="text" id="newParticipantName" placeholder="Nome completo">
+        </div>
+        <div>
+          <button class="btn primary" id="addParticipantBtn" type="button" style="width:100%;">Adicionar</button>
+        </div>
+      </div>
+      <div id="participantsListContent"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Configuração do sorteio</h2>
+      <div class="row-grid cols-2" style="max-width:420px;">
+        <div>
+          <label for="maxPerTable">Máx. jogadores por mesa</label>
+          <input type="number" id="maxPerTable" min="2" max="9" value="9">
+        </div>
+        <div style="display:flex; align-items:end;">
+          <button class="btn primary" id="drawTablesBtn" type="button" style="width:100%;">Sortear mesas</button>
+        </div>
+      </div>
+      <div id="drawOutput"></div>
+    </div>
+  </section>
+
+  <!-- ============ LANÇAMENTO DA RODADA ============ -->
+  <section class="panel" id="tab-rodada">
+    <div class="card">
+      <h2 class="section-title">Configuração da rodada</h2>
+      <p class="hint">Preencha antes de começar a marcar as eliminações.</p>
+      <div class="row-grid cols-3">
+        <div>
+          <label for="rRoundNumber">Nº da rodada</label>
+          <input type="number" id="rRoundNumber" min="1">
+        </div>
+        <div>
+          <label for="rBuyIn">Buy-in (R$)</label>
+          <input type="number" id="rBuyIn" min="0" step="0.01" placeholder="Ex: 50">
+        </div>
+        <div></div>
+      </div>
+      <label>Premiação</label>
+      <div class="row-grid cols-4">
+        <div><input type="number" id="rPrize1" min="0" step="0.01" placeholder="1º lugar"></div>
+        <div><input type="number" id="rPrize2" min="0" step="0.01" placeholder="2º lugar"></div>
+        <div><input type="number" id="rPrize3" min="0" step="0.01" placeholder="3º lugar"></div>
+        <div><input type="number" id="rPrize4" min="0" step="0.01" placeholder="4º lugar"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Jogadores desta rodada</h2>
+      <p class="hint">Por padrão usa a lista de jogadores presentes hoje (aba Sorteio de Mesas). Ajuste aqui se alguém entrou ou saiu na última hora.</p>
+      <div class="row-grid cols-2" style="align-items:end;">
+        <div>
+          <label for="newRoundPlayerName">Adicionar jogador à rodada</label>
+          <input type="text" id="newRoundPlayerName" placeholder="Nome completo">
+        </div>
+        <div style="display:flex; gap:10px;">
+          <button class="btn" id="addRoundPlayerBtn" type="button" style="flex:1;">Adicionar</button>
+          <button class="btn ghost" id="useTodayListBtn" type="button" style="flex:1;">Usar lista de hoje</button>
+        </div>
+      </div>
+      <div id="noRoundPlayersHint" class="banner" style="display:none;">Nenhum jogador na rodada ainda. Adicione acima ou clique em "Usar lista de hoje".</div>
+      <div id="roundPlayersContent"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Eliminações &amp; colocação</h2>
+      <p class="hint">Clique em "Eliminou" conforme os jogadores forem caindo. A colocação final se monta sozinha, de baixo para cima, e o campeão é definido automaticamente quando sobrar 1.</p>
+      <div id="eliminationBanner"></div>
+      <div id="activePlayersContent"></div>
+      <div class="actions-row">
+        <button class="btn" id="undoEliminationBtn" type="button">↩ Desfazer última eliminação</button>
+        <button class="btn ghost" id="resetEliminationsBtn" type="button">Reiniciar eliminações</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Colocação final</h2>
+      <div id="standingsPreviewContent"></div>
+    </div>
+
+    <div class="card">
+      <h2 class="section-title">Gerar arquivo para o painel</h2>
+      <p class="hint">Disponível quando a rodada estiver completa (todos eliminados menos o campeão). Baixe o arquivo e importe em Administração → Backup → Importar rodada, no painel principal.</p>
+      <div class="actions-row">
+        <button class="btn primary" id="generateJsonBtn" type="button" disabled>Gerar JSON da rodada</button>
+      </div>
+      <div id="jsonExportArea" style="display:none; margin-top:16px;">
+        <label for="jsonOutput">Pré-visualização</label>
+        <textarea id="jsonOutput" readonly></textarea>
+        <div class="actions-row">
+          <button class="btn primary" id="downloadJsonBtn" type="button">Baixar arquivo .json</button>
+          <button class="btn" id="copyJsonBtn" type="button">Copiar JSON</button>
+          <button class="btn ghost" id="newRoundBtn" type="button">Começar nova rodada</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------- Dados ---------- */
+const STORAGE_KEY = 'pokerClube2026LancamentoData';
+let state = loadState();
+
+function loadState(){
+  let s = { participants: [], maxPerTable: 9, roundPlayers: [], eliminatedOrder: [], round: {}, publishedPlayers: [] };
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(raw) s = Object.assign(s, JSON.parse(raw));
+  }catch(e){ console.error('Erro ao carregar dados', e); }
+  if(!Array.isArray(s.participants)) s.participants = [];
+  if(!Array.isArray(s.roundPlayers)) s.roundPlayers = [];
+  if(!Array.isArray(s.eliminatedOrder)) s.eliminatedOrder = [];
+  if(!Array.isArray(s.publishedPlayers)) s.publishedPlayers = [];
+  if(!s.round || typeof s.round !== 'object') s.round = {};
+  return s;
+}
+function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+function escapeHtml(str){
+  return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(showToast._timer);
+  showToast._timer = setTimeout(()=>t.classList.remove('show'), 2200);
+}
+function emptyState(title, sub){
+  return `<div class="empty-state"><div class="glyph">♠ ♥</div><div style="font-weight:600; color:var(--text); margin-bottom:4px;">${title}</div><div>${sub}</div></div>`;
+}
+function chipBadge(pos){
+  const cls = pos===1?'rank-1':pos===2?'rank-2':pos===3?'rank-3':'rank-other';
+  return `<div class="chip-badge ${cls}">${pos}</div>`;
+}
+
+/* ---------- Navegação ---------- */
+document.querySelectorAll('#mainTabs .tab-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('#mainTabs .tab-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));
+    document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
+    if(btn.dataset.tab === 'rodada') renderRodadaTab();
+  });
+});
+
+/* ---------- Sincronização com a lista de jogadores publicada ---------- */
+function renderSyncBanner(status, extra){
+  const el = document.getElementById('syncBanner');
+  if(status === 'loading'){
+    el.innerHTML = `<div class="banner muted">Buscando jogadores cadastrados no painel público…</div>`;
+  } else if(status === 'success'){
+    el.innerHTML = `<div class="banner success">${extra.count} jogador${extra.count===1?'':'es'} carregado${extra.count===1?'':'s'} do painel público${extra.when?` (publicado em ${extra.when})`:''}.
+      <button class="banner-action" id="resyncBtn" type="button">Recarregar</button></div>`;
+  } else {
+    el.innerHTML = `<div class="banner muted">Não foi possível carregar a lista publicada (sem internet ou ainda não publicada). Você pode cadastrar manualmente abaixo.
+      <button class="banner-action" id="resyncBtn" type="button">Tentar novamente</button></div>`;
+  }
+  const btn = document.getElementById('resyncBtn');
+  if(btn) btn.addEventListener('click', loadPublishedPlayers);
+}
+
+async function loadPublishedPlayers(){
+  renderSyncBanner('loading');
+  try{
+    const res = await fetch('dados.json?t=' + Date.now());
+    if(!res.ok) throw new Error('sem dados.json');
+    const parsed = await res.json();
+    const players = Array.isArray(parsed.players) ? parsed.players : [];
+    state.publishedPlayers = players;
+    let added = 0;
+    players.forEach(name=>{
+      if(!state.participants.some(p=>p.toLowerCase()===name.toLowerCase())){
+        state.participants.push(name);
+        added++;
+      }
+    });
+    saveState();
+    renderParticipants();
+    if(state.roundPlayers.length === 0 && state.participants.length > 0){
+      state.roundPlayers = [...state.participants];
+      saveState();
+    }
+    renderRoundPlayers();
+    renderActivePlayers();
+    refreshGenerateButton();
+    const when = parsed.publishedAt ? new Date(parsed.publishedAt).toLocaleString('pt-BR') : null;
+    renderSyncBanner('success', { count: players.length, when });
+  }catch(e){
+    renderSyncBanner('error');
+  }
+}
+function renderParticipants(){
+  const el = document.getElementById('participantsListContent');
+  if(state.participants.length === 0){
+    el.innerHTML = emptyState('Nenhum jogador cadastrado', 'Adicione os jogadores presentes hoje para liberar o sorteio.');
+    return;
+  }
+  const rows = [...state.participants].sort((a,b)=>a.localeCompare(b,'pt-BR')).map(name=>`
+    <div class="player-row">
+      <span class="pname">${escapeHtml(name)}</span>
+      <button class="remove-x" data-name="${escapeHtml(name)}" title="Remover">×</button>
+    </div>`).join('');
+  el.innerHTML = `<div style="margin-top:14px;">${rows}</div>
+    <div class="actions-row" style="margin-top:10px;">
+      <span style="font-family:'Space Mono',monospace; font-size:12px; color:var(--text-muted);">${state.participants.length} jogador${state.participants.length===1?'':'es'} cadastrado${state.participants.length===1?'':'s'}</span>
+    </div>`;
+  el.querySelectorAll('.remove-x').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      state.participants = state.participants.filter(n=>n!==b.dataset.name);
+      saveState();
+      renderParticipants();
+    });
+  });
+}
+
+document.getElementById('addParticipantBtn').addEventListener('click', ()=>{
+  const input = document.getElementById('newParticipantName');
+  const name = input.value.trim();
+  if(!name){ showToast('Digite um nome.'); return; }
+  if(state.participants.some(p=>p.toLowerCase()===name.toLowerCase())){ showToast('Esse jogador já está na lista.'); return; }
+  state.participants.push(name);
+  saveState();
+  input.value='';
+  renderParticipants();
+});
+document.getElementById('newParticipantName').addEventListener('keydown', e=>{
+  if(e.key === 'Enter'){ e.preventDefault(); document.getElementById('addParticipantBtn').click(); }
+});
+
+const POSITION_LABELS = {
+  2:['BTN/SB','BB'],
+  3:['BTN','SB','BB'],
+  4:['BTN','SB','BB','UTG'],
+  5:['BTN','SB','BB','UTG','CO'],
+  6:['BTN','SB','BB','UTG','MP','CO'],
+  7:['BTN','SB','BB','UTG','MP','HJ','CO'],
+  8:['BTN','SB','BB','UTG','UTG+1','MP','HJ','CO'],
+  9:['BTN','SB','BB','UTG','UTG+1','MP','MP+1','HJ','CO']
+};
+
+function shuffle(arr){
+  const a = [...arr];
+  for(let i=a.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [a[i],a[j]] = [a[j],a[i]];
+  }
+  return a;
+}
+
+document.getElementById('maxPerTable').addEventListener('change', ()=>{
+  let v = parseInt(document.getElementById('maxPerTable').value,10);
+  if(isNaN(v) || v<2) v=2;
+  if(v>9) v=9;
+  document.getElementById('maxPerTable').value = v;
+  state.maxPerTable = v;
+  saveState();
+});
+
+document.getElementById('drawTablesBtn').addEventListener('click', ()=>{
+  if(state.participants.length < 2){ showToast('Cadastre ao menos 2 jogadores para sortear.'); return; }
+  const maxPerTable = state.maxPerTable || 9;
+  const shuffled = shuffle(state.participants);
+  const numTables = Math.ceil(shuffled.length / maxPerTable);
+  const tables = Array.from({length:numTables}, ()=>[]);
+  shuffled.forEach((name,i)=> tables[i % numTables].push(name));
+
+  let html = '';
+  tables.forEach((players, tIdx)=>{
+    const n = players.length;
+    const labels = POSITION_LABELS[n] || POSITION_LABELS[9];
+    const dealerStart = Math.floor(Math.random()*n);
+    const seats = players.map((name, seatIdx)=>{
+      const labelIdx = (seatIdx - dealerStart + n) % n;
+      return { name, label: labels[labelIdx] };
+    });
+    seats.sort((a,b)=> labels.indexOf(a.label) - labels.indexOf(b.label));
+    const rows = seats.map(s=>`<div class="seat-row"><span class="seat-pos">${s.label}</span><span>${escapeHtml(s.name)}</span></div>`).join('');
+    html += `<div class="table-block"><h3>Mesa ${tIdx+1} (${n} jogador${n===1?'':'es'})</h3>${rows}</div>`;
+  });
+
+  document.getElementById('drawOutput').innerHTML = `
+    <div style="margin-top:16px;">${html}</div>
+    <div class="actions-row">
+      <button class="btn" id="copyDrawBtn" type="button">Copiar resultado</button>
+      <button class="btn" id="printDrawBtn" type="button">Imprimir</button>
+    </div>`;
+
+  const plainText = tables.map((players,tIdx)=>{
+    const n = players.length;
+    const labels = POSITION_LABELS[n] || POSITION_LABELS[9];
+    const dealerStart = Math.floor(Math.random()*n);
+    return `Mesa ${tIdx+1}:\n` + players.map((name,i)=>`${labels[(i-dealerStart+n)%n]} - ${name}`).join('\n');
+  }).join('\n\n');
+
+  document.getElementById('copyDrawBtn').addEventListener('click', ()=>{
+    navigator.clipboard.writeText(document.getElementById('drawOutput').innerText).then(()=>showToast('Resultado copiado.'));
+  });
+  document.getElementById('printDrawBtn').addEventListener('click', ()=> window.print());
+
+  showToast('Mesas sorteadas.');
+});
+
+/* ============ LANÇAMENTO DA RODADA ============ */
+function renderRodadaTab(){
+  // Setup fields
+  document.getElementById('rRoundNumber').value = state.round.roundNumber || '';
+  document.getElementById('rBuyIn').value = state.round.buyIn || '';
+  document.getElementById('rPrize1').value = state.round.prizes ? state.round.prizes[0]||'' : '';
+  document.getElementById('rPrize2').value = state.round.prizes ? state.round.prizes[1]||'' : '';
+  document.getElementById('rPrize3').value = state.round.prizes ? state.round.prizes[2]||'' : '';
+  document.getElementById('rPrize4').value = state.round.prizes ? state.round.prizes[3]||'' : '';
+
+  renderRoundPlayers();
+  renderActivePlayers();
+  renderStandingsPreview();
+  refreshGenerateButton();
+}
+
+['rRoundNumber','rBuyIn','rPrize1','rPrize2','rPrize3','rPrize4'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', ()=>{
+    state.round.roundNumber = Number(document.getElementById('rRoundNumber').value) || null;
+    state.round.buyIn = Number(document.getElementById('rBuyIn').value) || 0;
+    state.round.prizes = [1,2,3,4].map(n=> Number(document.getElementById('rPrize'+n).value)||0);
+    saveState();
+  });
+});
+
+function renderRoundPlayers(){
+  const el = document.getElementById('roundPlayersContent');
+  document.getElementById('noRoundPlayersHint').style.display = state.roundPlayers.length===0 ? 'block' : 'none';
+  if(state.roundPlayers.length === 0){ el.innerHTML=''; return; }
+  const rows = [...state.roundPlayers].sort((a,b)=>a.localeCompare(b,'pt-BR')).map(name=>`
+    <div class="player-row">
+      <span class="pname">${escapeHtml(name)}</span>
+      <button class="remove-x" data-name="${escapeHtml(name)}" title="Remover da rodada">×</button>
+    </div>`).join('');
+  el.innerHTML = `<div style="margin-top:14px;">${rows}</div>`;
+  el.querySelectorAll('.remove-x').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const name = b.dataset.name;
+      state.roundPlayers = state.roundPlayers.filter(n=>n!==name);
+      state.eliminatedOrder = state.eliminatedOrder.filter(n=>n!==name);
+      saveState();
+      renderRoundPlayers();
+      renderActivePlayers();
+      renderStandingsPreview();
+      refreshGenerateButton();
+    });
+  });
+}
+
+document.getElementById('useTodayListBtn').addEventListener('click', ()=>{
+  if(state.participants.length === 0){ showToast('Não há jogadores cadastrados na aba Sorteio de Mesas.'); return; }
+  const merged = new Set([...state.roundPlayers, ...state.participants]);
+  state.roundPlayers = [...merged];
+  saveState();
+  renderRoundPlayers();
+  renderActivePlayers();
+  renderStandingsPreview();
+  refreshGenerateButton();
+  showToast('Lista de hoje aplicada à rodada.');
+});
+
+document.getElementById('addRoundPlayerBtn').addEventListener('click', ()=>{
+  const input = document.getElementById('newRoundPlayerName');
+  const name = input.value.trim();
+  if(!name){ showToast('Digite um nome.'); return; }
+  if(state.roundPlayers.some(p=>p.toLowerCase()===name.toLowerCase())){ showToast('Esse jogador já está na rodada.'); return; }
+  state.roundPlayers.push(name);
+  saveState();
+  input.value='';
+  renderRoundPlayers();
+  renderActivePlayers();
+  refreshGenerateButton();
+});
+document.getElementById('newRoundPlayerName').addEventListener('keydown', e=>{
+  if(e.key === 'Enter'){ e.preventDefault(); document.getElementById('addRoundPlayerBtn').click(); }
+});
+
+function activeCount(){
+  return state.roundPlayers.filter(p=>!state.eliminatedOrder.includes(p)).length;
+}
+
+function renderActivePlayers(){
+  const el = document.getElementById('activePlayersContent');
+  const banner = document.getElementById('eliminationBanner');
+  const total = state.roundPlayers.length;
+
+  if(total === 0){
+    el.innerHTML = emptyState('Nenhum jogador na rodada', 'Adicione jogadores acima antes de começar.');
+    banner.innerHTML = '';
+    return;
+  }
+
+  const remaining = activeCount();
+  if(remaining <= 1){
+    banner.innerHTML = `<div class="banner success">Rodada completa — campeão definido automaticamente.</div>`;
+  } else {
+    banner.innerHTML = `<div class="banner">${remaining} jogador${remaining===1?'':'es'} ainda na mesa.</div>`;
+  }
+
+  const rows = state.roundPlayers.map(name=>{
+    const eliminated = state.eliminatedOrder.includes(name);
+    const isChampion = remaining === 1 && !eliminated;
+    let pill, btn;
+    if(isChampion){
+      pill = `<span class="status-pill champ">Campeão</span>`;
+      btn = '';
+    } else if(eliminated){
+      const posFromBottom = total - state.eliminatedOrder.indexOf(name);
+      pill = `<span class="status-pill out">${posFromBottom}º lugar</span>`;
+      btn = '';
+    } else {
+      pill = `<span class="status-pill alive">Na mesa</span>`;
+      btn = `<button class="btn small danger elim-btn" data-name="${escapeHtml(name)}">Eliminou</button>`;
+    }
+    return `<div class="player-row">
+        <span class="pname">${escapeHtml(name)}</span>
+        ${pill}
+        ${btn}
+      </div>`;
+  }).join('');
+  el.innerHTML = rows;
+
+  el.querySelectorAll('.elim-btn').forEach(b=>{
+    b.addEventListener('click', ()=>{
+      const name = b.dataset.name;
+      if(activeCount() <= 1) return;
+      state.eliminatedOrder.push(name);
+      saveState();
+      renderActivePlayers();
+      renderStandingsPreview();
+      refreshGenerateButton();
+    });
+  });
+}
+
+document.getElementById('undoEliminationBtn').addEventListener('click', ()=>{
+  if(state.eliminatedOrder.length === 0){ showToast('Nenhuma eliminação para desfazer.'); return; }
+  state.eliminatedOrder.pop();
+  saveState();
+  renderActivePlayers();
+  renderStandingsPreview();
+  refreshGenerateButton();
+});
+
+document.getElementById('resetEliminationsBtn').addEventListener('click', ()=>{
+  if(state.eliminatedOrder.length === 0) return;
+  if(!confirm('Reiniciar todas as eliminações desta rodada?')) return;
+  state.eliminatedOrder = [];
+  saveState();
+  renderActivePlayers();
+  renderStandingsPreview();
+  refreshGenerateButton();
+});
+
+function computeStandings(){
+  const total = state.roundPlayers.length;
+  if(total === 0) return [];
+  const remaining = state.roundPlayers.filter(p=>!state.eliminatedOrder.includes(p));
+  const standings = [];
+  if(remaining.length === 1){
+    standings.push(remaining[0]);
+  } else if(remaining.length === 0 && state.eliminatedOrder.length === total){
+    // edge case: last elimination click accidentally covered everyone — shouldn't happen given guard
+    standings.push(state.eliminatedOrder[state.eliminatedOrder.length-1]);
+  }
+  // from position 2 downward: reverse of eliminatedOrder (last eliminated = 2nd place)
+  for(let i=state.eliminatedOrder.length-1;i>=0;i--){
+    standings.push(state.eliminatedOrder[i]);
+  }
+  return standings;
+}
+
+function renderStandingsPreview(){
+  const el = document.getElementById('standingsPreviewContent');
+  const standings = computeStandings();
+  if(standings.length === 0){
+    el.innerHTML = emptyState('Ainda sem colocações', 'A colocação final aparece aqui conforme as eliminações forem marcadas.');
+    return;
+  }
+  const rows = standings.map((name,idx)=>`
+    <tr><td>${chipBadge(idx+1)}</td><td class="player">${escapeHtml(name)}</td></tr>
+  `).join('');
+  el.innerHTML = `<table><thead><tr><th></th><th>Jogador</th></tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function roundIsComplete(){
+  return state.roundPlayers.length >= 2 && activeCount() <= 1 &&
+    (state.eliminatedOrder.length === state.roundPlayers.length - 1);
+}
+
+function refreshGenerateButton(){
+  document.getElementById('generateJsonBtn').disabled = !roundIsComplete();
+}
+
+document.getElementById('generateJsonBtn').addEventListener('click', ()=>{
+  if(!roundIsComplete()){ showToast('A rodada ainda não está completa.'); return; }
+  const roundNumber = Number(document.getElementById('rRoundNumber').value);
+  const buyIn = Number(document.getElementById('rBuyIn').value);
+  if(!roundNumber || roundNumber < 1){ showToast('Informe o número da rodada.'); return; }
+  if(!buyIn || buyIn <= 0){ showToast('Informe o valor do buy-in.'); return; }
+  const prizes = [1,2,3,4].map(n=> Number(document.getElementById('rPrize'+n).value)||0);
+  const standings = computeStandings();
+
+  const exportObj = {
+    type: 'pokerClube2026RoundExport',
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    round: { roundNumber, buyIn, prizes, standings }
+  };
+  const jsonStr = JSON.stringify(exportObj, null, 2);
+  document.getElementById('jsonOutput').value = jsonStr;
+  document.getElementById('jsonExportArea').style.display = 'block';
+
+  document.getElementById('downloadJsonBtn').onclick = ()=>{
+    const blob = new Blob([jsonStr], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url; a.download = `rodada-${roundNumber}-lancamento.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Arquivo baixado.');
+  };
+  document.getElementById('copyJsonBtn').onclick = ()=>{
+    navigator.clipboard.writeText(jsonStr).then(()=>showToast('JSON copiado.'));
+  };
+  document.getElementById('newRoundBtn').onclick = ()=>{
+    if(!confirm('Começar uma nova rodada? Isso limpa as eliminações e o número da rodada avança automaticamente.')) return;
+    state.round = { roundNumber: roundNumber+1, buyIn: state.round.buyIn, prizes: state.round.prizes };
+    state.eliminatedOrder = [];
+    saveState();
+    document.getElementById('jsonExportArea').style.display = 'none';
+    renderRodadaTab();
+    showToast('Pronto para a próxima rodada.');
+  };
+
+  showToast('JSON da rodada gerado.');
+});
+
+/* ---------- Init ---------- */
+renderParticipants();
+loadPublishedPlayers();
+document.getElementById('maxPerTable').value = state.maxPerTable || 9;
+renderRodadaTab();
+</script>
+</body>
+</html>
