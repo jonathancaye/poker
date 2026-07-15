@@ -103,6 +103,7 @@
   td.player{font-weight:600;}
 
   .player-row{display:flex; align-items:center; gap:10px; padding:9px 4px; border-bottom:1px solid rgba(44,87,68,0.5);}
+  .player-row .present-check{width:18px; height:18px; flex-shrink:0; accent-color:var(--gold); cursor:pointer;}
   .player-row:last-child{border-bottom:none;}
   .player-row .pname{flex:1; font-weight:600;}
   .player-row .pos-tag{
@@ -196,7 +197,7 @@
           <button class="btn primary" id="addParticipantBtn" type="button" style="width:100%;">Adicionar</button>
         </div>
       </div>
-      <label class="guest-check"><input type="checkbox" id="newParticipantGuest"> Convidado (não pontua no ranking, mas recebe premiação normalmente)</label>
+      <label class="guest-check"><input type="checkbox" id="newParticipantGuest" checked> Convidado (não pontua no ranking, mas recebe premiação normalmente)</label>
       <div id="participantsListContent"></div>
     </div>
 
@@ -353,7 +354,7 @@ async function loadPublishedPlayers(){
     state.publishedPlayers = players;
     players.forEach(name=>{
       if(!state.participants.some(p=>p.name.toLowerCase()===name.toLowerCase())){
-        state.participants.push({name, guest:false});
+        state.participants.push({name, guest:false, present:false});
       }
     });
 
@@ -374,6 +375,9 @@ async function loadPublishedPlayers(){
     renderSyncBanner('error');
   }
 }
+function presentParticipants(){
+  return state.participants.filter(p=>p.present);
+}
 function renderParticipants(){
   const el = document.getElementById('participantsListContent');
   if(state.participants.length === 0){
@@ -382,12 +386,20 @@ function renderParticipants(){
   }
   const rows = [...state.participants].sort((a,b)=>a.name.localeCompare(b.name,'pt-BR')).map(p=>`
     <div class="player-row">
+      <input type="checkbox" class="present-check" data-name="${escapeHtml(p.name)}" ${p.present?'checked':''}>
       <span class="pname">${escapeHtml(p.name)}${p.guest?'<span class="guest-tag">Convidado</span>':''}</span>
       <button class="remove-x" data-name="${escapeHtml(p.name)}" title="Remover">×</button>
     </div>`).join('');
-  el.innerHTML = `<div style="margin-top:14px;">${rows}</div>
+  const present = presentParticipants().length;
+  const maxPerTable = state.maxPerTable || 9;
+  const tablesInfo = present >= 2 ? ` — necessário ${Math.ceil(present/maxPerTable)} mesa${Math.ceil(present/maxPerTable)===1?'':'s'}` : '';
+  el.innerHTML = `<div class="actions-row" style="margin-bottom:6px;">
+      <button class="btn small ghost" id="markAllBtn" type="button">Marcar todos</button>
+      <button class="btn small ghost" id="markNoneBtn" type="button">Desmarcar todos</button>
+    </div>
+    <div>${rows}</div>
     <div class="actions-row" style="margin-top:10px;">
-      <span style="font-family:'Space Mono',monospace; font-size:12px; color:var(--text-muted);">${state.participants.length} jogador${state.participants.length===1?'':'es'} cadastrado${state.participants.length===1?'':'s'}</span>
+      <span style="font-family:'Space Mono',monospace; font-size:12px; color:var(--text-muted);">${present} presente${present===1?'':'s'} de ${state.participants.length} cadastrado${state.participants.length===1?'':'s'}${tablesInfo}</span>
     </div>`;
   el.querySelectorAll('.remove-x').forEach(b=>{
     b.addEventListener('click', ()=>{
@@ -395,6 +407,26 @@ function renderParticipants(){
       saveState();
       renderParticipants();
     });
+  });
+  el.querySelectorAll('.present-check').forEach(cb=>{
+    cb.addEventListener('change', ()=>{
+      const p = state.participants.find(p=>p.name===cb.dataset.name);
+      if(p) p.present = cb.checked;
+      saveState();
+      renderParticipants();
+    });
+  });
+  const markAllBtn = document.getElementById('markAllBtn');
+  const markNoneBtn = document.getElementById('markNoneBtn');
+  if(markAllBtn) markAllBtn.addEventListener('click', ()=>{
+    state.participants.forEach(p=>p.present=true);
+    saveState();
+    renderParticipants();
+  });
+  if(markNoneBtn) markNoneBtn.addEventListener('click', ()=>{
+    state.participants.forEach(p=>p.present=false);
+    saveState();
+    renderParticipants();
   });
 }
 
@@ -404,26 +436,24 @@ document.getElementById('addParticipantBtn').addEventListener('click', ()=>{
   const name = input.value.trim();
   if(!name){ showToast('Digite um nome.'); return; }
   if(state.participants.some(p=>p.name.toLowerCase()===name.toLowerCase())){ showToast('Esse jogador já está na lista.'); return; }
-  state.participants.push({name, guest: guestCheck.checked});
+  state.participants.push({name, guest: guestCheck.checked, present:true});
   saveState();
   input.value='';
-  guestCheck.checked = false;
+  guestCheck.checked = true;
   renderParticipants();
 });
 document.getElementById('newParticipantName').addEventListener('keydown', e=>{
   if(e.key === 'Enter'){ e.preventDefault(); document.getElementById('addParticipantBtn').click(); }
 });
 
-const POSITION_LABELS = {
-  2:['BTN/SB','BB'],
-  3:['BTN','SB','BB'],
-  4:['BTN','SB','BB','UTG'],
-  5:['BTN','SB','BB','UTG','CO'],
-  6:['BTN','SB','BB','UTG','MP','CO'],
-  7:['BTN','SB','BB','UTG','MP','HJ','CO'],
-  8:['BTN','SB','BB','UTG','UTG+1','MP','HJ','CO'],
-  9:['BTN','SB','BB','UTG','UTG+1','MP','MP+1','HJ','CO']
-};
+
+function getPositionLabels(n){
+  if(n <= 1) return ['Dealer'];
+  if(n === 2) return ['Dealer/SB','BB'];
+  const labels = ['Dealer','SB','BB'];
+  for(let i=4;i<=n;i++) labels.push('Pos. '+i);
+  return labels;
+}
 
 function shuffle(arr){
   const a = [...arr];
@@ -441,12 +471,14 @@ document.getElementById('maxPerTable').addEventListener('change', ()=>{
   document.getElementById('maxPerTable').value = v;
   state.maxPerTable = v;
   saveState();
+  renderParticipants();
 });
 
 document.getElementById('drawTablesBtn').addEventListener('click', ()=>{
-  if(state.participants.length < 2){ showToast('Cadastre ao menos 2 jogadores para sortear.'); return; }
+  const presentes = presentParticipants();
+  if(presentes.length < 2){ showToast('Marque ao menos 2 jogadores presentes para sortear.'); return; }
   const maxPerTable = state.maxPerTable || 9;
-  const shuffled = shuffle(state.participants);
+  const shuffled = shuffle(presentes);
   const numTables = Math.ceil(shuffled.length / maxPerTable);
   const tables = Array.from({length:numTables}, ()=>[]);
   shuffled.forEach((p,i)=> tables[i % numTables].push(p));
@@ -454,7 +486,7 @@ document.getElementById('drawTablesBtn').addEventListener('click', ()=>{
   let html = '';
   tables.forEach((players, tIdx)=>{
     const n = players.length;
-    const labels = POSITION_LABELS[n] || POSITION_LABELS[9];
+    const labels = getPositionLabels(n);
     const dealerStart = Math.floor(Math.random()*n);
     const seats = players.map((p, seatIdx)=>{
       const labelIdx = (seatIdx - dealerStart + n) % n;
@@ -467,20 +499,12 @@ document.getElementById('drawTablesBtn').addEventListener('click', ()=>{
 
   document.getElementById('drawOutput').innerHTML = `
     <div style="margin-top:16px;">${html}</div>
-    <div class="actions-row">
-      <button class="btn" id="copyDrawBtn" type="button">Copiar resultado</button>
-      <button class="btn" id="printDrawBtn" type="button">Imprimir</button>
-    </div>
     <div class="actions-row" style="margin-top:14px;">
       <button class="btn primary" id="confirmStartBtn" type="button">Confirmar início da rodada →</button>
     </div>`;
 
-  document.getElementById('copyDrawBtn').addEventListener('click', ()=>{
-    navigator.clipboard.writeText(document.getElementById('drawOutput').innerText).then(()=>showToast('Resultado copiado.'));
-  });
-  document.getElementById('printDrawBtn').addEventListener('click', ()=> window.print());
   document.getElementById('confirmStartBtn').addEventListener('click', ()=>{
-    state.roundPlayers = state.participants.map(p=>({name:p.name, guest:!!p.guest}));
+    state.roundPlayers = presentParticipants().map(p=>({name:p.name, guest:!!p.guest}));
     state.eliminatedOrder = [];
     saveState();
     renderRodadaTab();
