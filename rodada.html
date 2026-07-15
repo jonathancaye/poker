@@ -281,6 +281,9 @@
 
 <script>
 /* ---------- Dados ---------- */
+const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
+function pointsForPosition(pos){ return pos <= 10 ? POS_POINTS[pos-1] : 1; }
+
 const STORAGE_KEY = 'pokerClube2026LancamentoData';
 let state = loadState();
 
