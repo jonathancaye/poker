@@ -116,6 +116,17 @@
   .status-pill.out{background:rgba(159,184,172,0.08); color:var(--text-muted); border:1px solid var(--border);}
   .status-pill.champ{background:rgba(212,166,42,0.16); color:var(--gold-soft); border:1px solid rgba(212,166,42,0.5);}
 
+  .guest-tag{
+    display:inline-block; padding:2px 8px; border-radius:999px; font-family:'Space Mono',monospace; font-size:10px;
+    font-weight:700; letter-spacing:.03em; text-transform:uppercase; white-space:nowrap;
+    background:rgba(217,124,77,0.16); color:var(--bronze); border:1px solid rgba(217,124,77,0.5); margin-left:8px;
+  }
+  .guest-check{
+    display:flex; align-items:center; gap:8px; font-size:12.5px; font-weight:500; color:var(--text-muted);
+    text-transform:none; letter-spacing:normal; margin:-6px 0 14px; cursor:pointer;
+  }
+  .guest-check input{width:auto; margin:0;}
+
   .chip-badge{
     width:30px; height:30px; border-radius:50%; display:flex; align-items:center; justify-content:center;
     font-family:'Space Mono',monospace; font-weight:700; font-size:12.5px; border:2px dashed rgba(245,239,224,0.3); flex-shrink:0;
@@ -185,6 +196,7 @@
           <button class="btn primary" id="addParticipantBtn" type="button" style="width:100%;">Adicionar</button>
         </div>
       </div>
+      <label class="guest-check"><input type="checkbox" id="newParticipantGuest"> Convidado (não pontua no ranking, mas recebe premiação normalmente)</label>
       <div id="participantsListContent"></div>
     </div>
 
@@ -226,23 +238,6 @@
         <div><input type="number" id="rPrize3" min="0" step="0.01" placeholder="3º lugar"></div>
         <div><input type="number" id="rPrize4" min="0" step="0.01" placeholder="4º lugar"></div>
       </div>
-    </div>
-
-    <div class="card">
-      <h2 class="section-title">Jogadores desta rodada</h2>
-      <p class="hint">Por padrão usa a lista de jogadores presentes hoje (aba Sorteio de Mesas). Ajuste aqui se alguém entrou ou saiu na última hora.</p>
-      <div class="row-grid cols-2" style="align-items:end;">
-        <div>
-          <label for="newRoundPlayerName">Adicionar jogador à rodada</label>
-          <input type="text" id="newRoundPlayerName" placeholder="Nome completo">
-        </div>
-        <div style="display:flex; gap:10px;">
-          <button class="btn" id="addRoundPlayerBtn" type="button" style="flex:1;">Adicionar</button>
-          <button class="btn ghost" id="useTodayListBtn" type="button" style="flex:1;">Usar lista de hoje</button>
-        </div>
-      </div>
-      <div id="noRoundPlayersHint" class="banner" style="display:none;">Nenhum jogador na rodada ainda. Adicione acima ou clique em "Usar lista de hoje".</div>
-      <div id="roundPlayersContent"></div>
     </div>
 
     <div class="card">
@@ -356,22 +351,23 @@ async function loadPublishedPlayers(){
     const parsed = await res.json();
     const players = Array.isArray(parsed.players) ? parsed.players : [];
     state.publishedPlayers = players;
-    let added = 0;
     players.forEach(name=>{
-      if(!state.participants.some(p=>p.toLowerCase()===name.toLowerCase())){
-        state.participants.push(name);
-        added++;
+      if(!state.participants.some(p=>p.name.toLowerCase()===name.toLowerCase())){
+        state.participants.push({name, guest:false});
       }
     });
+
+    // sugere o próximo número de rodada com base na última já publicada
+    if(!state.round.roundNumber){
+      const rounds = Array.isArray(parsed.rounds) ? parsed.rounds : [];
+      const maxRound = rounds.reduce((m,r)=> Math.max(m, Number(r.roundNumber)||0), 0);
+      state.round.roundNumber = maxRound + 1;
+      const rNumEl = document.getElementById('rRoundNumber');
+      if(rNumEl) rNumEl.value = state.round.roundNumber;
+    }
+
     saveState();
     renderParticipants();
-    if(state.roundPlayers.length === 0 && state.participants.length > 0){
-      state.roundPlayers = [...state.participants];
-      saveState();
-    }
-    renderRoundPlayers();
-    renderActivePlayers();
-    refreshGenerateButton();
     const when = parsed.publishedAt ? new Date(parsed.publishedAt).toLocaleString('pt-BR') : null;
     renderSyncBanner('success', { count: players.length, when });
   }catch(e){
@@ -384,10 +380,10 @@ function renderParticipants(){
     el.innerHTML = emptyState('Nenhum jogador cadastrado', 'Adicione os jogadores presentes hoje para liberar o sorteio.');
     return;
   }
-  const rows = [...state.participants].sort((a,b)=>a.localeCompare(b,'pt-BR')).map(name=>`
+  const rows = [...state.participants].sort((a,b)=>a.name.localeCompare(b.name,'pt-BR')).map(p=>`
     <div class="player-row">
-      <span class="pname">${escapeHtml(name)}</span>
-      <button class="remove-x" data-name="${escapeHtml(name)}" title="Remover">×</button>
+      <span class="pname">${escapeHtml(p.name)}${p.guest?'<span class="guest-tag">Convidado</span>':''}</span>
+      <button class="remove-x" data-name="${escapeHtml(p.name)}" title="Remover">×</button>
     </div>`).join('');
   el.innerHTML = `<div style="margin-top:14px;">${rows}</div>
     <div class="actions-row" style="margin-top:10px;">
@@ -395,7 +391,7 @@ function renderParticipants(){
     </div>`;
   el.querySelectorAll('.remove-x').forEach(b=>{
     b.addEventListener('click', ()=>{
-      state.participants = state.participants.filter(n=>n!==b.dataset.name);
+      state.participants = state.participants.filter(p=>p.name!==b.dataset.name);
       saveState();
       renderParticipants();
     });
@@ -404,12 +400,14 @@ function renderParticipants(){
 
 document.getElementById('addParticipantBtn').addEventListener('click', ()=>{
   const input = document.getElementById('newParticipantName');
+  const guestCheck = document.getElementById('newParticipantGuest');
   const name = input.value.trim();
   if(!name){ showToast('Digite um nome.'); return; }
-  if(state.participants.some(p=>p.toLowerCase()===name.toLowerCase())){ showToast('Esse jogador já está na lista.'); return; }
-  state.participants.push(name);
+  if(state.participants.some(p=>p.name.toLowerCase()===name.toLowerCase())){ showToast('Esse jogador já está na lista.'); return; }
+  state.participants.push({name, guest: guestCheck.checked});
   saveState();
   input.value='';
+  guestCheck.checked = false;
   renderParticipants();
 });
 document.getElementById('newParticipantName').addEventListener('keydown', e=>{
@@ -451,19 +449,19 @@ document.getElementById('drawTablesBtn').addEventListener('click', ()=>{
   const shuffled = shuffle(state.participants);
   const numTables = Math.ceil(shuffled.length / maxPerTable);
   const tables = Array.from({length:numTables}, ()=>[]);
-  shuffled.forEach((name,i)=> tables[i % numTables].push(name));
+  shuffled.forEach((p,i)=> tables[i % numTables].push(p));
 
   let html = '';
   tables.forEach((players, tIdx)=>{
     const n = players.length;
     const labels = POSITION_LABELS[n] || POSITION_LABELS[9];
     const dealerStart = Math.floor(Math.random()*n);
-    const seats = players.map((name, seatIdx)=>{
+    const seats = players.map((p, seatIdx)=>{
       const labelIdx = (seatIdx - dealerStart + n) % n;
-      return { name, label: labels[labelIdx] };
+      return { name: p.name, guest: p.guest, label: labels[labelIdx] };
     });
     seats.sort((a,b)=> labels.indexOf(a.label) - labels.indexOf(b.label));
-    const rows = seats.map(s=>`<div class="seat-row"><span class="seat-pos">${s.label}</span><span>${escapeHtml(s.name)}</span></div>`).join('');
+    const rows = seats.map(s=>`<div class="seat-row"><span class="seat-pos">${s.label}</span><span>${escapeHtml(s.name)}${s.guest?'<span class="guest-tag">Convidado</span>':''}</span></div>`).join('');
     html += `<div class="table-block"><h3>Mesa ${tIdx+1} (${n} jogador${n===1?'':'es'})</h3>${rows}</div>`;
   });
 
@@ -472,19 +470,23 @@ document.getElementById('drawTablesBtn').addEventListener('click', ()=>{
     <div class="actions-row">
       <button class="btn" id="copyDrawBtn" type="button">Copiar resultado</button>
       <button class="btn" id="printDrawBtn" type="button">Imprimir</button>
+    </div>
+    <div class="actions-row" style="margin-top:14px;">
+      <button class="btn primary" id="confirmStartBtn" type="button">Confirmar início da rodada →</button>
     </div>`;
-
-  const plainText = tables.map((players,tIdx)=>{
-    const n = players.length;
-    const labels = POSITION_LABELS[n] || POSITION_LABELS[9];
-    const dealerStart = Math.floor(Math.random()*n);
-    return `Mesa ${tIdx+1}:\n` + players.map((name,i)=>`${labels[(i-dealerStart+n)%n]} - ${name}`).join('\n');
-  }).join('\n\n');
 
   document.getElementById('copyDrawBtn').addEventListener('click', ()=>{
     navigator.clipboard.writeText(document.getElementById('drawOutput').innerText).then(()=>showToast('Resultado copiado.'));
   });
   document.getElementById('printDrawBtn').addEventListener('click', ()=> window.print());
+  document.getElementById('confirmStartBtn').addEventListener('click', ()=>{
+    state.roundPlayers = state.participants.map(p=>({name:p.name, guest:!!p.guest}));
+    state.eliminatedOrder = [];
+    saveState();
+    renderRodadaTab();
+    document.querySelector('#mainTabs .tab-btn[data-tab="rodada"]').click();
+    showToast(`Rodada iniciada com ${state.roundPlayers.length} jogador${state.roundPlayers.length===1?'':'es'}.`);
+  });
 
   showToast('Mesas sorteadas.');
 });
@@ -499,7 +501,6 @@ function renderRodadaTab(){
   document.getElementById('rPrize3').value = state.round.prizes ? state.round.prizes[2]||'' : '';
   document.getElementById('rPrize4').value = state.round.prizes ? state.round.prizes[3]||'' : '';
 
-  renderRoundPlayers();
   renderActivePlayers();
   renderStandingsPreview();
   refreshGenerateButton();
@@ -514,60 +515,8 @@ function renderRodadaTab(){
   });
 });
 
-function renderRoundPlayers(){
-  const el = document.getElementById('roundPlayersContent');
-  document.getElementById('noRoundPlayersHint').style.display = state.roundPlayers.length===0 ? 'block' : 'none';
-  if(state.roundPlayers.length === 0){ el.innerHTML=''; return; }
-  const rows = [...state.roundPlayers].sort((a,b)=>a.localeCompare(b,'pt-BR')).map(name=>`
-    <div class="player-row">
-      <span class="pname">${escapeHtml(name)}</span>
-      <button class="remove-x" data-name="${escapeHtml(name)}" title="Remover da rodada">×</button>
-    </div>`).join('');
-  el.innerHTML = `<div style="margin-top:14px;">${rows}</div>`;
-  el.querySelectorAll('.remove-x').forEach(b=>{
-    b.addEventListener('click', ()=>{
-      const name = b.dataset.name;
-      state.roundPlayers = state.roundPlayers.filter(n=>n!==name);
-      state.eliminatedOrder = state.eliminatedOrder.filter(n=>n!==name);
-      saveState();
-      renderRoundPlayers();
-      renderActivePlayers();
-      renderStandingsPreview();
-      refreshGenerateButton();
-    });
-  });
-}
-
-document.getElementById('useTodayListBtn').addEventListener('click', ()=>{
-  if(state.participants.length === 0){ showToast('Não há jogadores cadastrados na aba Sorteio de Mesas.'); return; }
-  const merged = new Set([...state.roundPlayers, ...state.participants]);
-  state.roundPlayers = [...merged];
-  saveState();
-  renderRoundPlayers();
-  renderActivePlayers();
-  renderStandingsPreview();
-  refreshGenerateButton();
-  showToast('Lista de hoje aplicada à rodada.');
-});
-
-document.getElementById('addRoundPlayerBtn').addEventListener('click', ()=>{
-  const input = document.getElementById('newRoundPlayerName');
-  const name = input.value.trim();
-  if(!name){ showToast('Digite um nome.'); return; }
-  if(state.roundPlayers.some(p=>p.toLowerCase()===name.toLowerCase())){ showToast('Esse jogador já está na rodada.'); return; }
-  state.roundPlayers.push(name);
-  saveState();
-  input.value='';
-  renderRoundPlayers();
-  renderActivePlayers();
-  refreshGenerateButton();
-});
-document.getElementById('newRoundPlayerName').addEventListener('keydown', e=>{
-  if(e.key === 'Enter'){ e.preventDefault(); document.getElementById('addRoundPlayerBtn').click(); }
-});
-
 function activeCount(){
-  return state.roundPlayers.filter(p=>!state.eliminatedOrder.includes(p)).length;
+  return state.roundPlayers.filter(p=>!state.eliminatedOrder.includes(p.name)).length;
 }
 
 function renderActivePlayers(){
@@ -576,7 +525,7 @@ function renderActivePlayers(){
   const total = state.roundPlayers.length;
 
   if(total === 0){
-    el.innerHTML = emptyState('Nenhum jogador na rodada', 'Adicione jogadores acima antes de começar.');
+    el.innerHTML = emptyState('Nenhuma rodada iniciada', 'Vá em Sorteio de Mesas, cadastre os presentes, sorteie as mesas e clique em "Confirmar início da rodada".');
     banner.innerHTML = '';
     return;
   }
@@ -588,7 +537,8 @@ function renderActivePlayers(){
     banner.innerHTML = `<div class="banner">${remaining} jogador${remaining===1?'':'es'} ainda na mesa.</div>`;
   }
 
-  const rows = state.roundPlayers.map(name=>{
+  const rows = state.roundPlayers.map(p=>{
+    const name = p.name;
     const eliminated = state.eliminatedOrder.includes(name);
     const isChampion = remaining === 1 && !eliminated;
     let pill, btn;
@@ -604,7 +554,7 @@ function renderActivePlayers(){
       btn = `<button class="btn small danger elim-btn" data-name="${escapeHtml(name)}">Eliminou</button>`;
     }
     return `<div class="player-row">
-        <span class="pname">${escapeHtml(name)}</span>
+        <span class="pname">${escapeHtml(name)}${p.guest?'<span class="guest-tag">Convidado</span>':''}</span>
         ${pill}
         ${btn}
       </div>`;
@@ -646,17 +596,16 @@ document.getElementById('resetEliminationsBtn').addEventListener('click', ()=>{
 function computeStandings(){
   const total = state.roundPlayers.length;
   if(total === 0) return [];
-  const remaining = state.roundPlayers.filter(p=>!state.eliminatedOrder.includes(p));
+  const remaining = state.roundPlayers.filter(p=>!state.eliminatedOrder.includes(p.name));
   const standings = [];
   if(remaining.length === 1){
     standings.push(remaining[0]);
-  } else if(remaining.length === 0 && state.eliminatedOrder.length === total){
-    // edge case: last elimination click accidentally covered everyone — shouldn't happen given guard
-    standings.push(state.eliminatedOrder[state.eliminatedOrder.length-1]);
   }
-  // from position 2 downward: reverse of eliminatedOrder (last eliminated = 2nd place)
+  // do 2º lugar para baixo: ordem reversa das eliminações (último eliminado = 2º lugar)
   for(let i=state.eliminatedOrder.length-1;i>=0;i--){
-    standings.push(state.eliminatedOrder[i]);
+    const name = state.eliminatedOrder[i];
+    const player = state.roundPlayers.find(p=>p.name===name);
+    standings.push(player || {name, guest:false});
   }
   return standings;
 }
@@ -668,10 +617,18 @@ function renderStandingsPreview(){
     el.innerHTML = emptyState('Ainda sem colocações', 'A colocação final aparece aqui conforme as eliminações forem marcadas.');
     return;
   }
-  const rows = standings.map((name,idx)=>`
-    <tr><td>${chipBadge(idx+1)}</td><td class="player">${escapeHtml(name)}</td></tr>
-  `).join('');
-  el.innerHTML = `<table><thead><tr><th></th><th>Jogador</th></tr></thead><tbody>${rows}</tbody></table>`;
+  let memberRank = 0;
+  const rows = standings.map((p,idx)=>{
+    let ptsNote;
+    if(p.guest){
+      ptsNote = '<span class="guest-tag">Convidado — não pontua</span>';
+    } else {
+      memberRank += 1;
+      ptsNote = `<span style="font-family:'Space Mono',monospace; font-size:12px; color:var(--gold-soft);">${pointsForPosition(memberRank)} pts</span>`;
+    }
+    return `<tr><td>${chipBadge(idx+1)}</td><td class="player">${escapeHtml(p.name)}</td><td style="text-align:right;">${ptsNote}</td></tr>`;
+  }).join('');
+  el.innerHTML = `<table><thead><tr><th></th><th>Jogador</th><th style="text-align:right;">Pontuação</th></tr></thead><tbody>${rows}</tbody></table>`;
 }
 
 function roundIsComplete(){
@@ -690,7 +647,7 @@ document.getElementById('generateJsonBtn').addEventListener('click', ()=>{
   if(!roundNumber || roundNumber < 1){ showToast('Informe o número da rodada.'); return; }
   if(!buyIn || buyIn <= 0){ showToast('Informe o valor do buy-in.'); return; }
   const prizes = [1,2,3,4].map(n=> Number(document.getElementById('rPrize'+n).value)||0);
-  const standings = computeStandings();
+  const standings = computeStandings().map(p=> ({ name: p.name, guest: !!p.guest }));
 
   const exportObj = {
     type: 'pokerClube2026RoundExport',
@@ -715,13 +672,15 @@ document.getElementById('generateJsonBtn').addEventListener('click', ()=>{
     navigator.clipboard.writeText(jsonStr).then(()=>showToast('JSON copiado.'));
   };
   document.getElementById('newRoundBtn').onclick = ()=>{
-    if(!confirm('Começar uma nova rodada? Isso limpa as eliminações e o número da rodada avança automaticamente.')) return;
+    if(!confirm('Começar uma nova rodada? Isso limpa a rodada atual e volta para o Sorteio de Mesas.')) return;
     state.round = { roundNumber: roundNumber+1, buyIn: state.round.buyIn, prizes: state.round.prizes };
     state.eliminatedOrder = [];
+    state.roundPlayers = [];
     saveState();
     document.getElementById('jsonExportArea').style.display = 'none';
     renderRodadaTab();
-    showToast('Pronto para a próxima rodada.');
+    document.querySelector('#mainTabs .tab-btn[data-tab="sorteio"]').click();
+    showToast('Pronto para a próxima rodada — sorteie as mesas novamente.');
   };
 
   showToast('JSON da rodada gerado.');
