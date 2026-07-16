@@ -290,6 +290,17 @@ function pointsForPosition(pos){ return pos <= 10 ? POS_POINTS[pos-1] : 1; }
 const STORAGE_KEY = 'pokerClube2026LancamentoData';
 let state = loadState();
 
+function normalizePlayerEntry(entry){
+  if(typeof entry === 'string'){
+    const name = entry.trim();
+    return name ? { name, guest:false, present:false } : null;
+  }
+  if(entry && typeof entry === 'object' && typeof entry.name === 'string' && entry.name.trim()){
+    return { name: entry.name.trim(), guest: !!entry.guest, present: !!entry.present };
+  }
+  return null;
+}
+
 function loadState(){
   let s = { participants: [], maxPerTable: 9, roundPlayers: [], eliminatedOrder: [], round: {}, publishedPlayers: [] };
   try{
@@ -297,9 +308,13 @@ function loadState(){
     if(raw) s = Object.assign(s, JSON.parse(raw));
   }catch(e){ console.error('Erro ao carregar dados', e); }
   if(!Array.isArray(s.participants)) s.participants = [];
+  s.participants = s.participants.map(normalizePlayerEntry).filter(Boolean);
   if(!Array.isArray(s.roundPlayers)) s.roundPlayers = [];
+  s.roundPlayers = s.roundPlayers.map(normalizePlayerEntry).filter(Boolean);
   if(!Array.isArray(s.eliminatedOrder)) s.eliminatedOrder = [];
+  s.eliminatedOrder = s.eliminatedOrder.filter(n=>typeof n === 'string' && n.trim());
   if(!Array.isArray(s.publishedPlayers)) s.publishedPlayers = [];
+  s.publishedPlayers = s.publishedPlayers.filter(n=>typeof n === 'string' && n.trim());
   if(!s.round || typeof s.round !== 'object') s.round = {};
   return s;
 }
