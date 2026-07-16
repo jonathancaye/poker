@@ -699,14 +699,21 @@ document.getElementById('generateJsonBtn').addEventListener('click', ()=>{
     navigator.clipboard.writeText(jsonStr).then(()=>showToast('JSON copiado.'));
   };
   document.getElementById('newRoundBtn').onclick = ()=>{
-    if(!confirm('Começar uma nova rodada? Isso limpa a rodada atual e volta para o Sorteio de Mesas.')) return;
-    state.round = { roundNumber: roundNumber+1, buyIn: state.round.buyIn, prizes: state.round.prizes };
+    if(!confirm('Começar uma nova rodada? Isso limpa a rodada atual (incluindo convidados e presenças marcadas) e volta para o Sorteio de Mesas.')) return;
+    state.round = { roundNumber: null, buyIn: state.round.buyIn, prizes: state.round.prizes };
     state.eliminatedOrder = [];
     state.roundPlayers = [];
+    // reinicia a lista de presentes só com o cadastro oficial, sem convidados e sem ninguém marcado
+    const officialNames = state.publishedPlayers.length > 0
+      ? state.publishedPlayers
+      : [...new Set(state.participants.filter(p=>!p.guest).map(p=>p.name))];
+    state.participants = officialNames.map(name => ({ name, guest:false, present:false }));
     saveState();
     document.getElementById('jsonExportArea').style.display = 'none';
+    renderParticipants();
     renderRodadaTab();
     document.querySelector('#mainTabs .tab-btn[data-tab="sorteio"]').click();
+    loadPublishedPlayers(); // rebusca o painel público para pegar o número da próxima rodada (só a partir do servidor) e qualquer jogador novo cadastrado
     showToast('Pronto para a próxima rodada — sorteie as mesas novamente.');
   };
 
