@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pôker Clube 2026 — Lançamento da Rodada</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -157,6 +160,17 @@
     border-radius:var(--radius-sm); padding:12px; font-family:'Space Mono',monospace; font-size:12.5px; resize:vertical;
   }
 
+  .hard-refresh-btn{
+    position:absolute; top:20px; right:20px; z-index:5;
+    font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.03em;
+    background:var(--surface-2); border:1px solid var(--border); color:var(--gold-soft);
+    border-radius:999px; padding:7px 14px; cursor:pointer;
+  }
+  .hard-refresh-btn:hover{border-color:var(--gold);}
+  @media (max-width:640px){
+    .hard-refresh-btn{position:static; display:block; margin-top:12px; width:100%;}
+  }
+
   .toast{
     position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
     background:var(--surface-2); border:1px solid var(--gold); color:var(--text);
@@ -175,6 +189,7 @@
     <p class="eyebrow">Temporada 2026 — Ferramenta do organizador</p>
     <h1>Sorteio de mesas &amp; Lançamento da rodada</h1>
     <p class="sub">Cadastre os jogadores do dia, sorteie as mesas e registre as eliminações ao vivo. No final, gere o arquivo para importar no painel do campeonato.</p>
+    <button class="hard-refresh-btn" id="hardRefreshBtn" type="button" title="Forçar atualização (ignora cache do navegador)">↻ Atualizar página</button>
   </header>
 
   <nav class="tabs" id="mainTabs">
@@ -350,7 +365,7 @@ function renderSyncBanner(status, extra){
 async function loadPublishedPlayers(){
   renderSyncBanner('loading');
   try{
-    const res = await fetch('dados.json?t=' + Date.now());
+    const res = await fetch('dados.json?t=' + Date.now(), {cache:'no-store'});
     if(!res.ok) throw new Error('sem dados.json');
     const parsed = await res.json();
     const players = Array.isArray(parsed.players) ? parsed.players : [];
@@ -721,6 +736,9 @@ document.getElementById('generateJsonBtn').addEventListener('click', ()=>{
 });
 
 /* ---------- Init ---------- */
+document.getElementById('hardRefreshBtn').addEventListener('click', ()=>{
+  window.location.href = window.location.pathname + '?_=' + Date.now();
+});
 renderParticipants();
 loadPublishedPlayers();
 document.getElementById('maxPerTable').value = state.maxPerTable || 9;
