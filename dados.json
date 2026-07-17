@@ -11,14 +11,38 @@
         0
       ],
       "standings": [
-        "ETTI HILLER",
-        "VANDERLEI RAZINI",
-        "AMANDIO JUNIOR",
-        "JONATHAN CAYE",
-        "FERNANDO MUPPET",
-        "NILSON TOMELI",
-        "FABIANO MACHADO",
-        "JEAN HOFFMANN"
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELI",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "JEAN HOFFMANN",
+          "guest": false
+        }
       ]
     },
     {
@@ -32,19 +56,127 @@
         0
       ],
       "standings": [
-        "FERNANDO MUPPET",
-        "NILSON TOMELI",
-        "VINICIUS TOMELIN",
-        "LEANDRO ANGELO",
-        "VANDERLEI RAZINI",
-        "CHARLES DE SOUZA",
-        "JEFERSON MONTAGNA",
-        "ETTI HILLER",
-        "JONATHAN CAYE",
-        "JEAN HOFFMANN",
-        "GABRIEL CANTARELLI",
-        "EDWARD LOPES",
-        "FABIANO MACHADO"
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELI",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "LEANDRO ANGELO",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "CHARLES DE SOUZA",
+          "guest": false
+        },
+        {
+          "name": "JEFERSON MONTAGNA",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "JEAN HOFFMANN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        }
+      ]
+    },
+    {
+      "id": "r1784287646229980d",
+      "roundNumber": 3,
+      "buyIn": 100,
+      "prizes": [
+        600,
+        450,
+        250,
+        100
+      ],
+      "standings": [
+        {
+          "name": "LEANDRO ANGELO",
+          "guest": false
+        },
+        {
+          "name": "JEFERSON MONTAGNA",
+          "guest": false
+        },
+        {
+          "name": "JEAN PIERRE",
+          "guest": false
+        },
+        {
+          "name": "FABRICIO AVI",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "JEAN HOFFMANN",
+          "guest": false
+        },
+        {
+          "name": "CHARLES DE SOUZA",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELI",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        }
       ]
     }
   ],
@@ -95,5 +227,5 @@
     "22": "2026-11-26"
   },
   "topPositions": 4,
-  "publishedAt": "2026-07-14T19:35:41.953Z"
+  "publishedAt": "2026-07-17T11:28:00.139Z"
 }
