@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Pôker Clube 2026 — Ranking</title>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Space+Mono:wght@400;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -144,8 +147,10 @@
   tr.eliminated-row{background:rgba(193,68,58,0.05);}
   tr.eliminated-row td{opacity:0.5;}
 
-  .view-footer{margin-top:26px; padding-top:18px; border-top:1px solid var(--border); text-align:center;}
-  .view-footer p{color:var(--text-muted); font-size:12.5px; font-style:italic; margin:0;}
+  .view-footer{
+    margin-top:26px; padding-top:18px; border-top:1px solid var(--border); text-align:center;
+    font-family:'Space Mono',monospace; font-size:10.5px; color:var(--text-muted); opacity:0.7;
+  }
 
   .empty-state{text-align:center; padding:44px 20px; color:var(--text-muted);}
   .empty-state .glyph{font-family:'Fraunces',serif; font-size:34px; color:var(--gold-soft); margin-bottom:10px;}
@@ -178,8 +183,16 @@
   }
   @media (max-width:640px){ .evo-hint{display:block;} }
 
-  .updated-note{
-    text-align:center; font-family:'Space Mono',monospace; font-size:11.5px; color:var(--text-muted); margin-top:6px;
+
+  .hard-refresh-btn{
+    position:absolute; top:20px; right:20px; z-index:5;
+    font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.03em;
+    background:var(--surface-2); border:1px solid var(--border); color:var(--gold-soft);
+    border-radius:999px; padding:7px 14px; cursor:pointer;
+  }
+  .hard-refresh-btn:hover{border-color:var(--gold);}
+  @media (max-width:640px){
+    .hard-refresh-btn{position:static; display:block; margin-top:12px; width:100%;}
   }
 </style>
 </head>
@@ -192,6 +205,7 @@
     <p class="eyebrow">Temporada 2026</p>
     <h1>Diretoria Poker Clube</h1>
     <p class="sub">Ranking, pontos e profit calculados a partir da última rodada publicada.</p>
+    <button class="hard-refresh-btn" id="hardRefreshBtn" type="button" title="Forçar atualização (ignora cache do navegador)">↻ Atualizar</button>
   </header>
 
   <div class="card timeline-card" id="timelineCard">
@@ -234,14 +248,15 @@
   </section>
 
   <footer class="view-footer" id="viewFooter">
-    <p id="topNInfoNote"></p>
-    <p>Em caso de empate: mais 1ºs lugares, depois mais 2ºs, depois mais 3ºs, depois mais rodadas jogadas e por último ordem alfabética.</p>
-    <p class="updated-note" id="updatedNote"></p>
+    <span id="versionNote"></span>
   </footer>
 
 </div>
 
 <script>
+/* ---------- Versão deste arquivo (atualizar manualmente a cada upload) ---------- */
+const PAGE_VERSION = '2026.07.16-1';
+
 /* ---------- Dados e regras de pontuação (idêntico ao painel de administração) ---------- */
 const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
 function pointsForPosition(pos){ return pos <= 10 ? POS_POINTS[pos-1] : 1; }
@@ -497,20 +512,10 @@ function renderRoundsList(){
   }).join('');
 }
 
-function renderFooterNote(){
-  const topN = data.topPositions || 4;
-  const totalRounds = data.totalRounds || 22;
-  const roundsRemaining = Math.max(0, totalRounds - data.rounds.length);
-  const el = document.getElementById('topNInfoNote');
-  if(el){
-    el.textContent = `Coluna "Top ${topN}": considera ${roundsRemaining} rodada${roundsRemaining===1?'':'s'} restante${roundsRemaining===1?'':'s'} na temporada. "Na disputa" = ainda é matematicamente possível terminar entre os ${topN} primeiros mesmo no pior cenário. "Eliminado" = já não é mais possível.`;
-  }
-}
-
 /* ---------- Carregamento dos dados publicados ---------- */
 async function loadPublishedData(){
   try{
-    const res = await fetch('dados.json?t=' + Date.now());
+    const res = await fetch('dados.json?t=' + Date.now(), {cache:'no-store'});
     if(!res.ok) throw new Error('sem dados.json');
     const parsed = await res.json();
     if(!Array.isArray(parsed.rounds)) throw new Error('formato inválido');
@@ -519,9 +524,6 @@ async function loadPublishedData(){
     if(typeof data.totalRounds !== 'number' || data.totalRounds < 1) data.totalRounds = 22;
     if(typeof data.topPositions !== 'number' || data.topPositions < 1) data.topPositions = 4;
     if(!data.roundDates || typeof data.roundDates !== 'object') data.roundDates = {};
-    document.getElementById('updatedNote').textContent = data.publishedAt
-      ? `Última publicação: ${new Date(data.publishedAt).toLocaleString('pt-BR')}`
-      : '';
   }catch(e){
     document.getElementById('geralContent').innerHTML = emptyState(
       'Nenhum dado publicado ainda',
@@ -530,9 +532,13 @@ async function loadPublishedData(){
   }
   renderTimeline();
   renderGeral();
-  renderFooterNote();
 }
 
+document.getElementById('hardRefreshBtn').addEventListener('click', ()=>{
+  window.location.href = window.location.pathname + '?_=' + Date.now();
+});
+
+document.getElementById('versionNote').textContent = `Painel v${PAGE_VERSION}`;
 loadPublishedData();
 </script>
 </body>
