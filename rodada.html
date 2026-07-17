@@ -646,7 +646,8 @@ function renderActivePlayers(){
     banner.innerHTML = `<div class="banner">${remaining} jogador${remaining===1?'':'es'} ainda na mesa.</div>`;
   }
 
-  const rows = state.roundPlayers.map(p=>{
+  const sortedPlayers = [...state.roundPlayers].sort((a,b)=>a.name.localeCompare(b.name,'pt-BR'));
+  const rows = sortedPlayers.map(p=>{
     const name = p.name;
     const eliminated = state.eliminatedOrder.includes(name);
     const isChampion = remaining === 1 && !eliminated;
@@ -793,6 +794,7 @@ document.getElementById('generateJsonBtn').addEventListener('click', ()=>{
     saveState();
     updateRodadaTabLock();
     document.getElementById('jsonExportArea').style.display = 'none';
+    document.getElementById('drawOutput').innerHTML = '';
     renderParticipants();
     renderRodadaTab();
     document.querySelector('#mainTabs .tab-btn[data-tab="sorteio"]').click();
