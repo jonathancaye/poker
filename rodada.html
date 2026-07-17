@@ -61,6 +61,8 @@
   }
   nav.tabs button.active{color:var(--text); background:var(--surface); border:1px solid var(--border); border-bottom:1px solid var(--surface);}
   nav.tabs button:hover:not(.active){color:var(--text);}
+  nav.tabs button:disabled{opacity:0.35; cursor:not-allowed; color:var(--text-muted);}
+  nav.tabs button:disabled:hover{color:var(--text-muted);}
 
   section.panel{display:none;}
   section.panel.active{display:block; animation:fade .18s ease;}
@@ -158,6 +160,11 @@
   textarea#jsonOutput{
     width:100%; min-height:160px; background:var(--bg-deep); border:1px solid var(--border); color:var(--text);
     border-radius:var(--radius-sm); padding:12px; font-family:'Space Mono',monospace; font-size:12.5px; resize:vertical;
+  }
+
+  .view-footer{
+    margin-top:26px; padding-top:18px; border-top:1px solid var(--border); text-align:center;
+    font-family:'Space Mono',monospace; font-size:10.5px; color:var(--text-muted); opacity:0.7;
   }
 
   .toast{
@@ -278,14 +285,49 @@
     </div>
   </section>
 
+  <footer class="view-footer" id="viewFooter">
+    <span id="versionNote"></span>
+  </footer>
+
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
+/* ---------- Versão deste arquivo (atualizar manualmente a cada upload) ---------- */
+const PAGE_VERSION = '2026.07.16-1';
+
 /* ---------- Dados ---------- */
 const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
 function pointsForPosition(pos){ return pos <= 10 ? POS_POINTS[pos-1] : 1; }
+
+/* ---------- Tabela de premiação padrão por número de jogadores (10 a 20) ---------- */
+const PRIZE_TABLE = {
+  10: [500,300,200,0],
+  11: [550,350,200,0],
+  12: [600,350,250,0],
+  13: [650,400,250,0],
+  14: [650,400,250,100],
+  15: [700,400,300,100],
+  16: [750,450,300,100],
+  17: [800,450,350,100],
+  18: [850,500,350,100],
+  19: [900,500,400,100],
+  20: [950,550,400,100]
+};
+
+function applyPrizeTable(playerCount){
+  const prizes = PRIZE_TABLE[playerCount];
+  if(!prizes) return false;
+  state.round.prizes = [...prizes];
+  state.round.buyIn = 100;
+  document.getElementById('rBuyIn').value = 100;
+  document.getElementById('rPrize1').value = prizes[0];
+  document.getElementById('rPrize2').value = prizes[1];
+  document.getElementById('rPrize3').value = prizes[2];
+  document.getElementById('rPrize4').value = prizes[3];
+  return true;
+}
 
 const STORAGE_KEY = 'pokerClube2026LancamentoData';
 let state = loadState();
@@ -339,6 +381,13 @@ function chipBadge(pos){
 }
 
 /* ---------- Navegação ---------- */
+function updateRodadaTabLock(){
+  const btn = document.querySelector('#mainTabs .tab-btn[data-tab="rodada"]');
+  const locked = state.roundPlayers.length === 0;
+  btn.disabled = locked;
+  btn.title = locked ? 'Sorteie as mesas e confirme o início da rodada primeiro' : '';
+}
+
 document.querySelectorAll('#mainTabs .tab-btn').forEach(btn=>{
   btn.addEventListener('click', ()=>{
     document.querySelectorAll('#mainTabs .tab-btn').forEach(b=>b.classList.remove('active'));
@@ -527,12 +576,25 @@ document.getElementById('drawTablesBtn').addEventListener('click', ()=>{
     </div>`;
 
   document.getElementById('confirmStartBtn').addEventListener('click', ()=>{
+    if(state.roundPlayers.length > 0){
+      const emAndamento = state.eliminatedOrder.length;
+      const aviso = emAndamento > 0
+        ? `Já existe uma rodada em andamento com ${emAndamento} eliminação${emAndamento===1?'':'ões'} registrada${emAndamento===1?'':'s'}. Confirmar este sorteio agora vai substituir essa rodada e perder o progresso. Deseja continuar?`
+        : 'Já existe uma rodada iniciada (ainda sem eliminações). Confirmar este sorteio agora vai substituí-la. Deseja continuar?';
+      if(!confirm(aviso)) return;
+    }
     state.roundPlayers = presentParticipants().map(p=>({name:p.name, guest:!!p.guest}));
     state.eliminatedOrder = [];
+    const n = state.roundPlayers.length;
+    const prizeApplied = applyPrizeTable(n);
     saveState();
+    updateRodadaTabLock();
     renderRodadaTab();
     document.querySelector('#mainTabs .tab-btn[data-tab="rodada"]').click();
-    showToast(`Rodada iniciada com ${state.roundPlayers.length} jogador${state.roundPlayers.length===1?'':'es'}.`);
+    const msg = `Rodada iniciada com ${n} jogador${n===1?'':'es'}.` + (prizeApplied
+      ? ' Premiação e buy-in preenchidos automaticamente.'
+      : ' Fora da tabela padrão (10 a 20) — ajuste a premiação manualmente.');
+    showToast(msg);
   });
 
   showToast('Mesas sorteadas.');
@@ -543,10 +605,10 @@ function renderRodadaTab(){
   // Setup fields
   document.getElementById('rRoundNumber').value = state.round.roundNumber || '';
   document.getElementById('rBuyIn').value = state.round.buyIn || '';
-  document.getElementById('rPrize1').value = state.round.prizes ? state.round.prizes[0]||'' : '';
-  document.getElementById('rPrize2').value = state.round.prizes ? state.round.prizes[1]||'' : '';
-  document.getElementById('rPrize3').value = state.round.prizes ? state.round.prizes[2]||'' : '';
-  document.getElementById('rPrize4').value = state.round.prizes ? state.round.prizes[3]||'' : '';
+  document.getElementById('rPrize1').value = state.round.prizes && state.round.prizes[0]!=null ? state.round.prizes[0] : '';
+  document.getElementById('rPrize2').value = state.round.prizes && state.round.prizes[1]!=null ? state.round.prizes[1] : '';
+  document.getElementById('rPrize3').value = state.round.prizes && state.round.prizes[2]!=null ? state.round.prizes[2] : '';
+  document.getElementById('rPrize4').value = state.round.prizes && state.round.prizes[3]!=null ? state.round.prizes[3] : '';
 
   renderActivePlayers();
   renderStandingsPreview();
@@ -729,6 +791,7 @@ document.getElementById('generateJsonBtn').addEventListener('click', ()=>{
       : [...new Set(state.participants.filter(p=>!p.guest).map(p=>p.name))];
     state.participants = officialNames.map(name => ({ name, guest:false, present:false }));
     saveState();
+    updateRodadaTabLock();
     document.getElementById('jsonExportArea').style.display = 'none';
     renderParticipants();
     renderRodadaTab();
@@ -741,6 +804,8 @@ document.getElementById('generateJsonBtn').addEventListener('click', ()=>{
 });
 
 /* ---------- Init ---------- */
+document.getElementById('versionNote').textContent = `Ferramenta v${PAGE_VERSION}`;
+updateRodadaTabLock();
 renderParticipants();
 loadPublishedPlayers();
 document.getElementById('maxPerTable').value = state.maxPerTable || 9;
