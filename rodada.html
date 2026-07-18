@@ -307,7 +307,7 @@
 
 <script>
 /* ---------- Versão deste arquivo (atualizar manualmente a cada upload) ---------- */
-const PAGE_VERSION = '2026.07.17-1';
+const PAGE_VERSION = '2026.07.17-2';
 
 /* ---------- Dados ---------- */
 const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
@@ -393,11 +393,16 @@ function chipBadge(pos){
 }
 
 /* ---------- Navegação ---------- */
-function updateRodadaTabLock(){
-  const btn = document.querySelector('#mainTabs .tab-btn[data-tab="rodada"]');
-  const locked = state.roundPlayers.length === 0;
-  btn.disabled = locked;
-  btn.title = locked ? 'Sorteie as mesas e confirme o início da rodada primeiro' : '';
+function updateTabLocks(){
+  const sorteioBtn = document.querySelector('#mainTabs .tab-btn[data-tab="sorteio"]');
+  const rodadaBtn = document.querySelector('#mainTabs .tab-btn[data-tab="rodada"]');
+  const emAndamento = state.roundPlayers.length > 0;
+
+  rodadaBtn.disabled = !emAndamento;
+  rodadaBtn.title = emAndamento ? '' : 'Sorteie as mesas e confirme o início da rodada primeiro';
+
+  sorteioBtn.disabled = emAndamento;
+  sorteioBtn.title = emAndamento ? 'Finalize a rodada atual (gere o JSON e clique em "Nova rodada") ou use o Reset geral para voltar ao Sorteio' : '';
 }
 
 document.querySelectorAll('#mainTabs .tab-btn').forEach(btn=>{
@@ -600,7 +605,7 @@ document.getElementById('drawTablesBtn').addEventListener('click', ()=>{
     const n = state.roundPlayers.length;
     const prizeApplied = applyPrizeTable(n);
     saveState();
-    updateRodadaTabLock();
+    updateTabLocks();
     renderRodadaTab();
     document.querySelector('#mainTabs .tab-btn[data-tab="rodada"]').click();
     const msg = `Rodada iniciada com ${n} jogador${n===1?'':'es'}.` + (prizeApplied
@@ -804,7 +809,7 @@ document.getElementById('generateJsonBtn').addEventListener('click', ()=>{
       : [...new Set(state.participants.filter(p=>!p.guest).map(p=>p.name))];
     state.participants = officialNames.map(name => ({ name, guest:false, present:false }));
     saveState();
-    updateRodadaTabLock();
+    updateTabLocks();
     document.getElementById('jsonExportArea').style.display = 'none';
     document.getElementById('drawOutput').innerHTML = '';
     renderParticipants();
@@ -830,10 +835,13 @@ document.getElementById('resetAllBtn').addEventListener('click', ()=>{
 });
 
 document.getElementById('versionNote').textContent = `Ferramenta v${PAGE_VERSION}`;
-updateRodadaTabLock();
+updateTabLocks();
 renderParticipants();
 loadPublishedPlayers();
 document.getElementById('maxPerTable').value = state.maxPerTable || 9;
+if(state.roundPlayers.length > 0){
+  document.querySelector('#mainTabs .tab-btn[data-tab="rodada"]').click();
+}
 renderRodadaTab();
 </script>
 </body>
