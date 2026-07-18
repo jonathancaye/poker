@@ -167,6 +167,17 @@
     font-family:'Space Mono',monospace; font-size:10.5px; color:var(--text-muted); opacity:0.7;
   }
 
+  .reset-all-btn{
+    position:absolute; top:20px; right:20px; z-index:5;
+    font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.03em;
+    background:var(--surface-2); border:1px solid var(--red); color:var(--red);
+    border-radius:999px; padding:7px 14px; cursor:pointer; opacity:0.75;
+  }
+  .reset-all-btn:hover{opacity:1; background:rgba(193,68,58,0.12);}
+  @media (max-width:640px){
+    .reset-all-btn{position:static; display:block; margin-top:12px; width:100%;}
+  }
+
   .toast{
     position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(20px);
     background:var(--surface-2); border:1px solid var(--gold); color:var(--text);
@@ -182,6 +193,7 @@
   <header class="top">
     <div class="suit s1">♠</div>
     <div class="suit s2">♦</div>
+    <button class="reset-all-btn" id="resetAllBtn" type="button" title="Apaga todos os dados desta ferramenta neste navegador">⟲ Reset geral</button>
     <p class="eyebrow">Temporada 2026 — Ferramenta do organizador</p>
     <h1>Sorteio de mesas &amp; Lançamento da rodada</h1>
     <p class="sub">Cadastre os jogadores do dia, sorteie as mesas e registre as eliminações ao vivo. No final, gere o arquivo para importar no painel do campeonato.</p>
@@ -295,7 +307,7 @@
 
 <script>
 /* ---------- Versão deste arquivo (atualizar manualmente a cada upload) ---------- */
-const PAGE_VERSION = '2026.07.16-1';
+const PAGE_VERSION = '2026.07.17-1';
 
 /* ---------- Dados ---------- */
 const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
@@ -806,6 +818,17 @@ document.getElementById('generateJsonBtn').addEventListener('click', ()=>{
 });
 
 /* ---------- Init ---------- */
+document.getElementById('resetAllBtn').addEventListener('click', ()=>{
+  const primeiraConfirmacao = confirm(
+    'Isso vai apagar TODOS os dados desta ferramenta neste navegador: jogadores cadastrados, sorteio, rodada em andamento e eliminações. Não pode ser desfeito.\n\nDeseja continuar?'
+  );
+  if(!primeiraConfirmacao) return;
+  const segundaConfirmacao = confirm('Tem certeza mesmo? Essa ação é definitiva.');
+  if(!segundaConfirmacao) return;
+  localStorage.removeItem(STORAGE_KEY);
+  window.location.href = window.location.pathname + '?_=' + Date.now();
+});
+
 document.getElementById('versionNote').textContent = `Ferramenta v${PAGE_VERSION}`;
 updateRodadaTabLock();
 renderParticipants();
