@@ -233,13 +233,13 @@
       ]
     },
     {
-      "id": "r17855039471310785",
+      "id": "r17855461219207792",
       "roundNumber": 5,
       "buyIn": 100,
       "prizes": [
         600,
+        350,
         250,
-        0,
         0
       ],
       "standings": [
@@ -248,12 +248,20 @@
           "guest": false
         },
         {
+          "name": "XANDO",
+          "guest": true
+        },
+        {
           "name": "RAFAEL GAUCHE",
           "guest": false
         },
         {
           "name": "GABRIEL CANTARELLI",
           "guest": false
+        },
+        {
+          "name": "FOGUINHO",
+          "guest": true
         },
         {
           "name": "NILSON TOMELI",
@@ -333,5 +341,5 @@
     "22": "2026-11-26"
   },
   "topPositions": 4,
-  "publishedAt": "2026-07-31T13:20:25.747Z"
+  "publishedAt": "2026-08-01T01:02:42.730Z"
 }
