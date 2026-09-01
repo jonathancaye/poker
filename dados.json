@@ -467,6 +467,71 @@
           "guest": true
         }
       ]
+    },
+    {
+      "id": "r1788230167124f22e",
+      "roundNumber": 9,
+      "buyIn": 100,
+      "prizes": [
+        650,
+        400,
+        250,
+        0
+      ],
+      "standings": [
+        {
+          "name": "LEANDRO ANGELO",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "RAFA LIPPMANN",
+          "guest": true
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "JEFERSON MONTAGNA",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        }
+      ]
     }
   ],
   "players": [
@@ -516,5 +581,5 @@
     "22": "2026-11-26"
   },
   "topPositions": 4,
-  "publishedAt": "2026-08-21T17:13:33.320Z"
+  "publishedAt": "2026-09-01T02:42:32.126Z"
 }
