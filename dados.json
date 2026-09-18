@@ -666,6 +666,75 @@
           "guest": true
         }
       ]
+    },
+    {
+      "id": "r1789755067765b3eb",
+      "roundNumber": 12,
+      "buyIn": 100,
+      "prizes": [
+        650,
+        400,
+        250,
+        100
+      ],
+      "standings": [
+        {
+          "name": "RAFINHA",
+          "guest": true
+        },
+        {
+          "name": "FOGUINHO",
+          "guest": true
+        },
+        {
+          "name": "JULIANO BORGES",
+          "guest": false
+        },
+        {
+          "name": "JEFERSON MONTAGNA",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "VANDI",
+          "guest": true
+        },
+        {
+          "name": "LEANDRO ANGELO",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        }
+      ]
     }
   ],
   "players": [
@@ -715,5 +784,5 @@
     "22": "2026-11-26"
   },
   "topPositions": 4,
-  "publishedAt": "2026-09-11T13:16:18.779Z"
+  "publishedAt": "2026-09-18T18:11:59.374Z"
 }
