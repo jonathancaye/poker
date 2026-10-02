@@ -804,6 +804,87 @@
           "guest": true
         }
       ]
+    },
+    {
+      "id": "r17909582981393045",
+      "roundNumber": 14,
+      "buyIn": 100,
+      "prizes": [
+        800,
+        450,
+        350,
+        100
+      ],
+      "standings": [
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "JEFERSON MONTAGNA",
+          "guest": false
+        },
+        {
+          "name": "JEAN HOFFMANN",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "DAVID PEREIRA",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "LEANDRO ANGELO",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "JULIANO BORGES",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI DE SOUZA",
+          "guest": false
+        },
+        {
+          "name": "FABRICIO AVI",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "JEAN PIERRE",
+          "guest": false
+        }
+      ]
     }
   ],
   "players": [
@@ -825,7 +906,10 @@
     "JEAN PIERRE",
     "JULIANO BORGES",
     "MARCIONEI DA CUNHA",
-    "RAFAEL GAUCHE"
+    "RAFAEL GAUCHE",
+    "ODILON JUNIOR",
+    "VANDERLEI DE SOUZA",
+    "DAVID PEREIRA"
   ],
   "totalRounds": 22,
   "roundDates": {
@@ -853,5 +937,5 @@
     "22": "2026-11-26"
   },
   "topPositions": 4,
-  "publishedAt": "2026-09-25T11:45:39.919Z"
+  "publishedAt": "2026-10-02T16:25:42.750Z"
 }
