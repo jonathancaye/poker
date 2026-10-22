@@ -275,7 +275,7 @@
 
 <script>
 /* ---------- Versão deste arquivo (atualizar manualmente a cada upload) ---------- */
-const PAGE_VERSION = '2026.10.21-2';
+const PAGE_VERSION = '2026.10.21-3';
 
 /* ---------- Dados e regras de pontuação (idêntico ao painel de administração) ---------- */
 const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
@@ -545,7 +545,7 @@ function renderRoundsList(){
     return `<div class="round-card">
         <div class="round-head">
           <h3>Rodada ${r.roundNumber}</h3>
-          <span class="meta">${r.standings.length} jogadores · buy-in ${fmtMoney(r.buyIn)}</span>
+          <span class="meta">${r.totalPlayers || r.standings.length} jogadores · buy-in ${fmtMoney(r.buyIn)}</span>
         </div>
         <div class="prizes">Premiação: 1º ${fmtMoney(r.prizes[0])} · 2º ${fmtMoney(r.prizes[1])} · 3º ${fmtMoney(r.prizes[2])} · 4º ${fmtMoney(r.prizes[3])}</div>
         ${(data.roundOrganizers||{})[r.roundNumber] ? `<div class="org-line">Organização: ${escapeHtml(data.roundOrganizers[r.roundNumber])}</div>` : ''}
@@ -635,7 +635,15 @@ async function loadPublishedData(){
     return;
   }
   if(!currentData.season) currentData.season = {...DEFAULT_SEASON};
-  const archived = currentData.archive
+  // temporadas antigas: lista do dados.json (encerradas pelo Lançador) + temporadas.json (mantida no GitHub)
+  let extra = [];
+  try{
+    const idx = await fetchJson('temporadas.json');
+    extra = Array.isArray(idx.seasons) ? idx.seasons : [];
+  }catch(e){ /* arquivo opcional */ }
+  const seen = new Set();
+  const archived = [...currentData.archive, ...extra]
+    .filter(a => a && a.id && !seen.has(String(a.id)) && seen.add(String(a.id)))
     .filter(a => a && a.id && a.id !== currentData.season.id)
     .map(a => ({ id:String(a.id), label:a.label || `Temporada ${String(a.id).replace('-','/')}`, file:a.file || `temporada-${a.id}.json`, current:false }))
     .sort((a,b)=> b.id.localeCompare(a.id));
