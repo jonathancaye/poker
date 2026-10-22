@@ -1,0 +1,1417 @@
+{
+  "season": {
+    "id": "2025-2",
+    "label": "Temporada 2025/2"
+  },
+  "final": true,
+  "rounds": [
+    {
+      "id": "s20252r1",
+      "roundNumber": 1,
+      "buyIn": 100,
+      "prizes": [
+        700,
+        400,
+        300,
+        100
+      ],
+      "standings": [
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "FABRICIO AVI",
+          "guest": false
+        },
+        {
+          "name": "MAICON FAGNER SOUZA",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 15
+    },
+    {
+      "id": "s20252r2",
+      "roundNumber": 2,
+      "buyIn": 100,
+      "prizes": [
+        470,
+        470,
+        260,
+        100
+      ],
+      "standings": [
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "MAICON FAGNER SOUZA",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 13
+    },
+    {
+      "id": "s20252r3",
+      "roundNumber": 3,
+      "buyIn": 100,
+      "prizes": [
+        500,
+        350,
+        200,
+        100
+      ],
+      "standings": [
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "MAICON FAGNER SOUZA",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "FABRICIO AVI",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 12
+    },
+    {
+      "id": "s20252r4",
+      "roundNumber": 4,
+      "buyIn": 100,
+      "prizes": [
+        600,
+        360,
+        240,
+        0
+      ],
+      "standings": [
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "MAICON FAGNER SOUZA",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 12
+    },
+    {
+      "id": "s20252r5",
+      "roundNumber": 5,
+      "buyIn": 100,
+      "prizes": [
+        500,
+        350,
+        250,
+        100
+      ],
+      "standings": [
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "FABRICIO AVI",
+          "guest": false
+        },
+        {
+          "name": "MAICON FAGNER SOUZA",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 12
+    },
+    {
+      "id": "s20252r6",
+      "roundNumber": 6,
+      "buyIn": 100,
+      "prizes": [
+        600,
+        400,
+        300,
+        150
+      ],
+      "standings": [
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "MAICON FAGNER SOUZA",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 15
+    },
+    {
+      "id": "s20252r7",
+      "roundNumber": 7,
+      "buyIn": 100,
+      "prizes": [
+        600,
+        350,
+        250,
+        100
+      ],
+      "standings": [
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "MAICON FAGNER SOUZA",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FABRICIO AVI",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 13
+    },
+    {
+      "id": "s20252r8",
+      "roundNumber": 8,
+      "buyIn": 100,
+      "prizes": [
+        500,
+        300,
+        200,
+        50
+      ],
+      "standings": [
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "MAICON FAGNER SOUZA",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 11
+    },
+    {
+      "id": "s20252r9",
+      "roundNumber": 9,
+      "buyIn": 100,
+      "prizes": [
+        600,
+        420,
+        280,
+        100
+      ],
+      "standings": [
+        {
+          "name": "MAICON FAGNER SOUZA",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "FABRICIO AVI",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 14
+    },
+    {
+      "id": "s20252r10",
+      "roundNumber": 10,
+      "buyIn": 100,
+      "prizes": [
+        400,
+        400,
+        200,
+        100
+      ],
+      "standings": [
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "CONVIDADO",
+          "guest": true
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "MAICON FAGNER SOUZA",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 11
+    },
+    {
+      "id": "s20252r11",
+      "roundNumber": 11,
+      "buyIn": 100,
+      "prizes": [
+        700,
+        700,
+        150,
+        0
+      ],
+      "standings": [
+        {
+          "name": "MAICON FAGNER SOUZA",
+          "guest": false
+        },
+        {
+          "name": "CONVIDADO",
+          "guest": true
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FABRICIO AVI",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 16
+    },
+    {
+      "id": "s20252r12",
+      "roundNumber": 12,
+      "buyIn": 100,
+      "prizes": [
+        450,
+        300,
+        200,
+        50
+      ],
+      "standings": [
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "MAICON FAGNER SOUZA",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 10
+    },
+    {
+      "id": "s20252r13",
+      "roundNumber": 13,
+      "buyIn": 100,
+      "prizes": [
+        550,
+        400,
+        200,
+        100
+      ],
+      "standings": [
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "CONVIDADO",
+          "guest": true
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "FABRICIO AVI",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 13
+    },
+    {
+      "id": "s20252r14",
+      "roundNumber": 14,
+      "buyIn": 100,
+      "prizes": [
+        600,
+        500,
+        300,
+        100
+      ],
+      "standings": [
+        {
+          "name": "CONVIDADO",
+          "guest": true
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FABRICIO AVI",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 15
+    },
+    {
+      "id": "s20252r15",
+      "roundNumber": 15,
+      "buyIn": 100,
+      "prizes": [
+        450,
+        450,
+        250,
+        100
+      ],
+      "standings": [
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "CONVIDADO",
+          "guest": true
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 13
+    },
+    {
+      "id": "s20252r16",
+      "roundNumber": 16,
+      "buyIn": 100,
+      "prizes": [
+        450,
+        400,
+        250,
+        100
+      ],
+      "standings": [
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "CONVIDADO",
+          "guest": true
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 12
+    },
+    {
+      "id": "s20252r17",
+      "roundNumber": 17,
+      "buyIn": 100,
+      "prizes": [
+        400,
+        400,
+        200,
+        100
+      ],
+      "standings": [
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "CONVIDADO",
+          "guest": true
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "JEFERSON MONTAGNA",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 11
+    },
+    {
+      "id": "s20252r18",
+      "roundNumber": 18,
+      "buyIn": 100,
+      "prizes": [
+        600,
+        420,
+        280,
+        100
+      ],
+      "standings": [
+        {
+          "name": "CONVIDADO",
+          "guest": true
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "FABRICIO AVI",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "MAICON FAGNER SOUZA",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 14
+    },
+    {
+      "id": "s20252r19",
+      "roundNumber": 19,
+      "buyIn": 100,
+      "prizes": [
+        550,
+        550,
+        300,
+        100
+      ],
+      "standings": [
+        {
+          "name": "FABRICIO AVI",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "MAICON FAGNER SOUZA",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 15
+    },
+    {
+      "id": "s20252r20",
+      "roundNumber": 20,
+      "buyIn": 100,
+      "prizes": [
+        475,
+        475,
+        250,
+        100
+      ],
+      "standings": [
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "FABRICIO AVI",
+          "guest": false
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "JEFERSON MONTAGNA",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 13
+    },
+    {
+      "id": "s20252r21",
+      "roundNumber": 21,
+      "buyIn": 100,
+      "prizes": [
+        525,
+        315,
+        210,
+        50
+      ],
+      "standings": [
+        {
+          "name": "FABRICIO AVI",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "JEFERSON MONTAGNA",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 11
+    },
+    {
+      "id": "s20252r22",
+      "roundNumber": 22,
+      "buyIn": 100,
+      "prizes": [
+        500,
+        300,
+        200,
+        100
+      ],
+      "standings": [
+        {
+          "name": "NILTON CARLOS FIDELIS",
+          "guest": false
+        },
+        {
+          "name": "MAICON FAGNER SOUZA",
+          "guest": false
+        },
+        {
+          "name": "FABRICIO AVI",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "JEFERSON MONTAGNA",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 11
+    }
+  ],
+  "players": [
+    "AMANDIO JUNIOR",
+    "CARLOS PRUST JUNIOR",
+    "CLEITO TELES",
+    "EDWARD LOPES",
+    "ETTI HILLER",
+    "FABIANO MACHADO",
+    "FABRICIO AVI",
+    "FERNANDO MUPPET",
+    "GABRIEL CANTARELLI",
+    "JEFERSON MONTAGNA",
+    "MAICON FAGNER SOUZA",
+    "MARCIONEI DA CUNHA",
+    "NILSON TOMELIN",
+    "NILTON CARLOS FIDELIS",
+    "VANDERLEI RAZINI",
+    "VINICIUS TOMELIN"
+  ],
+  "totalRounds": 22,
+  "topPositions": 4,
+  "roundDates": {
+    "1": "2025-07-03",
+    "2": "2025-07-10",
+    "3": "2025-07-17",
+    "4": "2025-07-24",
+    "5": "2025-07-31",
+    "6": "2025-08-07",
+    "7": "2025-08-14",
+    "8": "2025-08-21",
+    "9": "2025-08-28",
+    "10": "2025-09-04",
+    "11": "2025-09-11",
+    "12": "2025-09-18",
+    "13": "2025-09-25",
+    "14": "2025-10-02",
+    "15": "2025-10-09",
+    "16": "2025-10-16",
+    "17": "2025-10-23",
+    "18": "2025-10-30",
+    "19": "2025-11-06",
+    "20": "2025-11-13",
+    "21": "2025-11-20",
+    "22": "2025-11-27"
+  },
+  "roundOrganizers": {},
+  "source": "Importada do Excel (POKER_2025-2_v1.51.xlsm + PDF POKER_2025-2_22)",
+  "publishedAt": "2026-10-22T02:30:00.000Z",
+  "closedAt": "2026-10-22T02:30:00.000Z"
+}

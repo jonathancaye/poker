@@ -1,5 +1,14 @@
 {
   "seasons": [
-    { "id": "2026-1", "label": "Temporada 2026/1", "file": "temporada-2026-1.json" }
+    {
+      "id": "2026-1",
+      "label": "Temporada 2026/1",
+      "file": "temporada-2026-1.json"
+    },
+    {
+      "id": "2025-2",
+      "label": "Temporada 2025/2",
+      "file": "temporada-2025-2.json"
+    }
   ]
 }
