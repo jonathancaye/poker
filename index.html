@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Pôker Clube 2026 — Ranking</title>
+<title>Diretoria Poker Clube — Ranking</title>
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
@@ -185,6 +185,21 @@
   @media (max-width:640px){ .evo-hint{display:block;} }
 
 
+  .season-picker{display:none; align-items:center; gap:8px; margin-top:14px; flex-wrap:wrap;}
+  .season-picker.show{display:flex;}
+  .season-picker label{font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--text-muted); margin:0;}
+  .season-picker select{
+    width:auto; background:var(--bg-deep); border:1px solid var(--border); color:var(--text);
+    border-radius:999px; padding:7px 14px; font-family:'Inter',sans-serif; font-size:13px; font-weight:600; outline:none; cursor:pointer;
+  }
+  .season-picker select:focus{border-color:var(--gold);}
+  .champion-banner{
+    display:flex; align-items:center; gap:12px; margin-bottom:16px; padding:14px 16px;
+    border:1px solid var(--gold); border-radius:var(--radius-sm); background:rgba(212,166,42,0.1);
+  }
+  .champion-banner .lbl{font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.08em; text-transform:uppercase; color:var(--gold-soft);}
+  .champion-banner .nm{font-family:'Fraunces',serif; font-size:19px; font-weight:700;}
+  .champion-banner .pt{font-family:'Space Mono',monospace; font-size:12px; color:var(--text-muted);}
   .hard-refresh-btn{
     position:absolute; top:20px; right:20px; z-index:5;
     font-family:'Space Mono',monospace; font-size:11px; font-weight:700; letter-spacing:.03em;
@@ -203,9 +218,13 @@
   <header class="top">
     <div class="suit s1">♠</div>
     <div class="suit s2">♦</div>
-    <p class="eyebrow">Temporada 2026</p>
+    <p class="eyebrow" id="seasonEyebrow">&nbsp;</p>
     <h1>Diretoria Poker Clube</h1>
     <p class="sub">Ranking, pontos e profit calculados a partir da última rodada publicada.</p>
+    <div class="season-picker" id="seasonPicker">
+      <label for="seasonSelect">Temporada</label>
+      <select id="seasonSelect"></select>
+    </div>
     <button class="hard-refresh-btn" id="hardRefreshBtn" type="button" title="Forçar atualização (ignora cache do navegador)">↻ Atualizar</button>
   </header>
 
@@ -256,13 +275,21 @@
 
 <script>
 /* ---------- Versão deste arquivo (atualizar manualmente a cada upload) ---------- */
-const PAGE_VERSION = '2026.10.21-1';
+const PAGE_VERSION = '2026.10.21-2';
 
 /* ---------- Dados e regras de pontuação (idêntico ao painel de administração) ---------- */
 const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
 function pointsForPosition(pos){ return pos <= 10 ? POS_POINTS[pos-1] : 1; }
 
 let data = { rounds: [], players: [], totalRounds: 22, topPositions: 4, roundDates: {}, roundOrganizers: {} };
+
+/* ---------- Temporadas ----------
+   dados.json = temporada em andamento (campo season + lista archive das encerradas).
+   Cada temporada encerrada fica no seu próprio arquivo (ex.: temporada-2026-2.json). */
+const DEFAULT_SEASON = { id:'2026-2', label:'Temporada 2026/2' };
+let currentData = null;   // conteúdo do dados.json
+let seasons = [];         // [{id, label, file, current}]
+let viewFinal = false;    // temporada exibida está encerrada?
 
 function fmtMoney(v){ return (v||0).toLocaleString('pt-BR', {style:'currency', currency:'BRL'}); }
 function fmtPercent(v){ return (v>=0?'+':'') + v.toFixed(1) + '%'; }
@@ -337,7 +364,9 @@ function renderTimeline(){
   track.innerHTML = ticks;
   const nextEl = document.getElementById('timelineNext');
   const nextRoundNum = played + 1;
-  if(played >= total){
+  if(viewFinal){
+    nextEl.textContent = 'Temporada encerrada.';
+  } else if(played >= total){
     nextEl.textContent = 'Temporada concluída.';
   } else {
     nextEl.textContent = nextRoundText(nextRoundNum);
@@ -391,10 +420,10 @@ function renderGeral(){
       const ceiling = s.points + 26*roundsRemaining;
       alive = ceiling >= floor;
     }
-    const chanceHtml = alive
+    const chanceHtml = viewFinal ? '' : alive
       ? `<span class="status-pill alive" title="Ainda com chance matemática de Top ${topN}">Na disputa</span>`
       : `<span class="status-pill eliminated" title="Eliminado matematicamente do Top ${topN}">Eliminado</span>`;
-    const rowClass = alive ? '' : ' class="eliminated-row"';
+    const rowClass = (alive || viewFinal) ? '' : ' class="eliminated-row"';
     return `<tr${rowClass}>
       <td class="player-cell">${chipBadge(pos)}<span>${escapeHtml(s.name)}</span><span class="inline-pts">${s.points} pts</span><span class="toggle-arrow">▾</span></td>
       <td class="num" data-label="Pts">${s.points}</td>
@@ -402,13 +431,19 @@ function renderGeral(){
       <td class="num" data-label="Buy-in total">${fmtMoney(s.buyInTotal)}</td>
       <td class="num" data-label="Prêmio total">${fmtMoney(s.prizeTotal)}</td>
       <td class="num ${profitClass(s.profit)}" data-label="Profit">${fmtPercent(s.profit)}</td>
-      <td class="chance-cell" data-label="Top ${topN}">${chanceHtml}</td>
+      ${viewFinal ? '' : `<td class="chance-cell" data-label="Top ${topN}">${chanceHtml}</td>`}
     </tr>`;
   }).join('');
-  el.innerHTML = `<table class="rank-table"><thead><tr>
+  const champ = stats[0];
+  const championHtml = viewFinal ? `<div class="champion-banner">${chipBadge(1)}<div>
+      <div class="lbl">Campeão da ${escapeHtml(seasonLabelOf(data))}</div>
+      <div class="nm">${escapeHtml(champ.name)}</div>
+      <div class="pt">${champ.points} pts · ${champ.firsts} vitória${champ.firsts===1?'':'s'} em ${champ.roundsPlayed} rodada${champ.roundsPlayed===1?'':'s'}</div>
+    </div></div>` : '';
+  el.innerHTML = `${championHtml}<table class="rank-table"><thead><tr>
       <th>Jogador</th><th class="num">Pts</th><th class="num">Rodadas</th>
       <th class="num">Buy-in total</th><th class="num">Prêmio total</th><th class="num">Profit</th>
-      <th style="text-align:center;">Top ${topN}</th>
+      ${viewFinal ? '' : `<th style="text-align:center;">Top ${topN}</th>`}
     </tr></thead><tbody>${rows}</tbody></table>`;
 
   el.querySelectorAll('table.rank-table tbody tr').forEach(tr=>{
@@ -520,30 +555,101 @@ function renderRoundsList(){
 }
 
 /* ---------- Carregamento dos dados publicados ---------- */
+function normalizeData(p){
+  if(!Array.isArray(p.rounds)) throw new Error('formato inválido');
+  if(!Array.isArray(p.players)) p.players = [];
+  if(typeof p.totalRounds !== 'number' || p.totalRounds < 1) p.totalRounds = 22;
+  if(typeof p.topPositions !== 'number' || p.topPositions < 1) p.topPositions = 4;
+  if(!p.roundDates || typeof p.roundDates !== 'object') p.roundDates = {};
+  if(!p.roundOrganizers || typeof p.roundOrganizers !== 'object') p.roundOrganizers = {};
+  if(!Array.isArray(p.archive)) p.archive = [];
+  return p;
+}
+function seasonLabelOf(d){ return (d.season && d.season.label) || DEFAULT_SEASON.label; }
+
+async function fetchJson(file){
+  const res = await fetch(file + '?t=' + Date.now(), {cache:'no-store'});
+  if(!res.ok) throw new Error('arquivo não encontrado: ' + file);
+  return res.json();
+}
+
+function renderSeasonPicker(activeId){
+  const picker = document.getElementById('seasonPicker');
+  const sel = document.getElementById('seasonSelect');
+  sel.innerHTML = seasons.map(s =>
+    `<option value="${escapeHtml(s.id)}" ${s.id===activeId?'selected':''}>${escapeHtml(s.label)}${s.current?' (atual)':''}</option>`
+  ).join('');
+  picker.classList.toggle('show', seasons.length > 1);
+}
+
+function activeViewTab(){
+  const b = document.querySelector('#viewTabs .tab-btn.active');
+  return b ? b.dataset.tab : 'geral';
+}
+
+async function showSeason(id){
+  const s = seasons.find(x=>x.id===id) || seasons[0];
+  let loadError = null;
+  if(s.current){
+    data = currentData;
+    viewFinal = !!currentData.final;
+  } else {
+    try{
+      data = normalizeData(await fetchJson(s.file));
+    }catch(e){
+      data = normalizeData({ rounds: [] });
+      loadError = s.file;
+    }
+    if(!data.season) data.season = { id:s.id, label:s.label };
+    viewFinal = true;
+  }
+  document.getElementById('seasonEyebrow').textContent = s.label;
+  document.title = `${s.label} — Diretoria Poker Clube`;
+  renderSeasonPicker(s.id);
+
+  // mantém a temporada escolhida no endereço (link direto); a atual fica sem parâmetro
+  const url = new URL(window.location.href);
+  url.searchParams.delete('_');
+  if(s.current) url.searchParams.delete('temporada'); else url.searchParams.set('temporada', s.id);
+  try{ history.replaceState(null, '', url.pathname + url.search); }catch(e){}
+
+  renderTimeline();
+  if(loadError){
+    const msg = emptyState('Não foi possível carregar esta temporada', `O arquivo ${escapeHtml(loadError)} não foi encontrado no site.`);
+    ['geralContent','evolucaoContent','historicoContent'].forEach(idEl => document.getElementById(idEl).innerHTML = msg);
+    return;
+  }
+  renderForTab(activeViewTab());
+}
+
 async function loadPublishedData(){
   try{
-    const res = await fetch('dados.json?t=' + Date.now(), {cache:'no-store'});
-    if(!res.ok) throw new Error('sem dados.json');
-    const parsed = await res.json();
-    if(!Array.isArray(parsed.rounds)) throw new Error('formato inválido');
-    data = parsed;
-    if(!Array.isArray(data.players)) data.players = [];
-    if(typeof data.totalRounds !== 'number' || data.totalRounds < 1) data.totalRounds = 22;
-    if(typeof data.topPositions !== 'number' || data.topPositions < 1) data.topPositions = 4;
-    if(!data.roundDates || typeof data.roundDates !== 'object') data.roundDates = {};
-    if(!data.roundOrganizers || typeof data.roundOrganizers !== 'object') data.roundOrganizers = {};
+    currentData = normalizeData(await fetchJson('dados.json'));
   }catch(e){
+    document.getElementById('seasonEyebrow').textContent = DEFAULT_SEASON.label;
     document.getElementById('geralContent').innerHTML = emptyState(
       'Nenhum dado publicado ainda',
       'Assim que o organizador publicar a primeira rodada (arquivo dados.json), o ranking aparece aqui.'
     );
+    renderTimeline();
+    return;
   }
-  renderTimeline();
-  renderGeral();
+  if(!currentData.season) currentData.season = {...DEFAULT_SEASON};
+  const archived = currentData.archive
+    .filter(a => a && a.id && a.id !== currentData.season.id)
+    .map(a => ({ id:String(a.id), label:a.label || `Temporada ${String(a.id).replace('-','/')}`, file:a.file || `temporada-${a.id}.json`, current:false }))
+    .sort((a,b)=> b.id.localeCompare(a.id));
+  seasons = [{ id:currentData.season.id, label:currentData.season.label, file:'dados.json', current:true }, ...archived];
+
+  const wanted = new URLSearchParams(window.location.search).get('temporada');
+  await showSeason(wanted && seasons.some(x=>x.id===wanted) ? wanted : currentData.season.id);
 }
 
+document.getElementById('seasonSelect').addEventListener('change', e=> showSeason(e.target.value));
+
 document.getElementById('hardRefreshBtn').addEventListener('click', ()=>{
-  window.location.href = window.location.pathname + '?_=' + Date.now();
+  const t = new URLSearchParams(window.location.search).get('temporada');
+  window.location.href = window.location.pathname + '?' + (t ? 'temporada=' + encodeURIComponent(t) + '&' : '') + '_=' + Date.now();
 });
 
 document.getElementById('versionNote').textContent = `Painel v${PAGE_VERSION}`;
