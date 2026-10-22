@@ -9,6 +9,11 @@
       "id": "2025-2",
       "label": "Temporada 2025/2",
       "file": "temporada-2025-2.json"
+    },
+    {
+      "id": "2025-1",
+      "label": "Temporada 2025/1",
+      "file": "temporada-2025-1.json"
     }
   ]
 }
