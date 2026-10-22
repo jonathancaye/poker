@@ -162,6 +162,7 @@
   .round-card ol{margin:0; padding-left:22px; font-size:13.5px; columns:2; column-gap:24px;}
   .round-card ol li{margin-bottom:3px;}
   @media (max-width:560px){ .round-card ol{columns:1;} }
+  .round-card .org-line{font-size:12.5px; color:var(--text-muted); margin:-4px 0 10px; font-family:'Space Mono',monospace;}
   .round-card .prizes{font-size:12.5px; color:var(--text-muted); margin:8px 0 10px; font-family:'Space Mono',monospace;}
   .guest-tag{
     display:inline-block; padding:2px 8px; border-radius:999px; font-family:'Space Mono',monospace; font-size:10px;
@@ -255,13 +256,13 @@
 
 <script>
 /* ---------- Versão deste arquivo (atualizar manualmente a cada upload) ---------- */
-const PAGE_VERSION = '2026.07.16-1';
+const PAGE_VERSION = '2026.10.21-1';
 
 /* ---------- Dados e regras de pontuação (idêntico ao painel de administração) ---------- */
 const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
 function pointsForPosition(pos){ return pos <= 10 ? POS_POINTS[pos-1] : 1; }
 
-let data = { rounds: [], players: [], totalRounds: 22, topPositions: 4, roundDates: {} };
+let data = { rounds: [], players: [], totalRounds: 22, topPositions: 4, roundDates: {}, roundOrganizers: {} };
 
 function fmtMoney(v){ return (v||0).toLocaleString('pt-BR', {style:'currency', currency:'BRL'}); }
 function fmtPercent(v){ return (v>=0?'+':'') + v.toFixed(1) + '%'; }
@@ -315,6 +316,14 @@ function formatDateBR(iso){
   return `${d}/${m}/${y}`;
 }
 
+function nextRoundText(n){
+  const date = data.roundDates[n];
+  const org = (data.roundOrganizers||{})[n];
+  let t = `Próxima rodada (${n}): ${date ? formatDateBR(date) : 'data a definir'}`;
+  if(org) t += ` · Organização: ${org}`;
+  return t;
+}
+
 function renderTimeline(){
   const total = data.totalRounds || 22;
   const played = data.rounds.length;
@@ -331,10 +340,7 @@ function renderTimeline(){
   if(played >= total){
     nextEl.textContent = 'Temporada concluída.';
   } else {
-    const nextDate = data.roundDates[nextRoundNum];
-    nextEl.textContent = nextDate
-      ? `Próxima rodada (${nextRoundNum}): ${formatDateBR(nextDate)}`
-      : `Próxima rodada (${nextRoundNum}): data a definir`;
+    nextEl.textContent = nextRoundText(nextRoundNum);
   }
 }
 
@@ -507,6 +513,7 @@ function renderRoundsList(){
           <span class="meta">${r.standings.length} jogadores · buy-in ${fmtMoney(r.buyIn)}</span>
         </div>
         <div class="prizes">Premiação: 1º ${fmtMoney(r.prizes[0])} · 2º ${fmtMoney(r.prizes[1])} · 3º ${fmtMoney(r.prizes[2])} · 4º ${fmtMoney(r.prizes[3])}</div>
+        ${(data.roundOrganizers||{})[r.roundNumber] ? `<div class="org-line">Organização: ${escapeHtml(data.roundOrganizers[r.roundNumber])}</div>` : ''}
         <ol>${items}</ol>
       </div>`;
   }).join('');
@@ -524,6 +531,7 @@ async function loadPublishedData(){
     if(typeof data.totalRounds !== 'number' || data.totalRounds < 1) data.totalRounds = 22;
     if(typeof data.topPositions !== 'number' || data.topPositions < 1) data.topPositions = 4;
     if(!data.roundDates || typeof data.roundDates !== 'object') data.roundDates = {};
+    if(!data.roundOrganizers || typeof data.roundOrganizers !== 'object') data.roundOrganizers = {};
   }catch(e){
     document.getElementById('geralContent').innerHTML = emptyState(
       'Nenhum dado publicado ainda',
