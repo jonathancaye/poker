@@ -1,0 +1,1375 @@
+{
+  "season": {
+    "id": "2021-2",
+    "label": "Temporada 2021/2"
+  },
+  "final": true,
+  "rounds": [
+    {
+      "id": "s20212r1",
+      "roundNumber": 1,
+      "buyIn": 100,
+      "prizes": [
+        650,
+        400,
+        350,
+        200
+      ],
+      "standings": [
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "EMERSON BORGOGNO",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "TIAGO ALVES",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "JAISON ROSSA",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL LIPPMANN",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 18
+    },
+    {
+      "id": "s20212r2",
+      "roundNumber": 2,
+      "buyIn": 70,
+      "prizes": [
+        380,
+        225,
+        155,
+        0
+      ],
+      "standings": [
+        {
+          "name": "MAICON DOLSAN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "EMERSON BORGOGNO",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 12
+    },
+    {
+      "id": "s20212r3",
+      "roundNumber": 3,
+      "buyIn": 70,
+      "prizes": [
+        300,
+        200,
+        130,
+        0
+      ],
+      "standings": [
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "JAISON ROSSA",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "TIAGO ALVES",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 10
+    },
+    {
+      "id": "s20212r4",
+      "roundNumber": 4,
+      "buyIn": 100,
+      "prizes": [
+        540,
+        370,
+        170,
+        0
+      ],
+      "standings": [
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "MAICON DOLSAN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "TIAGO ALVES",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 12
+    },
+    {
+      "id": "s20212r5",
+      "roundNumber": 5,
+      "buyIn": 70,
+      "prizes": [
+        350,
+        250,
+        150,
+        0
+      ],
+      "standings": [
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "MAICON DOLSAN",
+          "guest": false
+        },
+        {
+          "name": "EMERSON BORGOGNO",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "TIAGO ALVES",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 12
+    },
+    {
+      "id": "s20212r6",
+      "roundNumber": 6,
+      "buyIn": 70,
+      "prizes": [
+        400,
+        250,
+        170,
+        0
+      ],
+      "standings": [
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL LIPPMANN",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "TIAGO ALVES",
+          "guest": false
+        },
+        {
+          "name": "EMERSON BORGOGNO",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "MAICON DOLSAN",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 13
+    },
+    {
+      "id": "s20212r7",
+      "roundNumber": 7,
+      "buyIn": 70,
+      "prizes": [
+        300,
+        170,
+        100,
+        0
+      ],
+      "standings": [
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "JAISON ROSSA",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 9
+    },
+    {
+      "id": "s20212r8",
+      "roundNumber": 8,
+      "buyIn": 70,
+      "prizes": [
+        320,
+        210,
+        100,
+        0
+      ],
+      "standings": [
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "MAICON DOLSAN",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 10
+    },
+    {
+      "id": "s20212r9",
+      "roundNumber": 9,
+      "buyIn": 70,
+      "prizes": [
+        410,
+        240,
+        170,
+        0
+      ],
+      "standings": [
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL LIPPMANN",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "MAICON DOLSAN",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "TIAGO ALVES",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 13
+    },
+    {
+      "id": "s20212r10",
+      "roundNumber": 10,
+      "buyIn": 70,
+      "prizes": [
+        370,
+        230,
+        150,
+        0
+      ],
+      "standings": [
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "TIAGO ALVES",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL LIPPMANN",
+          "guest": false
+        },
+        {
+          "name": "MAICON DOLSAN",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 12
+    },
+    {
+      "id": "s20212r11",
+      "roundNumber": 11,
+      "buyIn": 70,
+      "prizes": [
+        380,
+        230,
+        150,
+        0
+      ],
+      "standings": [
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "JAISON ROSSA",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "TIAGO ALVES",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 12
+    },
+    {
+      "id": "s20212r12",
+      "roundNumber": 12,
+      "buyIn": 70,
+      "prizes": [
+        380,
+        220,
+        150,
+        0
+      ],
+      "standings": [
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "MAICON DOLSAN",
+          "guest": false
+        },
+        {
+          "name": "JAISON ROSSA",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "EMERSON BORGOGNO",
+          "guest": false
+        },
+        {
+          "name": "TIAGO ALVES",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 12
+    },
+    {
+      "id": "s20212r13",
+      "roundNumber": 13,
+      "buyIn": 70,
+      "prizes": [
+        380,
+        250,
+        170,
+        0
+      ],
+      "standings": [
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 13
+    },
+    {
+      "id": "s20212r14",
+      "roundNumber": 14,
+      "buyIn": 70,
+      "prizes": [
+        290,
+        170,
+        120,
+        0
+      ],
+      "standings": [
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 9
+    },
+    {
+      "id": "s20212r15",
+      "roundNumber": 15,
+      "buyIn": 70,
+      "prizes": [
+        440,
+        260,
+        180,
+        0
+      ],
+      "standings": [
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "JAISON ROSSA",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 14
+    },
+    {
+      "id": "s20212r16",
+      "roundNumber": 16,
+      "buyIn": 100,
+      "prizes": [
+        400,
+        240,
+        170,
+        0
+      ],
+      "standings": [
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 9
+    },
+    {
+      "id": "s20212r17",
+      "roundNumber": 17,
+      "buyIn": 70,
+      "prizes": [
+        360,
+        210,
+        155,
+        0
+      ],
+      "standings": [
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "TIAGO ALVES",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 12
+    },
+    {
+      "id": "s20212r18",
+      "roundNumber": 18,
+      "buyIn": 70,
+      "prizes": [
+        370,
+        240,
+        150,
+        0
+      ],
+      "standings": [
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "MAICON DOLSAN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "TIAGO ALVES",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 12
+    },
+    {
+      "id": "s20212r19",
+      "roundNumber": 19,
+      "buyIn": 100,
+      "prizes": [
+        580,
+        350,
+        230,
+        100
+      ],
+      "standings": [
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "EMERSON BORGOGNO",
+          "guest": false
+        },
+        {
+          "name": "TIAGO ALVES",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "JAISON ROSSA",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 14
+    },
+    {
+      "id": "s20212r20",
+      "roundNumber": 20,
+      "buyIn": 70,
+      "prizes": [
+        330,
+        190,
+        130,
+        0
+      ],
+      "standings": [
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 10
+    },
+    {
+      "id": "s20212r21",
+      "roundNumber": 21,
+      "buyIn": 70,
+      "prizes": [
+        390,
+        230,
+        150,
+        50
+      ],
+      "standings": [
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL LIPPMANN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 13
+    },
+    {
+      "id": "s20212r22",
+      "roundNumber": 22,
+      "buyIn": 70,
+      "prizes": [
+        450,
+        270,
+        180,
+        0
+      ],
+      "standings": [
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL LIPPMANN",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "TIAGO ALVES",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "JAISON ROSSA",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 14
+    },
+    {
+      "id": "s20212r23",
+      "roundNumber": 23,
+      "buyIn": 70,
+      "prizes": [
+        320,
+        200,
+        120,
+        0
+      ],
+      "standings": [
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL LIPPMANN",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "JAISON ROSSA",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 10
+    },
+    {
+      "id": "s20212r24",
+      "roundNumber": 24,
+      "buyIn": 100,
+      "prizes": [
+        300,
+        300,
+        200,
+        200
+      ],
+      "standings": [
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "FABIANO BORGONOVO",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "TIAGO ALVES",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 10
+    }
+  ],
+  "players": [
+    "CARLOS PRUST JUNIOR",
+    "CLEITO TELES",
+    "EDWARD LOPES",
+    "EMERSON BORGOGNO",
+    "ETTI HILLER",
+    "FABIANO BORGONOVO",
+    "FABIANO MACHADO",
+    "GABRIEL CANTARELLI",
+    "JAISON ROSSA",
+    "JONATHAN CAYE",
+    "MAICON DOLSAN",
+    "MARCIONEI DA CUNHA",
+    "NILSON TOMELIN",
+    "RAFAEL LIPPMANN",
+    "TIAGO ALVES",
+    "VINICIUS TOMELIN"
+  ],
+  "totalRounds": 24,
+  "topPositions": 3,
+  "roundDates": {
+    "1": "2021-07-08",
+    "2": "2021-07-15",
+    "3": "2021-07-22",
+    "4": "2021-07-29",
+    "5": "2021-08-05",
+    "6": "2021-08-12",
+    "7": "2021-08-19",
+    "8": "2021-08-26",
+    "9": "2021-09-02",
+    "10": "2021-09-09",
+    "11": "2021-09-16",
+    "12": "2021-09-23",
+    "13": "2021-09-30",
+    "14": "2021-10-07",
+    "15": "2021-10-14",
+    "16": "2021-10-21",
+    "17": "2021-10-28",
+    "18": "2021-11-04",
+    "19": "2021-11-11",
+    "20": "2021-11-18",
+    "21": "2021-11-25",
+    "22": "2021-12-02",
+    "23": "2021-12-09",
+    "24": "2021-12-16"
+  },
+  "roundOrganizers": {},
+  "source": "Importada do Excel (DIRETORIA_POKER_fechamento_2-2021.xlsm + PDF DIRETORIA_POKER_2021-12-15)",
+  "publishedAt": "2026-10-23T17:05:00.000Z",
+  "closedAt": "2026-10-23T17:05:00.000Z"
+}

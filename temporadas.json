@@ -44,6 +44,11 @@
       "id": "2022-1",
       "label": "Temporada 2022/1",
       "file": "temporada-2022-1.json"
+    },
+    {
+      "id": "2021-2",
+      "label": "Temporada 2021/2",
+      "file": "temporada-2021-2.json"
     }
   ]
 }
