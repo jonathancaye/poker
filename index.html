@@ -324,6 +324,82 @@
   .season-table tr.career td{background:var(--surface-2); font-weight:700;}
   .season-table td.champ{color:var(--gold-soft); font-weight:700;}
 
+  @media (max-width:640px){
+    .seg.views{display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); width:100%;}
+    .seg.views button{padding:8px 2px; font-size:11.5px;}
+  }
+  .rec-detail.mono{font-family:'Space Mono',monospace; font-size:11px;}
+  .rec-card.bad .rec-label{color:#E07A70;}
+  .rec-card.bad .rec-value .v{color:#E07A70;}
+
+  /* Confronto direto: jogador 1 = dourado, jogador 2 = azul */
+  .h2h-pick{display:grid; grid-template-columns:minmax(0,1fr) auto minmax(0,1fr); align-items:end; gap:10px; margin-bottom:18px;}
+  .h2h-side{display:flex; flex-direction:column; gap:6px; min-width:0;}
+  .h2h-side label{font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.04em;}
+  .h2h-side label.a{color:var(--gold-soft);} .h2h-side label.b{color:#8FB5E3; text-align:right;}
+  .h2h-side select{background:var(--bg-deep); color:var(--text); border-radius:var(--radius-sm); padding:10px 8px; min-height:44px;
+    font-family:'Inter',sans-serif; font-size:13.5px; font-weight:700; width:100%; min-width:0;}
+  .h2h-side select.a{border:1px solid var(--gold-soft);} .h2h-side select.b{border:1px solid #8FB5E3;}
+  .h2h-swap{width:44px; height:44px; border-radius:50%; border:1px solid var(--border); background:var(--surface-2); color:var(--text); font-size:16px; cursor:pointer;}
+  .h2h-swap:hover{border-color:var(--gold-soft);}
+  .h2h-cap{text-align:center; margin:0 0 6px; font-family:'Space Mono',monospace; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--text-muted);}
+  .h2h-score{display:flex; justify-content:center; align-items:baseline; gap:18px;}
+  .h2h-score .sa, .h2h-score .sb{font-family:'Space Mono',monospace; font-weight:700; font-size:52px; line-height:1;}
+  .h2h-score .sa{color:var(--gold-soft);} .h2h-score .sb{color:#8FB5E3;}
+  .h2h-score .x{font-family:'Fraunces',serif; font-size:22px; color:var(--text-muted);}
+  .h2h-sub{text-align:center; margin:8px 0 14px; color:#C9D6CF; font-size:13px;}
+  .h2h-bar{display:flex; height:12px; border-radius:6px; overflow:hidden; background:var(--bg-deep);}
+  .h2h-bar.thin{height:12px; border-radius:4px;}
+  .h2h-bar .a{background:var(--gold-soft);} .h2h-bar .b{background:#8FB5E3;}
+  .h2h-pcts{display:flex; justify-content:space-between; font-family:'Space Mono',monospace; font-size:12px; color:var(--text-muted); margin-top:5px;}
+  .h2h-note{text-align:center; margin:16px 0 4px; padding-top:12px; border-top:1px solid var(--border); font-size:12px; color:var(--text-muted);}
+  .h2h-row{display:grid; grid-template-columns:1fr minmax(110px,auto) 1fr; align-items:center; gap:10px; padding:9px 0; border-bottom:1px solid rgba(44,87,68,0.5);}
+  .h2h-row:last-child{border-bottom:none;}
+  .h2h-row .lb{text-align:center; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.05em; color:var(--text-muted); display:inline-flex; justify-content:center; align-items:center; gap:6px;}
+  .h2h-row .va, .h2h-row .vb{font-family:'Space Mono',monospace; font-size:15px; color:#C9D6CF;}
+  .h2h-row .va{text-align:right;}
+  .h2h-row .va.win{color:var(--gold-soft); font-weight:700;} .h2h-row .vb.win{color:#8FB5E3; font-weight:700;}
+  .h2h-srow{display:grid; grid-template-columns:44px 26px 1fr 26px; align-items:center; gap:8px; margin-bottom:8px;}
+  .h2h-srow .sl{font-family:'Space Mono',monospace; font-size:12px; color:#C9D6CF;}
+  .h2h-srow .na, .h2h-last .na{font-family:'Space Mono',monospace; font-size:12.5px; color:var(--gold-soft); text-align:right;}
+  .h2h-srow .nb, .h2h-last .nb{font-family:'Space Mono',monospace; font-size:12.5px; color:#8FB5E3;}
+  .h2h-srow .win, .h2h-last .win{font-weight:700;}
+  .h2h-srow .na:not(.win), .h2h-srow .nb:not(.win), .h2h-last .na:not(.win), .h2h-last .nb:not(.win){opacity:.7;}
+  .h2h-last{display:grid; grid-template-columns:1fr 34px 34px; align-items:center; gap:8px; padding:8px 10px; border-radius:var(--radius-sm); background:var(--bg-deep); margin-bottom:6px;}
+  .h2h-last .rt{font-family:'Space Mono',monospace; font-size:12px; color:var(--text-muted);}
+  .rival-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:14px;}
+  .rival-head{margin:0 0 8px; font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;}
+  .rival-head.good{color:var(--green-pos);} .rival-head.bad{color:#E07A70;}
+  .rival{display:grid; grid-template-columns:1fr auto auto; gap:10px; align-items:center; width:100%; text-align:left; cursor:pointer;
+    padding:10px 12px; margin-bottom:8px; border:1px solid var(--border); border-radius:var(--radius-sm); background:var(--bg-deep); color:var(--text); font-family:'Inter',sans-serif;}
+  .rival:hover{border-color:var(--gold-soft);}
+  .rival .rn{font-weight:600; font-size:13.5px;}
+  .rival .rs{font-family:'Space Mono',monospace; font-size:12px; color:var(--text-muted); white-space:nowrap;}
+  .rival .rp{font-family:'Space Mono',monospace; font-size:13px; font-weight:700;}
+  .rival.good .rp{color:var(--green-pos);} .rival.bad .rp{color:#E07A70;}
+  @media (max-width:640px){
+    .h2h-score .sa, .h2h-score .sb{font-size:40px;}
+    .h2h-pick{grid-template-columns:1fr; gap:6px;}
+    .h2h-swap{justify-self:center; width:40px; height:40px;}
+    .h2h-side label.b{text-align:left;}
+    .h2h-row .va, .h2h-row .vb{font-size:13.5px;}
+  }
+
+  /* Sequências */
+  .rec-grid.streaks{grid-template-columns:repeat(auto-fit, minmax(170px, 1fr));}
+  @media (max-width:640px){ .rec-grid.streaks{grid-template-columns:1fr 1fr;} }
+  .live-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:16px;}
+  .live-head{margin:0 0 8px; font-family:'Space Mono',monospace; font-size:10.5px; letter-spacing:.1em; text-transform:uppercase;}
+  .live-col.gold{--lc:var(--gold-soft);} .live-col.green{--lc:var(--green-pos);} .live-col.red{--lc:#E07A70;}
+  .live-col .live-head, .live-col .lv{color:var(--lc);}
+  .live-item{padding:10px 12px; border-radius:var(--radius-sm); background:var(--bg-deep); margin-bottom:8px; display:flex; flex-direction:column; gap:6px;}
+  .live-item .lt{display:flex; justify-content:space-between; gap:10px; align-items:center;}
+  .live-item .ln{font-weight:600; font-size:13px;}
+  .live-item .lv{font-family:'Space Mono',monospace; font-weight:700; font-size:13px;}
+  .live-item .lbar{height:5px; border-radius:3px; background:var(--surface-2);}
+  .live-item .lbar div{height:5px; border-radius:3px; background:var(--lc);}
+  .live-item .lnote{font-size:11px; color:var(--text-muted);}
+
   .lock-box{max-width:380px; margin:10px auto; text-align:center; padding:12px 0 6px;}
   .lock-icon{width:52px; height:52px; margin:0 auto 12px; border-radius:50%; display:flex; align-items:center; justify-content:center;
     background:var(--bg-deep); border:1px solid var(--gold); color:var(--gold-soft);}
@@ -418,7 +494,7 @@
 
 <script>
 /* ---------- Versão deste arquivo (atualizar manualmente a cada upload) ---------- */
-const PAGE_VERSION = '2026.10.23-1';
+const PAGE_VERSION = '2026.10.23-2';
 
 /* ---------- Dados e regras de pontuação (idêntico ao painel de administração) ---------- */
 const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
@@ -1180,6 +1256,242 @@ function positionChart(seasonList){
   return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Posição final por temporada — ${escapeHtml(desc)}">${g}${lines}${dots}</svg>`;
 }
 
+/* ---------- Linha do tempo de rodadas (base do Confronto e das Sequências) ---------- */
+function buildRoundLog(list){
+  const log = [];
+  list.forEach(({s, d})=>{
+    const short = shortSeason((d.season && d.season.label) || s.label);
+    [...d.rounds].sort((a,b)=>a.roundNumber-b.roundNumber).forEach(r=>{
+      const N = Math.max(Number(r.totalPlayers)||0, r.standings.length);
+      const res = {};
+      let mr = 0;
+      r.standings.forEach((e, idx)=>{
+        if(stIsGuest(e)) return;
+        mr += 1;
+        const name = stName(e);
+        if(UNKNOWN_PLAYER_RE.test(name)) return;
+        res[name] = { mr, raw: idx+1, N, prize: idx < 4 ? (Number((r.prizes||[])[idx])||0) : 0, buy: Number(r.buyIn)||0 };
+      });
+      log.push({ sid:s.id, season:short, n:r.roundNumber, res, final: !s.current || !!d.final });
+    });
+  });
+  return log;
+}
+function roundTag(x){ return `${x.season} R${x.n}`; }
+function spanTag(a, b){
+  if(!a) return '';
+  if(a === b) return roundTag(a);
+  return a.sid === b.sid ? `${a.season} R${a.n} → R${b.n}` : `${roundTag(a)} → ${roundTag(b)}`;
+}
+
+/* ---------- Confronto direto ---------- */
+const H2H_MIN_ROUNDS = 20;
+let h2hA = null, h2hB = null;
+
+function setH2H(a, b){
+  h2hA = a; h2hB = b;
+  statsPref('h2hA', a || '');
+  if(b) statsPref('h2hB', b);
+  renderStats();
+}
+function togetherRounds(log, a, b){ return log.filter(x=> x.res[a] && x.res[b]); }
+
+function renderH2H(agg, log){
+  const names = agg.players.map(p=>p.name).sort((a,b)=>a.localeCompare(b,'pt-BR'));
+  if(names.length < 2) return `<div class="card">${emptyState('Jogadores insuficientes', 'São necessários ao menos dois jogadores com rodadas publicadas.')}</div>`;
+  const valid = n => n && names.includes(n);
+  if(!valid(h2hA)){ const s = statsPref('h2hA'); h2hA = valid(s) ? s : (valid(statsPlayer) ? statsPlayer : topBy(agg.players,'wins')[0].name); }
+  if(!valid(h2hB) || h2hB === h2hA){
+    const s = statsPref('h2hB');
+    if(valid(s) && s !== h2hA) h2hB = s;
+    else {
+      // padrão: o adversário com quem mais jogou
+      const cnt = {};
+      log.forEach(x=>{ if(x.res[h2hA]) Object.keys(x.res).forEach(n=>{ if(n!==h2hA) cnt[n]=(cnt[n]||0)+1; }); });
+      h2hB = Object.keys(cnt).sort((a,b)=> cnt[b]-cnt[a] || a.localeCompare(b,'pt-BR'))[0] || names.find(n=>n!==h2hA);
+    }
+  }
+  const A = h2hA, B = h2hB;
+  const optsA = names.map(n=>`<option value="${escapeHtml(n)}"${n===A?' selected':''}>${escapeHtml(n)}</option>`).join('');
+  const optsB = names.filter(n=>n!==A).map(n=>`<option value="${escapeHtml(n)}"${n===B?' selected':''}>${escapeHtml(n)}</option>`).join('');
+  const pickers = `<div class="h2h-pick" id="h2hTop">
+      <div class="h2h-side"><label for="h2hSelA" class="a">Jogador 1</label><select id="h2hSelA" class="a">${optsA}</select></div>
+      <button type="button" class="h2h-swap" id="h2hSwap" aria-label="Inverter jogadores">⇄</button>
+      <div class="h2h-side"><label for="h2hSelB" class="b">Jogador 2</label><select id="h2hSelB" class="b">${optsB}</select></div>
+    </div>`;
+
+  const tog = togetherRounds(log, A, B);
+  let main, detail = '';
+  if(!tog.length){
+    main = emptyState('Nunca jogaram juntos', 'Esses dois ainda não estiveram na mesma rodada.');
+  } else {
+    const aAhead = tog.filter(x=> x.res[A].mr < x.res[B].mr).length, bAhead = tog.length - aAhead;
+    const aPct = Math.round(aAhead/tog.length*100);
+    const side = who => {
+      const xs = tog.map(x=>x.res[who]);
+      return {
+        wins: xs.filter(r=>r.mr===1).length, podiums: xs.filter(r=>r.mr<=3).length, itm: xs.filter(r=>r.prize>0).length,
+        aprov: xs.reduce((s,r)=> s + (r.N>1 ? (r.N-r.raw)/(r.N-1) : 0), 0)/xs.length,
+        profit: xs.reduce((s,r)=> s + r.prize - r.buy, 0)
+      };
+    };
+    const sa = side(A), sb = side(B);
+    const row = (label, va, vb, fa, fb) => `<div class="h2h-row">
+        <span class="va${va>vb?' win':''}">${fa}</span><span class="lb">${label}</span><span class="vb${vb>va?' win':''}">${fb}</span></div>`;
+    const rows = row('Vitórias', sa.wins, sb.wins, sa.wins, sb.wins)
+      + row('Pódios', sa.podiums, sb.podiums, sa.podiums, sb.podiums)
+      + row('Premiado', sa.itm, sb.itm, sa.itm, sb.itm)
+      + row(`Aproveitamento ${infoBtn(APROV_INFO, true)}`, Math.round(sa.aprov*100), Math.round(sb.aprov*100), fmtPct(sa.aprov), fmtPct(sb.aprov))
+      + row('Lucro', Math.round(sa.profit), Math.round(sb.profit), fmtSigned(sa.profit), fmtSigned(sb.profit));
+
+    const bySeason = [];
+    tog.forEach(x=>{
+      let s = bySeason.find(y=>y.season===x.season);
+      if(!s){ s = { season:x.season, a:0, b:0 }; bySeason.push(s); }
+      x.res[A].mr < x.res[B].mr ? s.a++ : s.b++;
+    });
+    const seasonsHtml = bySeason.map(s=>{
+      const t = s.a + s.b;
+      return `<div class="h2h-srow"><span class="sl">${escapeHtml(s.season)}</span><span class="na${s.a>s.b?' win':''}">${s.a}</span>
+        <div class="h2h-bar thin"><div class="a" style="width:${(s.a/t*100).toFixed(1)}%"></div><div class="b" style="width:${(s.b/t*100).toFixed(1)}%"></div></div>
+        <span class="nb${s.b>s.a?' win':''}">${s.b}</span></div>`;
+    }).join('');
+    const lastHtml = tog.slice(-5).reverse().map(x=>{
+      const ra = x.res[A].mr, rb = x.res[B].mr;
+      return `<div class="h2h-last"><span class="rt">${escapeHtml(roundTag(x))}</span>
+        <span class="na${ra<rb?' win':''}">${ra}º</span><span class="nb${rb<ra?' win':''}">${rb}º</span></div>`;
+    }).join('');
+
+    main = `<p class="h2h-cap">Quem terminou à frente</p>
+      <div class="h2h-score"><span class="sa">${aAhead}</span><span class="x">×</span><span class="sb">${bAhead}</span></div>
+      <p class="h2h-sub">em ${tog.length} rodada${tog.length===1?'':'s'} jogada${tog.length===1?'':'s'} juntos · desde a ${escapeHtml(tog[0].season)}</p>
+      <div class="h2h-bar"><div class="a" style="width:${aPct}%"></div><div class="b" style="width:${100-aPct}%"></div></div>
+      <div class="h2h-pcts"><span>${aPct}%</span><span>${100-aPct}%</span></div>
+      <p class="h2h-note">Só nas rodadas em que os dois jogaram</p>
+      <div class="h2h-rows">${rows}</div>`;
+    detail = `<div class="prof-row">
+      <div class="card prof-chart"><h3 class="sub-title" style="margin-bottom:12px;">Temporada a temporada</h3>${seasonsHtml}</div>
+      <div class="card prof-dist"><h3 class="sub-title" style="margin-bottom:12px;">Últimos ${Math.min(5, tog.length)} confrontos</h3>${lastHtml}
+        <p class="hint" style="margin:8px 0 0; font-size:11.5px;">Colocação de cada um entre os membros; em negrito quem terminou à frente.</p></div>
+    </div>`;
+  }
+
+  // fregueses e carrascos do jogador 1
+  const opp = {};
+  log.forEach(x=>{
+    const me = x.res[A];
+    if(!me) return;
+    Object.entries(x.res).forEach(([n, r])=>{
+      if(n === A) return;
+      const o = opp[n] || (opp[n] = { name:n, t:0, w:0 });
+      o.t += 1; if(me.mr < r.mr) o.w += 1;
+    });
+  });
+  const cands = Object.values(opp).filter(o=>o.t >= H2H_MIN_ROUNDS).map(o=>({ ...o, pct:o.w/o.t }));
+  const best = [...cands].sort((a,b)=> b.pct-a.pct || b.t-a.t).slice(0,3);
+  const worst = [...cands].sort((a,b)=> a.pct-b.pct || b.t-a.t).filter(o=>!best.includes(o)).slice(0,3);
+  const rivalList = (arr, cls) => arr.length ? arr.map(o=>`<button type="button" class="rival ${cls}" data-rival="${escapeHtml(o.name)}">
+      <span class="rn">${escapeHtml(o.name)}</span><span class="rs">${o.w} × ${o.t-o.w}</span><span class="rp">${fmtPct(o.pct)}</span></button>`).join('')
+    : `<p class="hint" style="margin:0;">Ninguém com ${H2H_MIN_ROUNDS} rodadas ou mais junto.</p>`;
+  const rivals = `<div class="card" style="margin-top:16px;">
+      <h3 class="sub-title">Fregueses e carrascos de ${escapeHtml(A)}</h3>
+      <p class="hint">Contra quem ele mais termina à frente e contra quem mais fica atrás · mínimo de ${H2H_MIN_ROUNDS} rodadas juntos. Toque num nome para abrir o confronto.</p>
+      <div class="rival-grid">
+        <div><p class="rival-head good">Vai melhor contra</p>${rivalList(best, 'good')}</div>
+        <div><p class="rival-head bad">Vai pior contra</p>${rivalList(worst, 'bad')}</div>
+      </div>
+    </div>`;
+
+  return `<div class="card">${pickers}${main}</div>${detail}${rivals}`;
+}
+
+/* ---------- Sequências ---------- */
+const STREAK_KINDS = [
+  { key:'presenca', label:'Presença seguida', unit:'rodadas', test:null },
+  { key:'premiado', label:'Premiado em sequência', unit:'rodadas', test:r=>r.prize>0 },
+  { key:'podio',    label:'Pódios seguidos', unit:'rodadas', test:r=>r.mr<=3 },
+  { key:'vitoria',  label:'Vitórias seguidas', unit:'vitórias', test:r=>r.mr===1 },
+  { key:'jejum',    label:'Maior jejum', unit:'rodadas', test:r=>r.prize<=0, bad:true }
+];
+
+function computeStreaks(log){
+  const names = [...new Set(log.flatMap(x=>Object.keys(x.res)))];
+  const out = {};
+  names.forEach(n=>{
+    out[n] = {};
+    STREAK_KINDS.forEach(k=>{
+      let best = { len:0 }, cur = 0, start = null, last = null;
+      log.forEach(x=>{
+        const r = x.res[n];
+        if(!r){ if(!k.test) cur = 0; return; }   // presença: faltar quebra; demais: ignora a rodada
+        if(!k.test || k.test(r)){
+          if(cur === 0) start = x;
+          cur += 1; last = x;
+          if(cur > best.len) best = { len:cur, start, end:x };
+        } else cur = 0;
+      });
+      out[n][k.key] = { best, cur, curStart: cur ? start : null };
+    });
+  });
+  return out;
+}
+
+function renderStreaks(log){
+  if(!log.length) return `<div class="card">${emptyState('Sem rodadas ainda', 'As sequências aparecem assim que houver rodadas publicadas.')}</div>`;
+  const st = computeStreaks(log);
+  const names = Object.keys(st);
+  const lastRound = log[log.length-1];
+  const records = {};
+  const cards = STREAK_KINDS.map(k=>{
+    const top = names.map(n=>({ name:n, ...st[n][k.key].best, cur:st[n][k.key].cur }))
+      .filter(x=>x.len>0)
+      .sort((a,b)=> b.len-a.len || (log.indexOf(a.end) - log.indexOf(b.end)) || a.name.localeCompare(b.name,'pt-BR'));
+    if(!top.length) return '';
+    const L = top[0];
+    records[k.key] = L.len;
+    const tied = top.filter(x=>x.len===L.len && x.name!==L.name);
+    let note = '';
+    if(k.key === 'presenca' && L.cur === L.len) note = 'em andamento';
+    if(tied.length) note = (note ? note + ' · ' : '') + `empatado com ${tied[0].name}${tied.length>1 ? ` e mais ${tied.length-1}` : ''}`;
+    if(k.bad) note = 'sem prêmio' + (note ? ' · ' + note : '');
+    return `<div class="rec-card${k.bad?' bad':''}">
+      <div class="rec-label">${k.label}</div>
+      <div class="rec-value"><span class="v">${L.len}</span><span class="u">${k.unit}</span></div>
+      <div><div class="rec-who">${escapeHtml(L.name)}</div><div class="rec-detail mono">${escapeHtml(spanTag(L.start, L.end))}</div>
+        ${note ? `<div class="rec-detail">${escapeHtml(note)}</div>` : ''}</div>
+      <div class="rec-runners">${top.slice(1,3).map((x,i)=>`<div><span><span class="p">${i+2}º</span> ${escapeHtml(x.name)}</span><span class="n">${x.len}</span></div>`).join('')}</div>
+    </div>`;
+  }).join('');
+
+  // em andamento: só quem jogou na temporada da última rodada
+  const active = names.filter(n=> log.some(x=> x.sid===lastRound.sid && x.res[n]));
+  const liveCol = (key, title, cls, noteFn) => {
+    const rec = records[key] || 1;
+    const items = active.map(n=>({ name:n, cur:st[n][key].cur, from:st[n][key].curStart }))
+      .filter(x=>x.cur>0).sort((a,b)=> b.cur-a.cur || a.name.localeCompare(b.name,'pt-BR')).slice(0,5);
+    const body = items.length ? items.map(x=>`<div class="live-item">
+        <div class="lt"><span class="ln">${escapeHtml(x.name)}</span><span class="lv">${x.cur}</span></div>
+        <div class="lbar"><div style="width:${Math.min(100, Math.round(x.cur/rec*100))}%"></div></div>
+        <span class="lnote">${escapeHtml(noteFn(x, rec))}</span></div>`).join('')
+      : '<p class="hint" style="margin:0;">Ninguém no momento.</p>';
+    return `<div class="live-col ${cls}"><p class="live-head">${title}</p>${body}</div>`;
+  };
+  const toRecord = (x, rec) => x.cur >= rec ? (x.cur > rec ? 'novo recorde!' : 'igualou o recorde') : `faltam ${rec - x.cur} para o recorde`;
+  const live = liveCol('presenca', 'Presença', 'gold', x=> x.cur >= (records.presenca||0) ? 'é o recorde do clube' : `desde ${roundTag(x.from)}`)
+    + liveCol('premiado', 'Premiado', 'green', (x, rec)=> x.cur === 1 ? 'premiado na última que jogou' : toRecord(x, rec))
+    + liveCol('jejum', 'Jejum', 'red', (x, rec)=> x.cur >= rec ? (x.cur > rec ? 'novo recorde de jejum' : 'igualou o recorde de jejum') : `a ${rec - x.cur} do recorde`);
+  const nextTxt = lastRound.final ? `Situação ao fim da ${lastRound.season}.` : `Como cada um chega para a próxima rodada (${lastRound.n + 1} da ${lastRound.season}).`;
+
+  return `<div style="margin-bottom:12px;"><h2 class="section-title">Recordes de sequência</h2>
+      <p class="hint" style="margin:0;">Contadas de uma temporada para a outra. Presença quebra quando o jogador falta; as demais contam só as rodadas que ele jogou.</p></div>
+    <div class="rec-grid streaks">${cards}</div>
+    <div class="card" style="margin-top:16px;">
+      <h2 class="section-title">Sequências em andamento</h2>
+      <p class="hint">${escapeHtml(nextTxt)} A barra mostra o quanto cada um está perto do recorde do clube.</p>
+      <div class="live-grid">${live}</div>
+    </div>`;
+}
+
 function renderStatsLock(el, errMsg){
   el.innerHTML = `<div class="card"><div class="lock-box">
       <div class="lock-icon">${LOCK_SVG}</div>
@@ -1224,15 +1536,21 @@ async function renderStats(){
   if(!list.length){ el.innerHTML = `<div class="card">${emptyState('Nada para mostrar ainda', 'As estatísticas aparecem assim que houver temporadas publicadas.')}</div>`; return; }
   const agg = buildCareers(list);
   const viewingLabel = (data && data.season && data.season.label) || '';
-  const seg = (attr, items, cur, soft) => `<div class="seg${soft?' soft':''}" role="group">${items.map(([k,t])=>
+  const seg = (attr, items, cur, cls) => `<div class="seg${cls?' '+cls:''}" role="group">${items.map(([k,t])=>
     `<button type="button" data-${attr}="${k}" class="${k===cur?'on':''}" aria-pressed="${k===cur}">${t}</button>`).join('')}</div>`;
+  let side = '';
+  if(statsView === 'hall') side = seg('scope', [['all','Todas as temporadas'],['season', 'Só ' + escapeHtml(shortSeason(viewingLabel))]], statsScope, 'soft');
+  if(statsView === 'perfil') side = `<div class="player-pick"><label for="statsPlayerSel">Jogador</label><select id="statsPlayerSel"></select></div>`;
   const bar = `<div class="stats-bar">
-      ${seg('view', [['hall','Hall da Fama'],['perfil','Perfil do jogador']], statsView)}
-      ${statsView === 'hall'
-        ? seg('scope', [['all','Todas as temporadas'],['season', 'Só ' + escapeHtml(shortSeason(viewingLabel))]], statsScope, true)
-        : `<div class="player-pick"><label for="statsPlayerSel">Jogador</label><select id="statsPlayerSel"></select></div>`}
+      ${seg('view', [['hall','Hall da Fama'],['perfil','Perfil'],['confronto','Confronto'],['sequencias','Sequências']], statsView, 'views')}
+      ${side}
     </div>`;
-  el.innerHTML = bar + (statsView === 'hall' ? renderHall(agg) : renderProfile(agg))
+  let body;
+  if(statsView === 'perfil') body = renderProfile(agg);
+  else if(statsView === 'confronto') body = renderH2H(agg, buildRoundLog(list));
+  else if(statsView === 'sequencias') body = renderStreaks(buildRoundLog(list));
+  else body = renderHall(agg);
+  el.innerHTML = bar + body
     + `<button type="button" class="lock-out" id="statsLockOut">Bloquear estatísticas neste aparelho</button>`;
 
   const sel = document.getElementById('statsPlayerSel');
@@ -1252,6 +1570,16 @@ function bindStatsEvents(el){
   if(sortSel) sortSel.addEventListener('change', ()=>{ statsSort = sortSel.value; renderStats(); });
   const playerSel = document.getElementById('statsPlayerSel');
   if(playerSel) playerSel.addEventListener('change', ()=>{ statsPlayer = playerSel.value; statsPref('player', statsPlayer); renderStats(); });
+  const h2hA = document.getElementById('h2hSelA'), h2hB = document.getElementById('h2hSelB');
+  if(h2hA) h2hA.addEventListener('change', ()=>{ setH2H(h2hA.value, h2hB.value === h2hA.value ? null : h2hB.value); });
+  if(h2hB) h2hB.addEventListener('change', ()=>{ setH2H(h2hA.value, h2hB.value); });
+  const swap = document.getElementById('h2hSwap');
+  if(swap) swap.addEventListener('click', ()=> setH2H(h2hB.value, h2hA.value));
+  el.querySelectorAll('[data-rival]').forEach(b=> b.addEventListener('click', ()=>{
+    setH2H(h2hA.value, b.dataset.rival);
+    const box = document.getElementById('h2hTop');
+    if(box) box.scrollIntoView({behavior:'smooth', block:'start'});
+  }));
   el.querySelectorAll('table.career-table tbody tr').forEach(tr=>{
     const cell = tr.querySelector('.player-cell');
     if(cell) cell.addEventListener('click', ()=> tr.classList.toggle('expanded'));
