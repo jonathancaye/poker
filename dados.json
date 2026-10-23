@@ -1023,6 +1023,59 @@
           "guest": false
         }
       ]
+    },
+    {
+      "id": "r1792758595143df20",
+      "roundNumber": 17,
+      "buyIn": 100,
+      "prizes": [
+        500,
+        300,
+        200,
+        0
+      ],
+      "standings": [
+        {
+          "name": "JEAN HOFFMANN",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false
+        },
+        {
+          "name": "Peruca",
+          "guest": true
+        },
+        {
+          "name": "JEFERSON MONTAGNA",
+          "guest": false
+        },
+        {
+          "name": "LEANDRO ANGELO",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        }
+      ]
     }
   ],
   "players": [
@@ -1075,7 +1128,7 @@
     "22": "2026-11-26"
   },
   "topPositions": 4,
-  "publishedAt": "2026-10-22T01:26:01.299Z",
+  "publishedAt": "2026-10-23T12:30:58.112Z",
   "roundOrganizers": {
     "16": "FABRICIO AVI",
     "17": "FERNANDO MUPPET",
@@ -1084,5 +1137,10 @@
     "20": "JEFERSON MONTAGNA",
     "21": "CHARLES DE SOUZA",
     "22": "JONATHAN CAYE"
-  }
+  },
+  "season": {
+    "id": "2026-2",
+    "label": "Temporada 2026/2"
+  },
+  "archive": []
 }
