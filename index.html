@@ -267,11 +267,11 @@
     font-family:'Fraunces',serif; font-style:italic; font-weight:700; font-size:11px; line-height:1; padding:0; cursor:pointer;
     display:inline-flex; align-items:center; justify-content:center; text-transform:none; letter-spacing:0;}
   .info-btn:hover, .info-btn[aria-expanded="true"]{border-color:var(--gold-soft); color:var(--gold-soft);}
-  .info-pop{position:absolute; z-index:20; top:24px; left:-8px; width:250px; padding:11px 13px; border-radius:var(--radius-sm);
+  .info-pop{position:fixed; z-index:60; top:0; left:0; width:260px; max-width:calc(100vw - 24px); box-sizing:border-box;
+    white-space:normal; overflow-wrap:break-word; padding:11px 13px; border-radius:var(--radius-sm);
     background:var(--surface-2); border:1px solid var(--gold); color:var(--text); font-family:'Inter',sans-serif; font-size:12.5px;
     font-weight:500; line-height:1.45; letter-spacing:0; text-transform:none; box-shadow:0 8px 24px rgba(0,0,0,.35); text-align:left;}
   .info-pop[hidden]{display:none;}
-  .info-pop.right{left:auto; right:-8px;}
 
   .sort-row{display:flex; align-items:center; gap:8px; margin-bottom:12px;}
   .sort-row label{font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--text-muted);}
@@ -494,7 +494,7 @@
 
 <script>
 /* ---------- Versão deste arquivo (atualizar manualmente a cada upload) ---------- */
-const PAGE_VERSION = '2026.10.23-2';
+const PAGE_VERSION = '2026.10.23-3';
 
 /* ---------- Dados e regras de pontuação (idêntico ao painel de administração) ---------- */
 const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
@@ -1589,12 +1589,29 @@ function bindStatsEvents(el){
     const pop = btn.nextElementSibling;
     const open = pop.hidden;
     closeInfoPops();
-    pop.hidden = !open;
-    btn.setAttribute('aria-expanded', String(open));
+    if(!open) return;
+    pop.hidden = false;
+    placeInfoPop(btn, pop);
+    btn.setAttribute('aria-expanded', 'true');
   }));
   const out = document.getElementById('statsLockOut');
   if(out) out.addEventListener('click', ()=>{ statsSetUnlocked(false); renderStats(); window.scrollTo({top:0}); });
 }
+/* Posiciona o balão do ⓘ sempre dentro da tela (abaixo do ícone; acima se não couber) */
+function placeInfoPop(btn, pop){
+  const m = 12, vw = document.documentElement.clientWidth, vh = window.innerHeight;
+  const r = btn.getBoundingClientRect();
+  const w = Math.min(260, vw - 2*m);
+  pop.style.width = w + 'px';
+  const left = Math.max(m, Math.min(r.left + r.width/2 - w/2, vw - w - m));
+  const h = pop.offsetHeight;
+  let top = r.bottom + 8;
+  if(top + h > vh - m && r.top - 8 - h >= m) top = r.top - 8 - h;
+  pop.style.left = left + 'px';
+  pop.style.top = top + 'px';
+}
+window.addEventListener('scroll', ()=> closeInfoPops(), {passive:true});
+window.addEventListener('resize', ()=> closeInfoPops());
 function closeInfoPops(){
   document.querySelectorAll('.info-pop').forEach(p=> p.hidden = true);
   document.querySelectorAll('.info-btn').forEach(b=> b.setAttribute('aria-expanded','false'));
