@@ -1,0 +1,1575 @@
+{
+  "season": {
+    "id": "2023-1",
+    "label": "Temporada 2023/1"
+  },
+  "final": true,
+  "rounds": [
+    {
+      "id": "s20231r1",
+      "roundNumber": 1,
+      "buyIn": 70,
+      "prizes": [
+        490,
+        300,
+        190,
+        0
+      ],
+      "standings": [
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "LEONARDO VIEL",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "JOÃO WIGGERS",
+          "guest": false
+        },
+        {
+          "name": "MOACIR DANIEL PACHER",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "MAURICIO VILLANNO",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 14
+    },
+    {
+      "id": "s20231r2",
+      "roundNumber": 2,
+      "buyIn": 70,
+      "prizes": [
+        420,
+        250,
+        170,
+        0
+      ],
+      "standings": [
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "MOACIR DANIEL PACHER",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 12
+    },
+    {
+      "id": "s20231r3",
+      "roundNumber": 3,
+      "buyIn": 70,
+      "prizes": [
+        440,
+        260,
+        175,
+        0
+      ],
+      "standings": [
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "JOÃO WIGGERS",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "MAURICIO VILLANNO",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 13
+    },
+    {
+      "id": "s20231r4",
+      "roundNumber": 4,
+      "buyIn": 70,
+      "prizes": [
+        600,
+        350,
+        240,
+        70
+      ],
+      "standings": [
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "LEONARDO VIEL",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "MAURICIO VILLANNO",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "MOACIR DANIEL PACHER",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 18
+    },
+    {
+      "id": "s20231r5",
+      "roundNumber": 5,
+      "buyIn": 70,
+      "prizes": [
+        455,
+        275,
+        180,
+        0
+      ],
+      "standings": [
+        {
+          "name": "JOÃO WIGGERS",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "MAURICIO VILLANNO",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "LEONARDO VIEL",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 13
+    },
+    {
+      "id": "s20231r6",
+      "roundNumber": 6,
+      "buyIn": 70,
+      "prizes": [
+        580,
+        340,
+        235,
+        70
+      ],
+      "standings": [
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "CONVIDADO",
+          "guest": true
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "JOÃO WIGGERS",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 18
+    },
+    {
+      "id": "s20231r7",
+      "roundNumber": 7,
+      "buyIn": 70,
+      "prizes": [
+        520,
+        310,
+        220,
+        70
+      ],
+      "standings": [
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "JOÃO WIGGERS",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "LEONARDO VIEL",
+          "guest": false
+        },
+        {
+          "name": "MAURICIO VILLANNO",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 16
+    },
+    {
+      "id": "s20231r8",
+      "roundNumber": 8,
+      "buyIn": 70,
+      "prizes": [
+        425,
+        255,
+        160,
+        70
+      ],
+      "standings": [
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "JOÃO WIGGERS",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 13
+    },
+    {
+      "id": "s20231r9",
+      "roundNumber": 9,
+      "buyIn": 70,
+      "prizes": [
+        420,
+        420,
+        210,
+        0
+      ],
+      "standings": [
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "LEONARDO VIEL",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "JOÃO WIGGERS",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 15
+    },
+    {
+      "id": "s20231r10",
+      "roundNumber": 10,
+      "buyIn": 70,
+      "prizes": [
+        420,
+        320,
+        310,
+        70
+      ],
+      "standings": [
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "MOACIR DANIEL PACHER",
+          "guest": false
+        },
+        {
+          "name": "JOÃO WIGGERS",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "MAURICIO VILLANNO",
+          "guest": false
+        },
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 16
+    },
+    {
+      "id": "s20231r11",
+      "roundNumber": 11,
+      "buyIn": 70,
+      "prizes": [
+        495,
+        290,
+        195,
+        70
+      ],
+      "standings": [
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "MOACIR DANIEL PACHER",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "MAURICIO VILLANNO",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "JOÃO WIGGERS",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 15
+    },
+    {
+      "id": "s20231r12",
+      "roundNumber": 12,
+      "buyIn": 70,
+      "prizes": [
+        520,
+        310,
+        220,
+        70
+      ],
+      "standings": [
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "MAURICIO VILLANNO",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "LEONARDO VIEL",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "JOÃO WIGGERS",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 16
+    },
+    {
+      "id": "s20231r13",
+      "roundNumber": 13,
+      "buyIn": 70,
+      "prizes": [
+        425,
+        255,
+        155,
+        70
+      ],
+      "standings": [
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "MAURICIO VILLANNO",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 13
+    },
+    {
+      "id": "s20231r14",
+      "roundNumber": 14,
+      "buyIn": 70,
+      "prizes": [
+        520,
+        310,
+        220,
+        35
+      ],
+      "standings": [
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "LEONARDO VIEL",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "MAURICIO VILLANNO",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 16
+    },
+    {
+      "id": "s20231r15",
+      "roundNumber": 15,
+      "buyIn": 70,
+      "prizes": [
+        480,
+        300,
+        200,
+        0
+      ],
+      "standings": [
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "MAURICIO VILLANNO",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 14
+    },
+    {
+      "id": "s20231r16",
+      "roundNumber": 16,
+      "buyIn": 70,
+      "prizes": [
+        400,
+        360,
+        360,
+        70
+      ],
+      "standings": [
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "JOÃO WIGGERS",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "MAURICIO VILLANNO",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "LEONARDO VIEL",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 17
+    },
+    {
+      "id": "s20231r17",
+      "roundNumber": 17,
+      "buyIn": 70,
+      "prizes": [
+        370,
+        300,
+        170,
+        0
+      ],
+      "standings": [
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "MOACIR DANIEL PACHER",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 12
+    },
+    {
+      "id": "s20231r18",
+      "roundNumber": 18,
+      "buyIn": 70,
+      "prizes": [
+        400,
+        400,
+        180,
+        0
+      ],
+      "standings": [
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "MAURICIO VILLANNO",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 14
+    },
+    {
+      "id": "s20231r19",
+      "roundNumber": 19,
+      "buyIn": 70,
+      "prizes": [
+        490,
+        300,
+        190,
+        0
+      ],
+      "standings": [
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "LEONARDO VIEL",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "JOÃO WIGGERS",
+          "guest": false
+        },
+        {
+          "name": "MAURICIO VILLANNO",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 14
+    },
+    {
+      "id": "s20231r20",
+      "roundNumber": 20,
+      "buyIn": 70,
+      "prizes": [
+        350,
+        210,
+        140,
+        0
+      ],
+      "standings": [
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 10
+    },
+    {
+      "id": "s20231r21",
+      "roundNumber": 21,
+      "buyIn": 70,
+      "prizes": [
+        525,
+        315,
+        210,
+        0
+      ],
+      "standings": [
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "JOÃO WIGGERS",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "MOACIR DANIEL PACHER",
+          "guest": false
+        },
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 15
+    },
+    {
+      "id": "s20231r22",
+      "roundNumber": 22,
+      "buyIn": 70,
+      "prizes": [
+        450,
+        280,
+        180,
+        0
+      ],
+      "standings": [
+        {
+          "name": "CARLOS PRUST JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false
+        },
+        {
+          "name": "WILLIAN JUNOR",
+          "guest": false
+        },
+        {
+          "name": "AMANDIO JUNIOR",
+          "guest": false
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false
+        },
+        {
+          "name": "CLEITO TELES",
+          "guest": false
+        },
+        {
+          "name": "MAURICIO VILLANNO",
+          "guest": false
+        }
+      ],
+      "totalPlayers": 13
+    }
+  ],
+  "players": [
+    "AMANDIO JUNIOR",
+    "CARLOS PRUST JUNIOR",
+    "CLEITO TELES",
+    "EDWARD LOPES",
+    "ETTI HILLER",
+    "FABIANO MACHADO",
+    "FERNANDO MUPPET",
+    "GABRIEL CANTARELLI",
+    "JONATHAN CAYE",
+    "JOÃO WIGGERS",
+    "LEONARDO VIEL",
+    "MARCIONEI DA CUNHA",
+    "MAURICIO VILLANNO",
+    "MOACIR DANIEL PACHER",
+    "NILSON TOMELIN",
+    "RAFAEL GAUCHE",
+    "VINICIUS TOMELIN",
+    "WILLIAN JUNOR"
+  ],
+  "totalRounds": 22,
+  "topPositions": 4,
+  "roundDates": {
+    "1": "2023-02-02",
+    "2": "2023-02-09",
+    "3": "2023-02-16",
+    "4": "2023-02-23",
+    "5": "2023-03-02",
+    "6": "2023-03-09",
+    "7": "2023-03-16",
+    "8": "2023-03-23",
+    "9": "2023-03-30",
+    "10": "2023-04-06",
+    "11": "2023-04-13",
+    "12": "2023-04-20",
+    "13": "2023-04-27",
+    "14": "2023-05-04",
+    "15": "2023-05-11",
+    "16": "2023-05-18",
+    "17": "2023-05-25",
+    "18": "2023-06-01",
+    "19": "2023-06-08",
+    "20": "2023-06-15",
+    "21": "2023-06-22",
+    "22": "2023-06-29"
+  },
+  "roundOrganizers": {},
+  "source": "Importada do Excel (DIRETORIA_POKER_2023-1_v1.1.xlsm + PDF DIRETORIA_POKER_2023-1_rodada22)",
+  "publishedAt": "2026-10-23T16:50:00.000Z",
+  "closedAt": "2026-10-23T16:50:00.000Z"
+}
