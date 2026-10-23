@@ -663,14 +663,18 @@
       "buyIn": 120,
       "prizes": [
         815,
+        815,
         410,
-        120,
-        0
+        120
       ],
       "standings": [
         {
           "name": "DENILSON LOSI",
           "guest": false
+        },
+        {
+          "name": "CONVIDADO",
+          "guest": true
         },
         {
           "name": "FERNANDO MUPPET",
@@ -865,14 +869,18 @@
       "buyIn": 70,
       "prizes": [
         420,
+        420,
         210,
-        0,
         0
       ],
       "standings": [
         {
           "name": "MOACIR DANIEL PACHER",
           "guest": false
+        },
+        {
+          "name": "CONVIDADO",
+          "guest": true
         },
         {
           "name": "NILSON TOMELIN",
@@ -1392,12 +1400,16 @@
       "roundNumber": 22,
       "buyIn": 70,
       "prizes": [
+        455,
         275,
         180,
-        0,
         0
       ],
       "standings": [
+        {
+          "name": "CONVIDADO",
+          "guest": true
+        },
         {
           "name": "RAFAEL GAUCHE",
           "guest": false
