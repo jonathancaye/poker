@@ -186,6 +186,17 @@
     opacity:0; pointer-events:none; transition:all .25s ease; z-index:50;
   }
   .toast.show{opacity:1; transform:translateX(-50%) translateY(0);}
+  /* Eliminador e horários */
+  .kill-pick{flex-basis:100%; margin:4px 0 2px; padding:12px; border:1px solid var(--gold); border-radius:var(--radius-sm); background:var(--bg-deep);}
+  .kill-pick p{margin:0 0 10px; font-size:13px; font-weight:600; color:var(--gold-soft);}
+  .kill-opts{display:flex; flex-wrap:wrap; gap:8px;}
+  .kill-opts .btn{min-height:40px;}
+  .player-row.picking{flex-wrap:wrap;}
+  .clock-bar{display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px;
+    font-family:'Space Mono',monospace; font-size:12.5px; color:var(--text-muted);}
+  .clock-bar strong{color:var(--gold-soft);}
+  .elim-meta{display:block; font-family:'Space Mono',monospace; font-size:11px; color:var(--text-muted); font-weight:400; margin-top:3px;}
+  .by-select{background:var(--bg-deep); border:1px solid var(--border); color:var(--text); border-radius:6px; padding:3px 6px; font-size:11.5px; font-family:'Inter',sans-serif; max-width:170px;}
 </style>
 </head>
 <body>
@@ -266,7 +277,7 @@
 
     <div class="card">
       <h2 class="section-title">Eliminações &amp; colocação</h2>
-      <p class="hint">Clique em "Eliminou" conforme os jogadores forem caindo. A colocação final se monta sozinha, de baixo para cima, e o campeão é definido automaticamente quando sobrar 1.</p>
+      <p class="hint">Toque em "Iniciar rodada" quando o jogo começar. A cada "Eliminou", escolha quem eliminou: o horário é anotado sozinho. A colocação final se monta de baixo para cima, e o campeão é definido quando sobrar 1.</p>
       <div id="eliminationBanner"></div>
       <div id="activePlayersContent"></div>
       <div class="actions-row">
@@ -308,7 +319,7 @@
 
 <script>
 /* ---------- Versão deste arquivo (atualizar manualmente a cada upload) ---------- */
-const PAGE_VERSION = '2026.07.17-3';
+const PAGE_VERSION = '2026.10.23-1';
 
 /* ---------- Dados ---------- */
 const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
@@ -357,7 +368,7 @@ function normalizePlayerEntry(entry){
 }
 
 function loadState(){
-  let s = { participants: [], maxPerTable: 9, roundPlayers: [], eliminatedOrder: [], round: {}, publishedPlayers: [] };
+  let s = { participants: [], maxPerTable: 9, roundPlayers: [], eliminatedOrder: [], round: {}, publishedPlayers: [], startedAt: null, endedAt: null, elimInfo: {} };
   try{
     const raw = localStorage.getItem(STORAGE_KEY);
     if(raw) s = Object.assign(s, JSON.parse(raw));
@@ -371,9 +382,33 @@ function loadState(){
   if(!Array.isArray(s.publishedPlayers)) s.publishedPlayers = [];
   s.publishedPlayers = s.publishedPlayers.filter(n=>typeof n === 'string' && n.trim());
   if(!s.round || typeof s.round !== 'object') s.round = {};
+  if(!s.elimInfo || typeof s.elimInfo !== 'object' || Array.isArray(s.elimInfo)) s.elimInfo = {};
+  if(typeof s.startedAt !== 'string') s.startedAt = null;
+  if(typeof s.endedAt !== 'string') s.endedAt = null;
   return s;
 }
 function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+
+/* ---------- Horários (ISO com fuso local, ex.: 2026-10-29T21:47:05-03:00) ---------- */
+function isoLocal(d){
+  d = d || new Date();
+  const pad = n => String(Math.abs(n)).padStart(2,'0');
+  const off = -d.getTimezoneOffset();
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`
+    + `${off>=0?'+':'-'}${pad(Math.floor(Math.abs(off)/60))}:${pad(Math.abs(off)%60)}`;
+}
+function hhmm(iso){
+  const d = new Date(iso);
+  return isNaN(d) ? '' : d.toLocaleTimeString('pt-BR', {hour:'2-digit', minute:'2-digit'});
+}
+function durationTxt(fromIso, toIso){
+  const ms = new Date(toIso || Date.now()) - new Date(fromIso);
+  if(!(ms >= 0)) return '';
+  const m = Math.floor(ms/60000), h = Math.floor(m/60);
+  return h ? `${h}h ${String(m%60).padStart(2,'0')}min` : `${m}min`;
+}
+setInterval(()=>{ const c = document.getElementById('clockElapsed'); if(c && state.startedAt && !state.endedAt) c.textContent = durationTxt(state.startedAt); }, 30000);
+function clearRoundClock(){ state.startedAt = null; state.endedAt = null; state.elimInfo = {}; }
 
 function escapeHtml(str){
   return String(str).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
@@ -603,6 +638,7 @@ document.getElementById('drawTablesBtn').addEventListener('click', ()=>{
     }
     state.roundPlayers = presentParticipants().map(p=>({name:p.name, guest:!!p.guest}));
     state.eliminatedOrder = [];
+    clearRoundClock();
     const n = state.roundPlayers.length;
     const prizeApplied = applyPrizeTable(n);
     saveState();
@@ -658,11 +694,26 @@ function renderActivePlayers(){
   }
 
   const remaining = activeCount();
-  if(remaining <= 1){
-    banner.innerHTML = `<div class="banner success">Rodada completa — campeão definido automaticamente.</div>`;
+  let clock;
+  if(!state.startedAt){
+    clock = `<div class="clock-bar"><span>Relógio parado · toque ao começar o jogo</span><button class="btn small primary" id="startClockBtn" type="button">▶ Iniciar rodada</button></div>`;
+  } else if(state.endedAt){
+    clock = `<div class="clock-bar"><span>Início <strong>${hhmm(state.startedAt)}</strong> · fim <strong>${hhmm(state.endedAt)}</strong> · duração <strong>${durationTxt(state.startedAt, state.endedAt)}</strong></span></div>`;
   } else {
-    banner.innerHTML = `<div class="banner">${remaining} jogador${remaining===1?'':'es'} ainda na mesa.</div>`;
+    clock = `<div class="clock-bar"><span>Início <strong>${hhmm(state.startedAt)}</strong> · em jogo há <strong id="clockElapsed">${durationTxt(state.startedAt)}</strong></span></div>`;
   }
+  if(remaining <= 1){
+    banner.innerHTML = clock + `<div class="banner success">Rodada completa — campeão definido automaticamente.</div>`;
+  } else {
+    banner.innerHTML = clock + `<div class="banner">${remaining} jogador${remaining===1?'':'es'} ainda na mesa.</div>`;
+  }
+  const startBtn = document.getElementById('startClockBtn');
+  if(startBtn) startBtn.addEventListener('click', ()=>{
+    state.startedAt = isoLocal();
+    saveState();
+    renderActivePlayers();
+    showToast(`Rodada iniciada às ${hhmm(state.startedAt)}.`);
+  });
 
   const sortedPlayers = [...state.roundPlayers]
     .filter(p=>!state.eliminatedOrder.includes(p.name))
@@ -687,26 +738,52 @@ function renderActivePlayers(){
   el.innerHTML = rows;
 
   el.querySelectorAll('.elim-btn').forEach(b=>{
-    b.addEventListener('click', ()=>{
-      const name = b.dataset.name;
-      if(activeCount() <= 1) return;
-      const row = b.closest('.player-row');
-      b.disabled = true;
-      if(row) row.classList.add('eliminating');
-      setTimeout(()=>{
-        state.eliminatedOrder.push(name);
-        saveState();
-        renderActivePlayers();
-        renderStandingsPreview();
-        refreshGenerateButton();
-      }, 320);
-    });
+    b.addEventListener('click', ()=> openKillerPick(b.closest('.player-row'), b.dataset.name));
   });
+}
+
+/* Ao marcar a eliminação, pergunta quem eliminou (só entre os que seguem vivos) */
+function openKillerPick(row, name){
+  if(!row || activeCount() <= 1) return;
+  document.querySelectorAll('.kill-pick').forEach(k=>{ k.parentElement.classList.remove('picking'); k.remove(); });
+  const alive = state.roundPlayers.filter(p=> p.name !== name && !state.eliminatedOrder.includes(p.name))
+    .sort((a,b)=>a.name.localeCompare(b.name,'pt-BR'));
+  const box = document.createElement('div');
+  box.className = 'kill-pick';
+  box.innerHTML = `<p>Quem eliminou ${escapeHtml(name)}?</p>
+    <div class="kill-opts">${alive.map(p=>`<button type="button" class="btn small" data-by="${escapeHtml(p.name)}">${escapeHtml(p.name)}</button>`).join('')}
+      <button type="button" class="btn small ghost" data-by="">Não sei / pular</button>
+      <button type="button" class="btn small ghost danger" data-cancel="1">Cancelar</button></div>`;
+  row.classList.add('picking');
+  row.appendChild(box);
+  box.querySelectorAll('button').forEach(btn=> btn.addEventListener('click', ()=>{
+    if(btn.dataset.cancel){ row.classList.remove('picking'); box.remove(); return; }
+    confirmElimination(row, name, btn.dataset.by || null);
+  }));
+}
+
+function confirmElimination(row, name, by){
+  if(activeCount() <= 1 || state.eliminatedOrder.includes(name)) return;
+  const out = isoLocal();
+  if(!state.startedAt) state.startedAt = out; // plano B: relógio não foi iniciado
+  row.classList.add('eliminating');
+  setTimeout(()=>{
+    state.eliminatedOrder.push(name);
+    state.elimInfo[name] = by ? { out, by } : { out };
+    if(activeCount() <= 1) state.endedAt = out;
+    saveState();
+    renderActivePlayers();
+    renderStandingsPreview();
+    refreshGenerateButton();
+    showToast(by ? `${name} eliminado por ${by} às ${hhmm(out)}.` : `${name} eliminado às ${hhmm(out)}.`);
+  }, 320);
 }
 
 document.getElementById('undoEliminationBtn').addEventListener('click', ()=>{
   if(state.eliminatedOrder.length === 0){ showToast('Nenhuma eliminação para desfazer.'); return; }
-  state.eliminatedOrder.pop();
+  const undone = state.eliminatedOrder.pop();
+  delete state.elimInfo[undone];
+  state.endedAt = null;
   saveState();
   renderActivePlayers();
   renderStandingsPreview();
@@ -717,6 +794,8 @@ document.getElementById('resetEliminationsBtn').addEventListener('click', ()=>{
   if(state.eliminatedOrder.length === 0) return;
   if(!confirm('Reiniciar todas as eliminações desta rodada?')) return;
   state.eliminatedOrder = [];
+  state.elimInfo = {};
+  state.endedAt = null;
   saveState();
   renderActivePlayers();
   renderStandingsPreview();
@@ -756,9 +835,26 @@ function renderStandingsPreview(){
       memberRank += 1;
       ptsNote = `<span style="font-family:'Space Mono',monospace; font-size:12px; color:var(--gold-soft);">${pointsForPosition(memberRank)} pts</span>`;
     }
-    return `<tr><td>${chipBadge(idx+1)}</td><td class="player">${escapeHtml(p.name)}</td><td style="text-align:right;">${ptsNote}</td></tr>`;
+    const info = state.elimInfo[p.name];
+    let meta = '';
+    if(info){
+      // quem estava vivo quando ele caiu: eliminados depois dele + quem ainda está na mesa
+      const k = state.eliminatedOrder.indexOf(p.name);
+      const cands = state.roundPlayers.filter(x=> x.name !== p.name && (state.eliminatedOrder.indexOf(x.name) === -1 || state.eliminatedOrder.indexOf(x.name) > k))
+        .map(x=>x.name).sort((a,b)=>a.localeCompare(b,'pt-BR'));
+      const opts = `<option value="">eliminador?</option>` + cands.map(n=>`<option value="${escapeHtml(n)}"${n===info.by?' selected':''}>${escapeHtml(n)}</option>`).join('');
+      meta = `<span class="elim-meta">caiu às ${hhmm(info.out)} · por <select class="by-select" data-name="${escapeHtml(p.name)}" aria-label="Quem eliminou ${escapeHtml(p.name)}">${opts}</select></span>`;
+    }
+    return `<tr><td>${chipBadge(idx+1)}</td><td class="player">${escapeHtml(p.name)}${meta}</td><td style="text-align:right;">${ptsNote}</td></tr>`;
   }).join('');
   el.innerHTML = `<table><thead><tr><th></th><th>Jogador</th><th style="text-align:right;">Pontuação</th></tr></thead><tbody>${rows}</tbody></table>`;
+  el.querySelectorAll('.by-select').forEach(sel=> sel.addEventListener('change', ()=>{
+    const info = state.elimInfo[sel.dataset.name];
+    if(!info) return;
+    if(sel.value) info.by = sel.value; else delete info.by;
+    saveState();
+    showToast(sel.value ? `Eliminador de ${sel.dataset.name}: ${sel.value}.` : `Eliminador de ${sel.dataset.name} removido.`);
+  }));
 }
 
 function roundIsComplete(){
@@ -777,13 +873,23 @@ document.getElementById('generateJsonBtn').addEventListener('click', ()=>{
   if(!roundNumber || roundNumber < 1){ showToast('Informe o número da rodada.'); return; }
   if(!buyIn || buyIn <= 0){ showToast('Informe o valor do buy-in.'); return; }
   const prizes = [1,2,3,4].map(n=> Number(document.getElementById('rPrize'+n).value)||0);
-  const standings = computeStandings().map(p=> ({ name: p.name, guest: !!p.guest }));
+  const standings = computeStandings().map(p=>{
+    const e = { name: p.name, guest: !!p.guest };
+    const info = state.elimInfo[p.name];
+    if(info && info.out) e.out = info.out;
+    if(info && info.by) e.by = info.by;
+    return e;
+  });
+  const round = { roundNumber, buyIn, prizes };
+  if(state.startedAt) round.startedAt = state.startedAt;
+  if(state.endedAt) round.endedAt = state.endedAt;
+  round.standings = standings;
 
   const exportObj = {
     type: 'pokerClube2026RoundExport',
-    version: 1,
+    version: 2,
     exportedAt: new Date().toISOString(),
-    round: { roundNumber, buyIn, prizes, standings }
+    round
   };
   const jsonStr = JSON.stringify(exportObj, null, 2);
   document.getElementById('jsonOutput').value = jsonStr;
@@ -806,6 +912,7 @@ document.getElementById('generateJsonBtn').addEventListener('click', ()=>{
     state.round = { roundNumber: null, buyIn: state.round.buyIn, prizes: state.round.prizes };
     state.eliminatedOrder = [];
     state.roundPlayers = [];
+    clearRoundClock();
     // reinicia a lista de presentes só com o cadastro oficial, sem convidados e sem ninguém marcado
     const officialNames = state.publishedPlayers.length > 0
       ? state.publishedPlayers
