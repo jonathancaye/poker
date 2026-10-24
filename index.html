@@ -385,6 +385,29 @@
     .h2h-row .va, .h2h-row .vb{font-size:13.5px;}
   }
 
+  /* Forma recente */
+  .form-head{display:flex; justify-content:space-between; align-items:flex-start; gap:12px; flex-wrap:wrap; margin-bottom:14px;}
+  .form-badge{font-family:'Space Mono',monospace; font-size:10.5px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; padding:5px 12px; border-radius:999px; white-space:nowrap;}
+  .form-badge.up{background:rgba(92,181,135,0.16); color:var(--green-pos); border:1px solid rgba(92,181,135,0.45);}
+  .form-badge.down{background:rgba(224,122,112,0.12); color:#E07A70; border:1px solid rgba(224,122,112,0.45);}
+  .form-badge.flat{background:rgba(159,184,172,0.08); color:var(--text-muted); border:1px solid var(--border);}
+  .form-strip{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px;}
+  .form-chip{width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-family:'Space Mono',monospace; font-weight:700; font-size:12px; border:2px dashed rgba(245,239,224,0.25);}
+  .form-chip.win{background:radial-gradient(circle at 35% 30%, var(--gold-soft), var(--gold) 75%); color:#1B1203;}
+  .form-chip.itm{background:rgba(92,181,135,0.22); color:var(--green-pos); border-color:rgba(92,181,135,0.6);}
+  .form-chip.bub{background:rgba(201,124,77,0.2); color:var(--bronze); border-color:rgba(201,124,77,0.6);}
+  .form-chip.out{background:var(--bg-deep); color:var(--text-muted); border-color:var(--border);}
+  .form-legend{display:flex; gap:14px; flex-wrap:wrap; font-size:11.5px; color:var(--text-muted); margin-bottom:14px;}
+  .form-legend i{display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:5px; vertical-align:0;}
+  .form-table{width:100%;}
+  .form-table th{font-size:11px;} .form-table td{padding:9px 10px;}
+  .form-table td.up{color:var(--green-pos); font-weight:700;} .form-table td.down{color:#E07A70; font-weight:700;}
+  .form-table td.num{white-space:nowrap;}
+  @media (max-width:640px){ .form-strip{gap:4px;} .form-chip{width:30px; height:30px; font-size:10.5px;} .form-table th, .form-table td{padding:8px 6px;} }
+  .heat-item{display:flex; justify-content:space-between; align-items:center; gap:10px; padding:10px 12px; border-radius:var(--radius-sm); background:var(--bg-deep); margin-bottom:8px;}
+  .heat-item .hn{font-weight:600; font-size:13px;} .heat-item .hs{font-size:11px; color:var(--text-muted); margin-top:2px;}
+  .heat-item .hd{font-family:'Space Mono',monospace; font-weight:700; font-size:14px; color:var(--lc); white-space:nowrap;}
+
   /* Sequências */
   .rec-grid.streaks{grid-template-columns:repeat(auto-fit, minmax(170px, 1fr));}
   @media (max-width:640px){ .rec-grid.streaks{grid-template-columns:1fr 1fr;} }
@@ -494,7 +517,7 @@
 
 <script>
 /* ---------- Versão deste arquivo (atualizar manualmente a cada upload) ---------- */
-const PAGE_VERSION = '2026.10.23-6';
+const PAGE_VERSION = '2026.10.23-7';
 
 /* ---------- Dados e regras de pontuação (idêntico ao painel de administração) ---------- */
 const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
@@ -1151,7 +1174,7 @@ function renderCareerTable(agg){
     <p class="stats-note">Premiado = rodadas em que recebeu prêmio. Consistência em cinza = menos de ${minR} rodada${minR===1?'':'s'}, amostra pequena. Convidados não entram nas estatísticas; vitórias e pódios seguem a colocação entre os membros, como no ranking.${all ? ' Temporadas antigas vindas do Excel podem ter rodadas incompletas.' : ''}</p>`;
 }
 
-function renderProfile(agg){
+function renderProfile(agg, log){
   const pl = [...agg.players].sort((a,b)=> a.name.localeCompare(b.name,'pt-BR'));
   if(pl.length === 0) return `<div class="card">${emptyState('Sem jogadores ainda', 'Os perfis aparecem assim que houver rodadas publicadas.')}</div>`;
   if(!statsPlayer || !pl.some(p=>p.name===statsPlayer)){
@@ -1210,6 +1233,7 @@ function renderProfile(agg){
       </div>
       <div class="kpi-grid">${kpis}</div>
     </div>
+    ${renderFormCard(log, p.name)}
     <div class="prof-row">
       <div class="card prof-chart"><h3 class="sub-title">Posição final em cada temporada</h3>
         <p class="hint" style="margin-bottom:10px;">Quanto mais alto, melhor. Ponto dourado com anel = título; vazado = temporada em andamento.</p>
@@ -1223,6 +1247,35 @@ function renderProfile(agg){
         <th class="num">Pódios</th><th class="num">Premiado</th><th class="num">Lucro</th>
       </tr></thead><tbody>${tableRows}${careerRow}</tbody></table></div></div>
     <template id="statsPlayerOptions">${options}</template>`;
+}
+
+function renderFormCard(log, name){
+  const f = formOf(log, name);
+  if(!f) return `<div class="card" style="margin-top:16px;"><h3 class="sub-title">Forma recente</h3><p class="hint" style="margin:0;">Disponível a partir de ${FORM_MIN_CAREER} rodadas na carreira.</p></div>`;
+  const badge = f.trend === 'up' ? '<span class="form-badge up">▲ Em alta</span>'
+    : f.trend === 'down' ? '<span class="form-badge down">▼ Em baixa</span>' : '<span class="form-badge flat">Estável</span>';
+  const chips = f.recent.map(r=>{
+    const cls = r.mr === 1 ? 'win' : r.prize > 0 ? 'itm' : r.bubble ? 'bub' : 'out';
+    return `<div class="form-chip ${cls}" title="${escapeHtml(r.tag)}: ${r.raw}º de ${r.N}">${r.raw}º</div>`;
+  }).join('');
+  const fmt1 = v => v.toLocaleString('pt-BR',{minimumFractionDigits:1, maximumFractionDigits:1});
+  const row = (label, a, b, d, dTxt) => `<tr><td class="player">${label}</td><td class="num">${a}</td><td class="num">${b}</td>
+    <td class="num ${d>0.0001?'up':d<-0.0001?'down':''}">${d>0.0001?'↑ ':d<-0.0001?'↓ ':''}${dTxt}</td></tr>`;
+  const dp = (x, y) => Math.round((x-y)*100);
+  const sgn = v => (v>0?'+':v<0?'−':'') + Math.abs(v);
+  return `<div class="card" style="margin-top:16px;">
+      <div class="form-head"><div><h3 class="sub-title" style="margin:0 0 4px;">Forma recente</h3>
+        <p class="hint" style="margin:0;">Últimas ${f.recent.length} rodadas jogadas, da mais antiga para a mais recente</p></div>${badge}</div>
+      <div class="form-strip">${chips}</div>
+      <div class="form-legend"><span><i style="background:var(--gold);"></i>venceu</span><span><i style="background:var(--green-pos);"></i>premiado</span>
+        <span><i style="background:var(--bronze);"></i>bolha</span><span><i style="background:var(--border);"></i>sem prêmio</span></div>
+      <table class="form-table"><thead><tr><th></th><th class="num">Últ. ${f.recent.length}</th><th class="num">Carreira</th><th class="num">Diferença</th></tr></thead><tbody>
+        ${row('Consistência', fmtPct(f.r.cons), fmtPct(f.c.cons), f.r.cons-f.c.cons, sgn(dp(f.r.cons, f.c.cons)))}
+        ${row('Premiado', fmtPct(f.r.itm), fmtPct(f.c.itm), f.r.itm-f.c.itm, sgn(dp(f.r.itm, f.c.itm)))}
+        ${row('Pontos por rodada', fmt1(f.r.pts), fmt1(f.c.pts), f.r.pts-f.c.pts, (f.r.pts-f.c.pts>=0?'+':'−') + fmt1(Math.abs(f.r.pts-f.c.pts)))}
+      </tbody></table>
+      <p class="hint small-note" style="margin:12px 0 0;">Selo "Em alta" ou "Em baixa" quando a Consistência das últimas ${FORM_WINDOW} difere ${FORM_THRESHOLD} pontos percentuais ou mais da carreira. Diferenças de Consistência e Premiado em pontos percentuais.</p>
+    </div>`;
 }
 
 function positionChart(seasonList){
@@ -1260,6 +1313,28 @@ function positionChart(seasonList){
   return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Posição final por temporada — ${escapeHtml(desc)}">${g}${lines}${dots}</svg>`;
 }
 
+/* ---------- Forma recente ---------- */
+const FORM_WINDOW = 10;         // últimas N rodadas jogadas
+const FORM_MIN_CAREER = 100;    // carreira mínima para comparar
+const FORM_THRESHOLD = 10;      // diferença (pontos percentuais) de consistência para o selo
+function formMetrics(rs){
+  const n = rs.length || 1;
+  return {
+    cons: rs.reduce((s,r)=> s + (r.N>1 ? (r.N-r.raw)/(r.N-1) : 0), 0)/n,
+    itm: rs.filter(r=>r.prize>0).length/n,
+    pts: rs.reduce((s,r)=> s + pointsForPosition(r.mr), 0)/n
+  };
+}
+function formOf(log, name){
+  const all = log.filter(x=>x.res[name]).map(x=>({ ...x.res[name], tag: roundTag(x) }));
+  if(all.length < FORM_MIN_CAREER) return null;
+  const recent = all.slice(-FORM_WINDOW);
+  const r = formMetrics(recent), c = formMetrics(all);
+  const delta = Math.round((r.cons - c.cons)*100);
+  const trend = delta >= FORM_THRESHOLD ? 'up' : delta <= -FORM_THRESHOLD ? 'down' : 'flat';
+  return { recent, r, c, delta, trend, careerN: all.length };
+}
+
 /* ---------- Linha do tempo de rodadas (base do Confronto e das Sequências) ---------- */
 function buildRoundLog(list){
   const log = [];
@@ -1268,13 +1343,15 @@ function buildRoundLog(list){
     [...d.rounds].sort((a,b)=>a.roundNumber-b.roundNumber).forEach(r=>{
       const N = Math.max(Number(r.totalPlayers)||0, r.standings.length);
       const res = {};
+      let paid = 0;
+      while(paid < 4 && (Number((r.prizes||[])[paid])||0) > 0) paid++;
       let mr = 0;
       r.standings.forEach((e, idx)=>{
         if(stIsGuest(e)) return;
         mr += 1;
         const name = stName(e);
         if(UNKNOWN_PLAYER_RE.test(name)) return;
-        res[name] = { mr, raw: idx+1, N, prize: idx < 4 ? (Number((r.prizes||[])[idx])||0) : 0, buy: Number(r.buyIn)||0 };
+        res[name] = { mr, raw: idx+1, N, bubble: paid > 0 && idx === paid, prize: idx < 4 ? (Number((r.prizes||[])[idx])||0) : 0, buy: Number(r.buyIn)||0 };
       });
       log.push({ sid:s.id, season:short, n:r.roundNumber, res, final: !s.current || !!d.final });
     });
@@ -1493,6 +1570,22 @@ function renderStreaks(log){
       <h2 class="section-title">Sequências em andamento</h2>
       <p class="hint">${escapeHtml(nextTxt)} A barra mostra o quanto cada um está perto do recorde do clube.</p>
       <div class="live-grid">${live}</div>
+    </div>
+    ${renderHeatCard(log, active)}`;
+}
+
+function renderHeatCard(log, active){
+  const fs = active.map(n=>({ name:n, f: formOf(log, n) })).filter(x=>x.f);
+  const ups = fs.filter(x=>x.f.trend==='up').sort((a,b)=> b.f.delta-a.f.delta).slice(0,3);
+  const downs = fs.filter(x=>x.f.trend==='down').sort((a,b)=> a.f.delta-b.f.delta).slice(0,3);
+  const item = x => `<div class="heat-item"><div><div class="hn">${escapeHtml(x.name)}</div>
+      <div class="hs">${fmtPct(x.f.r.cons)} nas últimas ${x.f.recent.length} · ${fmtPct(x.f.c.cons)} na carreira</div></div>
+      <span class="hd">${x.f.delta>0?'+':'−'}${Math.abs(x.f.delta)}</span></div>`;
+  const col = (list, title, cls) => `<div class="live-col ${cls}"><p class="live-head">${title}</p>${list.length ? list.map(item).join('') : '<p class="hint" style="margin:0;">Ninguém no momento.</p>'}</div>`;
+  return `<div class="card" style="margin-top:16px;">
+      <h2 class="section-title">Quem está quente e quem está frio</h2>
+      <p class="hint">Consistência nas últimas ${FORM_WINDOW} rodadas jogadas comparada com a carreira, em pontos percentuais. Só quem jogou na temporada atual e tem ${FORM_MIN_CAREER}+ rodadas.</p>
+      <div class="live-grid">${col(ups, '▲ Em alta', 'green')}${col(downs, '▼ Em baixa', 'red')}</div>
     </div>`;
 }
 
@@ -1550,7 +1643,7 @@ async function renderStats(){
       ${side}
     </div>`;
   let body;
-  if(statsView === 'perfil') body = renderProfile(agg);
+  if(statsView === 'perfil') body = renderProfile(agg, buildRoundLog(list));
   else if(statsView === 'confronto') body = renderH2H(agg, buildRoundLog(list));
   else if(statsView === 'sequencias') body = renderStreaks(buildRoundLog(list));
   else body = renderHall(agg);
