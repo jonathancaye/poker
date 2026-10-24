@@ -494,7 +494,7 @@
 
 <script>
 /* ---------- Versão deste arquivo (atualizar manualmente a cada upload) ---------- */
-const PAGE_VERSION = '2026.10.23-4';
+const PAGE_VERSION = '2026.10.23-5';
 
 /* ---------- Dados e regras de pontuação (idêntico ao painel de administração) ---------- */
 const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
@@ -934,9 +934,9 @@ async function loadPublishedData(){
    ========================================================================== */
 const STATS_PASS_HASH = '64d024c4245a232a';
 const STATS_UNLOCK_KEY = 'pokerStatsUnlock';
-const STATS_MIN_ROUNDS_ALL = 100;         // mínimo de rodadas p/ recorde de aproveitamento (todas as temporadas)
+const STATS_MIN_ROUNDS_ALL = 100;         // mínimo de rodadas p/ recorde de consistência (todas as temporadas)
 const UNKNOWN_PLAYER_RE = /^membro n[aã]o identificado$/i;
-const APROV_INFO = 'Em média, à frente de quanto da mesa o jogador terminou. Cada rodada vale de 0% (último) a 100% (campeão), corrigindo o tamanho da mesa: 5º de 20 vale mais que 5º de 10.';
+const APROV_INFO = 'Mede o quanto o jogador vai longe nas rodadas, não o quanto ganha (para isso, veja o Lucro). Cada rodada vale de 0% (último) a 100% (campeão), corrigindo o tamanho da mesa: 5º de 20 vale mais que 5º de 10.';
 const LOCK_SVG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>';
 let statsView = 'hall';      // 'hall' | 'perfil'
 let statsScope = 'all';      // 'all' | 'season' (temporada em exibição)
@@ -1087,7 +1087,7 @@ function renderHall(agg){
     (t[0].profitPct>=0?'+':'') + Math.round(t[0].profitPct*100) + '% sobre os buy-ins', t.slice(1).map(p=>[p.name, fmtSigned(p.profit)])));
   const minR = minRoundsFor(agg);
   t = topBy(pl, 'aprov', p=>p.rounds>=minR);
-  if(t.length) cards.push(recordCard('Aproveitamento', APROV_INFO, Math.round(t[0].aprov*100), '%', t[0].name, `mínimo de ${minR} rodada${minR===1?'':'s'}`, t.slice(1).map(p=>[p.name, fmtPct(p.aprov)])));
+  if(t.length) cards.push(recordCard('Consistência', APROV_INFO, Math.round(t[0].aprov*100), '%', t[0].name, `mínimo de ${minR} rodada${minR===1?'':'s'}`, t.slice(1).map(p=>[p.name, fmtPct(p.aprov)])));
 
   const head = all
     ? `${agg.seasonInfo.length} temporadas · ${shortSeason(agg.seasonInfo[0].label)} a ${shortSeason(agg.seasonInfo[agg.seasonInfo.length-1].label)} · ${agg.totalRounds} rodadas`
@@ -1104,7 +1104,7 @@ const SORTS = {
   rounds:  { label:'Rodadas',        fn:p=>p.rounds },
   podiums: { label:'Pódios',         fn:p=>p.podiums },
   itm:     { label:'Premiado',       fn:p=>p.itm },
-  aprov:   { label:'Aproveitamento', fn:p=>p.aprov },
+  aprov:   { label:'Consistência', fn:p=>p.aprov },
   profit:  { label:'Lucro',          fn:p=>p.profit }
 };
 
@@ -1131,7 +1131,7 @@ function renderCareerTable(agg){
       <td class="num${on('wins')}" data-label="Vitórias">${p.wins}</td>
       <td class="num${on('podiums')}" data-label="Pódios">${p.podiums}</td>
       <td class="num${on('itm')}" data-label="Premiado">${p.itm}</td>
-      <td class="num aprov${on('aprov')}" data-label="Aproveitamento">${fmtPct(p.aprov)}</td>
+      <td class="num aprov${on('aprov')}" data-label="Consistência">${fmtPct(p.aprov)}</td>
       <td class="num ${profitClass(p.profit)}" data-label="Lucro">${fmtSigned(p.profit)}</td>
     </tr>`;
   }).join('');
@@ -1142,9 +1142,9 @@ function renderCareerTable(agg){
     <div class="sort-row"><label for="statsSortSel">Ordenar por</label><select id="statsSortSel">${opts}</select></div>
     <table class="rank-table career-table"><thead><tr>
       <th>Jogador</th>${all ? th('titles','Títulos') + '<th class="num">Temp.</th>' : ''}${th('rounds','Rodadas')}${th('wins','Vitórias')}${th('podiums','Pódios')}${th('itm','Premiado')}
-      ${th('aprov','Aproveit.', ' ' + infoBtn(APROV_INFO, true))}${th('profit','Lucro')}
+      ${th('aprov','Consist.', ' ' + infoBtn(APROV_INFO, true))}${th('profit','Lucro')}
     </tr></thead><tbody>${body}</tbody></table>
-    <p class="stats-note">Premiado = rodadas em que recebeu prêmio. Aproveitamento em cinza = menos de ${minR} rodada${minR===1?'':'s'}, amostra pequena. Convidados não entram nas estatísticas; vitórias e pódios seguem a colocação entre os membros, como no ranking.${all ? ' Temporadas antigas vindas do Excel podem ter rodadas incompletas.' : ''}</p>`;
+    <p class="stats-note">Premiado = rodadas em que recebeu prêmio. Consistência em cinza = menos de ${minR} rodada${minR===1?'':'s'}, amostra pequena. Convidados não entram nas estatísticas; vitórias e pódios seguem a colocação entre os membros, como no ranking.${all ? ' Temporadas antigas vindas do Excel podem ter rodadas incompletas.' : ''}</p>`;
 }
 
 function renderProfile(agg){
@@ -1172,7 +1172,7 @@ function renderProfile(agg){
     ['Vitórias', p.wins, `${pct(p.wins)} das jogadas`, 'gold'],
     ['Pódios', p.podiums, `1º a 3º · ${pct(p.podiums)}`, ''],
     ['Premiado', p.itm, `${pct(p.itm)} das jogadas`, ''],
-    ['Aproveitamento', fmtPct(p.aprov), 'média por rodada', '', APROV_INFO],
+    ['Consistência', fmtPct(p.aprov), 'média por rodada', '', APROV_INFO],
     ['Lucro', fmtSigned(p.profit), `${p.profitPct>=0?'+':''}${Math.round(p.profitPct*100)}% sobre os buy-ins`, p.profit>0.5 ? 'pos' : p.profit<-0.5 ? 'neg' : '']
   ].map(([l,v,s,c,info])=>`<div class="kpi"><span class="l">${l}${info ? infoBtn(info, true) : ''}</span>
     <span class="v ${c==='gold'?'gold':c==='pos'?'profit-pos':c==='neg'?'profit-neg':''}${String(v).length>8?' long':''}">${v}</span><span class="s">${escapeHtml(s)}</span></div>`).join('');
@@ -1341,7 +1341,7 @@ function renderH2H(agg, log){
     const rows = row('Vitórias', sa.wins, sb.wins, sa.wins, sb.wins)
       + row('Pódios', sa.podiums, sb.podiums, sa.podiums, sb.podiums)
       + row('Premiado', sa.itm, sb.itm, sa.itm, sb.itm)
-      + row(`Aproveitamento ${infoBtn(APROV_INFO, true)}`, Math.round(sa.aprov*100), Math.round(sb.aprov*100), fmtPct(sa.aprov), fmtPct(sb.aprov))
+      + row(`Consistência ${infoBtn(APROV_INFO, true)}`, Math.round(sa.aprov*100), Math.round(sb.aprov*100), fmtPct(sa.aprov), fmtPct(sb.aprov))
       + row('Lucro', Math.round(sa.profit), Math.round(sb.profit), fmtSigned(sa.profit), fmtSigned(sb.profit));
 
     const bySeason = [];
