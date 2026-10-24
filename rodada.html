@@ -197,6 +197,42 @@
   .clock-bar strong{color:var(--gold-soft);}
   .elim-meta{display:block; font-family:'Space Mono',monospace; font-size:11px; color:var(--text-muted); font-weight:400; margin-top:3px;}
   .by-select{background:var(--bg-deep); border:1px solid var(--border); color:var(--text); border-radius:6px; padding:3px 6px; font-size:11.5px; font-family:'Inter',sans-serif; max-width:170px;}
+  /* Configuração recolhível */
+  details.cfg-card > summary{list-style:none; cursor:pointer; display:flex; flex-wrap:wrap; align-items:baseline; gap:4px 12px;}
+  details.cfg-card > summary::-webkit-details-marker{display:none;}
+  .cfg-title{font-family:'Fraunces',serif; font-size:19px; font-weight:600;}
+  .cfg-sum{font-family:'Space Mono',monospace; font-size:12px; color:var(--text-muted); flex:1 1 auto;}
+  .cfg-edit{font-size:12px; font-weight:600; color:var(--gold-soft);}
+  details.cfg-card[open] .cfg-edit{display:none;}
+  details.cfg-card[open] .cfg-sum{display:none;}
+
+  /* Celular */
+  @media (max-width:640px){
+    .wrap{padding:12px 12px 90px;}
+    header.top{padding:16px; margin-bottom:14px; display:flex; flex-direction:column;}
+    header.top .reset-all-btn{order:5; margin-top:12px;}
+    header.top .suit{display:none;}
+    h1{font-size:21px;}
+    header.top p.sub{display:none;}
+    nav.tabs{margin-bottom:14px; gap:4px;}
+    nav.tabs button{flex:1 1 0; padding:11px 6px; font-size:13px;}
+    .card{padding:16px;}
+    .card + .card, details.card + .card{margin-top:12px;}
+    .cfg-title{font-size:17px;}
+    .player-row{padding:8px 2px; gap:8px;}
+    .player-row .pname{font-size:14.5px; line-height:1.25;}
+    .player-row .status-pill.alive{display:none;}
+    .player-row .elim-btn{min-height:44px; padding:8px 16px; font-size:13.5px; margin-left:0;}
+    .kill-opts{display:grid; grid-template-columns:1fr 1fr; gap:8px;}
+    .kill-opts .btn{min-height:48px; margin-left:0; white-space:normal; line-height:1.2; font-size:13px; padding:8px;}
+    .actions-row .btn{flex:1 1 140px; min-height:44px;}
+    .clock-bar{font-size:12px;}
+    #standingsPreviewContent table{font-size:13px;}
+    #standingsPreviewContent th, #standingsPreviewContent td{padding-left:4px; padding-right:4px;}
+    .by-select{max-width:100%; font-size:12px; padding:5px 6px;}
+    .toast{left:12px; right:12px; transform:translateY(20px); text-align:center; bottom:calc(16px + env(safe-area-inset-bottom, 0px));}
+    .toast.show{transform:translateY(0);}
+  }
 </style>
 </head>
 <body>
@@ -252,9 +288,9 @@
 
   <!-- ============ LANÇAMENTO DA RODADA ============ -->
   <section class="panel" id="tab-rodada">
-    <div class="card">
-      <h2 class="section-title">Configuração da rodada</h2>
-      <p class="hint">Preencha antes de começar a marcar as eliminações.</p>
+    <details class="card cfg-card" id="cfgCard" open>
+      <summary><span class="cfg-title">Configuração da rodada</span><span class="cfg-sum" id="cfgSummary"></span><span class="cfg-edit">editar ▾</span></summary>
+      <p class="hint" style="margin-top:10px;">Preenchida automaticamente pelo sorteio. Ajuste se precisar.</p>
       <div class="row-grid cols-3">
         <div>
           <label for="rRoundNumber">Nº da rodada</label>
@@ -273,11 +309,11 @@
         <div><input type="number" id="rPrize3" min="0" step="0.01" placeholder="3º lugar"></div>
         <div><input type="number" id="rPrize4" min="0" step="0.01" placeholder="4º lugar"></div>
       </div>
-    </div>
+    </details>
 
     <div class="card">
       <h2 class="section-title">Eliminações &amp; colocação</h2>
-      <p class="hint">Toque em "Iniciar rodada" quando o jogo começar. A cada "Eliminou", escolha quem eliminou: o horário é anotado sozinho. A colocação final se monta de baixo para cima, e o campeão é definido quando sobrar 1.</p>
+      <p class="hint">O relógio começa ao confirmar o início da rodada. A cada "Eliminou", escolha quem eliminou: o horário é anotado sozinho. A colocação final se monta de baixo para cima, e o campeão é definido quando sobrar 1.</p>
       <div id="eliminationBanner"></div>
       <div id="activePlayersContent"></div>
       <div class="actions-row">
@@ -319,7 +355,7 @@
 
 <script>
 /* ---------- Versão deste arquivo (atualizar manualmente a cada upload) ---------- */
-const PAGE_VERSION = '2026.10.23-1';
+const PAGE_VERSION = '2026.10.23-2';
 
 /* ---------- Dados ---------- */
 const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
@@ -639,13 +675,16 @@ document.getElementById('drawTablesBtn').addEventListener('click', ()=>{
     state.roundPlayers = presentParticipants().map(p=>({name:p.name, guest:!!p.guest}));
     state.eliminatedOrder = [];
     clearRoundClock();
+    state.startedAt = isoLocal(); // o relógio começa ao confirmar o início
     const n = state.roundPlayers.length;
     const prizeApplied = applyPrizeTable(n);
     saveState();
     updateTabLocks();
     renderRodadaTab();
     document.querySelector('#mainTabs .tab-btn[data-tab="rodada"]').click();
-    const msg = `Rodada iniciada com ${n} jogador${n===1?'':'es'}.` + (prizeApplied
+    const cfg = document.getElementById('cfgCard'); if(cfg) cfg.open = false;
+    window.scrollTo({top:0, behavior:'smooth'});
+    const msg = `Rodada iniciada às ${hhmm(state.startedAt)} com ${n} jogador${n===1?'':'es'}.` + (prizeApplied
       ? ' Premiação e buy-in preenchidos automaticamente.'
       : ' Fora da tabela padrão (10 a 20) — ajuste a premiação manualmente.');
     showToast(msg);
@@ -664,9 +703,19 @@ function renderRodadaTab(){
   document.getElementById('rPrize3').value = state.round.prizes && state.round.prizes[2]!=null ? state.round.prizes[2] : '';
   document.getElementById('rPrize4').value = state.round.prizes && state.round.prizes[3]!=null ? state.round.prizes[3] : '';
 
+  updateCfgSummary();
+  const cfg = document.getElementById('cfgCard');
+  if(cfg && !renderRodadaTab._done){ cfg.open = state.roundPlayers.length === 0; renderRodadaTab._done = true; }
   renderActivePlayers();
   renderStandingsPreview();
   refreshGenerateButton();
+}
+function updateCfgSummary(){
+  const el = document.getElementById('cfgSummary');
+  if(!el) return;
+  const r = state.round || {};
+  const pr = (r.prizes||[]).filter(v=>v>0).map((v,i)=>`${i+1}º ${v}`).join(' · ');
+  el.textContent = `Rodada ${r.roundNumber || '—'} · buy-in R$ ${r.buyIn || '—'}${pr ? ' · ' + pr : ''}`;
 }
 
 ['rRoundNumber','rBuyIn','rPrize1','rPrize2','rPrize3','rPrize4'].forEach(id=>{
@@ -675,6 +724,7 @@ function renderRodadaTab(){
     state.round.buyIn = Number(document.getElementById('rBuyIn').value) || 0;
     state.round.prizes = [1,2,3,4].map(n=> Number(document.getElementById('rPrize'+n).value)||0);
     saveState();
+    updateCfgSummary();
   });
 });
 
@@ -696,7 +746,7 @@ function renderActivePlayers(){
   const remaining = activeCount();
   let clock;
   if(!state.startedAt){
-    clock = `<div class="clock-bar"><span>Relógio parado · toque ao começar o jogo</span><button class="btn small primary" id="startClockBtn" type="button">▶ Iniciar rodada</button></div>`;
+    clock = `<div class="clock-bar"><span>Horário de início não registrado</span><button class="btn small" id="startClockBtn" type="button">Registrar início agora</button></div>`;
   } else if(state.endedAt){
     clock = `<div class="clock-bar"><span>Início <strong>${hhmm(state.startedAt)}</strong> · fim <strong>${hhmm(state.endedAt)}</strong> · duração <strong>${durationTxt(state.startedAt, state.endedAt)}</strong></span></div>`;
   } else {
@@ -826,7 +876,10 @@ function renderStandingsPreview(){
     el.innerHTML = emptyState('Ainda sem colocações', 'A colocação final aparece aqui conforme as eliminações forem marcadas.');
     return;
   }
-  let memberRank = 0;
+  // rodada em andamento: quem ainda está na mesa fica acima de todos os eliminados
+  const alive = state.roundPlayers.filter(x=>!state.eliminatedOrder.includes(x.name));
+  const offset = alive.length > 1 ? alive.length : 0;
+  let memberRank = offset ? alive.filter(x=>!x.guest).length : 0;
   const rows = standings.map((p,idx)=>{
     let ptsNote;
     if(p.guest){
@@ -845,7 +898,7 @@ function renderStandingsPreview(){
       const opts = `<option value="">eliminador?</option>` + cands.map(n=>`<option value="${escapeHtml(n)}"${n===info.by?' selected':''}>${escapeHtml(n)}</option>`).join('');
       meta = `<span class="elim-meta">caiu às ${hhmm(info.out)} · por <select class="by-select" data-name="${escapeHtml(p.name)}" aria-label="Quem eliminou ${escapeHtml(p.name)}">${opts}</select></span>`;
     }
-    return `<tr><td>${chipBadge(idx+1)}</td><td class="player">${escapeHtml(p.name)}${meta}</td><td style="text-align:right;">${ptsNote}</td></tr>`;
+    return `<tr><td>${chipBadge(idx+1+offset)}</td><td class="player">${escapeHtml(p.name)}${meta}</td><td style="text-align:right;">${ptsNote}</td></tr>`;
   }).join('');
   el.innerHTML = `<table><thead><tr><th></th><th>Jogador</th><th style="text-align:right;">Pontuação</th></tr></thead><tbody>${rows}</tbody></table>`;
   el.querySelectorAll('.by-select').forEach(sel=> sel.addEventListener('change', ()=>{
