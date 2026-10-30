@@ -107,7 +107,6 @@
   /* Presença */
   .count-line{display:flex; align-items:baseline; gap:10px;}
   .count-line .big{font-family:var(--f-mono); font-size:24px; font-weight:700; color:var(--gold-soft); font-variant-numeric:tabular-nums;}
-  .search-row{flex:none; margin-bottom:10px;}
   .grid-players{display:grid; grid-template-columns:repeat(auto-fill, minmax(160px,1fr)); gap:7px;}
   .pcard{display:flex; align-items:center; gap:9px; padding:9px 10px; border-radius:var(--radius-sm); background:var(--bg-deep); border:1px solid var(--border); color:var(--text); cursor:pointer; font-family:var(--f-body); font-size:13.5px; font-weight:600; text-align:left; min-width:0; -webkit-tap-highlight-color:transparent;}
   .pcard .box{flex:none; width:20px; height:20px; border-radius:6px; border:2px solid var(--border); display:grid; place-items:center; font-size:12px; color:#211502;}
@@ -122,11 +121,14 @@
   @media (max-width:400px){ .grid-players{grid-template-columns:1fr 1fr;} }
 
   /* Conferência e sorteio */
-  .prize-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:6px;}
-  .prize{background:var(--bg-deep); border:1px solid var(--border); border-radius:var(--radius-sm); padding:7px 6px; text-align:center;}
-  .prize .p{font-family:var(--f-mono); font-size:10.5px; color:var(--text-muted);}
-  .prize .val{font-family:var(--f-mono); font-weight:700; font-size:13px; margin-top:1px; font-variant-numeric:tabular-nums;}
-  .prize:first-child .val{color:var(--gold-soft);}
+  .prize-card{padding:9px 12px;}
+  .prize-line{display:flex; align-items:baseline; gap:4px 9px; flex-wrap:wrap; font-family:var(--f-mono); font-size:12.5px; font-weight:700; font-variant-numeric:tabular-nums;}
+  .prize-line .pl-k{font-family:var(--f-body); font-size:10px; font-weight:600; text-transform:uppercase; letter-spacing:.04em; color:var(--text-muted);}
+  .prize-line .pz{white-space:nowrap;}
+  .prize-line .pz.first{color:var(--gold-soft);}
+  .prize-line .p{color:var(--text-muted); font-weight:400;}
+  .prize-line .pl-sp{flex:1;}
+  .prize-line .link{margin-left:auto;}
   .prize-edit{display:grid; grid-template-columns:repeat(5,1fr); gap:6px;}
   .prize-edit label{display:block; font-family:var(--f-mono); font-size:10px; color:var(--text-muted); margin-bottom:3px; text-align:center;}
   .prize-edit input{padding:7px 4px; text-align:center; font-family:var(--f-mono); font-size:16px;}
@@ -136,12 +138,14 @@
   .numlist li{display:grid; grid-template-columns:26px 1fr; gap:4px; align-items:baseline; padding:4px 0; border-bottom:1px solid rgba(44,87,68,.5); break-inside:avoid;}
   .numlist .i{font-family:var(--f-mono); font-size:11.5px; color:var(--text-muted); text-align:right; padding-right:4px;}
   @media (max-width:360px){ .numlist{columns:1;} }
-  .tables{display:grid; grid-template-columns:repeat(auto-fit, minmax(170px,1fr)); gap:8px;}
+  .tables{display:grid; grid-template-columns:repeat(auto-fit, minmax(270px,1fr)); gap:8px;}
   .table-block{background:var(--bg-deep); border:1px solid var(--border); border-radius:var(--radius-sm); padding:10px 12px;}
   .table-block h3{font-family:var(--f-display); font-size:14.5px; margin:0 0 6px; color:var(--gold-soft); font-weight:600;}
   .table-block h3 small{font-family:var(--f-body); font-size:11.5px; color:var(--text-muted); font-weight:500;}
-  .table-block ol{margin:0; padding:0; list-style:none; font-size:13.5px; display:flex; flex-direction:column; gap:3px;}
-  .table-block li{display:grid; grid-template-columns:62px 1fr; gap:6px; align-items:baseline;}
+  .table-block ol{margin:0; padding:0; list-style:none; font-size:13.5px; display:flex; flex-direction:column;}
+  .table-block li{display:grid; grid-template-columns:62px 1fr; gap:6px; align-items:baseline; padding:2px 0; border-bottom:1px dashed rgba(44,87,68,.5);}
+  .table-block li:last-child{border-bottom:0;}
+  .table-block li > span:last-child{white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
   .table-block li .s{font-family:var(--f-mono); font-size:11px; color:var(--text-muted);}
   .table-block li .s.key{color:var(--gold-soft); font-weight:700;}
 
@@ -223,7 +227,7 @@
 
 <script>
 /* ---------- Versão deste arquivo (atualizar manualmente a cada upload) ---------- */
-const PAGE_VERSION = '2026.10.29-2';
+const PAGE_VERSION = '2026.10.29-3';
 
 /* ---------- Regras ---------- */
 const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
@@ -507,8 +511,7 @@ function orgSheet(){
 
 /* ---------- 2. Presença ---------- */
 function s2(){
-  const q = (state.search||'').trim().toLowerCase();
-  const ms = members().sort((a,b)=>cmp(a.name,b.name)).filter(p=>!q || p.name.toLowerCase().includes(q));
+  const ms = members().sort((a,b)=>cmp(a.name,b.name));
   const gs = guests().sort((a,b)=>cmp(a.name,b.name));
   const nM = members().filter(p=>p.present).length, nG = gs.length, total = nM + nG;
   return `<div class="screen">
@@ -517,13 +520,11 @@ function s2(){
     <div class="card fill">
       <div class="card-head"><div class="count-line"><span class="big" id="countBig">${total}</span><span class="muted" id="countSub">${nM} ${plural(nM,'membro','membros')}${nG?` + ${nG} conv.`:''}</span></div>
         <button class="link" id="markAll" type="button">${nM ? 'desmarcar todos' : 'marcar todos'}</button></div>
-      <div class="search-row"><input type="text" id="search" placeholder="Buscar jogador…" value="${escapeHtml(state.search||'')}" autocomplete="off"></div>
       <div class="scroll"><div class="grid-players">
         ${ms.map(p=>`<button class="pcard ${p.present?'on':''}" type="button" data-n="${escapeHtml(p.name)}" aria-pressed="${p.present}"><span class="box">${p.present?'✓':''}</span><span class="nm">${escapeHtml(p.name)}</span></button>`).join('')}
         ${gs.map(p=>`<button class="pcard guest" type="button" data-g="${escapeHtml(p.name)}" title="Tocar para remover"><span class="box">✓</span><span class="nm">${escapeHtml(p.name)}</span><span class="guest-tag">Conv.</span></button>`).join('')}
       </div>
       ${members().length === 0 ? '<p class="lead small" style="padding:8px 0;">A lista oficial ainda não foi carregada do site. Verifique a internet e use Reiniciar, ou adicione os jogadores como convidados.</p>' : ''}
-      ${q && !ms.length ? '<p class="lead small" style="padding:8px 0;">Ninguém com esse nome na lista oficial. Adicione como convidado abaixo.</p>' : ''}
       </div>
       <div class="guest-add"><input type="text" id="guestName" placeholder="+ Convidado (não pontua, recebe prêmio)" autocomplete="off"><button class="btn" id="addGuest" type="button">Adicionar</button></div>
     </div></div>`;
@@ -554,8 +555,6 @@ function bind2(){
       state.participants = state.participants.filter(x=>!(x.guest && x.name===name)); invalidateDraw(); render();
     });
   }));
-  const s = document.getElementById('search');
-  s.addEventListener('input', ()=>{ state.search = s.value; const p = s.selectionStart; render(); const s2 = document.getElementById('search'); s2.focus(); try{ s2.setSelectionRange(p,p); }catch(e){} });
   document.getElementById('markAll').onclick = ()=>{
     const anyOn = members().some(p=>p.present);
     members().forEach(p=>p.present = !anyOn); invalidateDraw(); render();
@@ -585,12 +584,13 @@ function s3(){
   const prizeView = state.editPrizes ? `<div class="prize-edit">
       <div><label for="pBuy">Buy-in</label><input type="number" inputmode="numeric" id="pBuy" value="${state.round.buyIn}"></div>
       ${pr.map((v,i)=>`<div><label for="p${i}">${i+1}º</label><input type="number" inputmode="numeric" id="p${i}" value="${v||''}" placeholder="0"></div>`).join('')}
-    </div>` : `<div class="prize-grid">${pr.map((v,i)=>`<div class="prize"><div class="p">${i+1}º</div><div class="val">${v ? brl(v) : '—'}</div></div>`).join('')}</div>`;
+    </div>` : '';
+  const prizeLine = pr.map((v,i)=>`<span class="pz${i===0?' first':''}"><span class="p">${i+1}º</span> ${v ? Number(v).toLocaleString('pt-BR') : '—'}</span>`).join('');
   return `<div class="screen">
     <div class="head"><p class="eyebrow">Etapa 3 de 5</p><h1>Conferência e sorteio</h1>
       <p class="lead">${ps.length} jogadores · ${ps.length-nG} ${plural(ps.length-nG,'membro','membros')}${nG?` + ${nG} ${plural(nG,'convidado','convidados')}`:''} · buy-in ${brl(state.round.buyIn)}</p></div>
     ${inTable || prizesOk() ? '' : `<div class="banner">Com ${ps.length} jogadores a premiação fica fora da tabela do clube (10 a 20). Preencha os valores em "ajustar".</div>`}
-    <div class="card"><div class="card-head" style="margin-bottom:8px;"><h2>Premiação</h2><button class="link" id="editPrize" type="button">${state.editPrizes ? 'ok' : 'ajustar'}</button></div>${prizeView}</div>
+    <div class="card prize-card"><div class="prize-line"><span class="pl-k">Prêmios R$</span>${state.editPrizes ? '<span class="pl-sp"></span>' : prizeLine}<button class="link" id="editPrize" type="button" aria-label="Ajustar premiação" style="text-decoration:none; font-size:15px;">${state.editPrizes ? '✓ ok' : '✎'}</button></div>${prizeView ? `<div style="margin-top:10px;">${prizeView}</div>` : ''}</div>
     <div class="card fill">
       <div class="card-head"><h2>${state.tables ? 'Mesas sorteadas' : 'Confira a presença'}</h2><button class="link" id="fix" type="button">corrigir presença</button></div>
       <div class="draw-ctrl"><span class="muted">Até ${MAX_PER_TABLE} por mesa → ${nT} ${plural(nT,'mesa','mesas')}</span>
@@ -682,7 +682,7 @@ function whoSheet(name){
   const pos = alivePlayers().length;
   openSheet(`<h3>Quem eliminou ${escapeHtml(name)}?</h3>
     <p>Sai em <b>${pos}º lugar</b> agora (${hhmm(isoLocal())}).</p>
-    <div class="pick">${others.map(p=>`<button class="btn" type="button" data-by="${escapeHtml(p.name)}">${escapeHtml(p.name)}</button>`).join('')}</div>
+    <div class="pick">${others.map(p=>`<button class="btn" type="button" data-by="${escapeHtml(p.name)}">${escapeHtml(p.name)}${p.guest?' <span class="guest-tag">Conv.</span>':''}</button>`).join('')}</div>
     <div class="row"><button class="btn ghost" type="button" data-by="" style="flex:1;">Não sei / pular</button><button class="btn ghost" id="cancelSheet" type="button" style="flex:1;">Cancelar</button></div>`);
   document.querySelectorAll('#overlay [data-by]').forEach(b=> b.addEventListener('click', ()=>{ closeSheet(); recordElimination(name, b.dataset.by || null); }));
   document.getElementById('cancelSheet').onclick = closeSheet;
