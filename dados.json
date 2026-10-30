@@ -1076,6 +1076,106 @@
           "guest": false
         }
       ]
+    },
+    {
+      "id": "r1793365567497b8c3",
+      "roundNumber": 18,
+      "buyIn": 100,
+      "prizes": [
+        650,
+        600,
+        350,
+        100
+      ],
+      "standings": [
+        {
+          "name": "DAVID PEREIRA",
+          "guest": false
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false,
+          "out": "2026-10-30T10:05:09-03:00",
+          "by": "DAVID PEREIRA"
+        },
+        {
+          "name": "JEAN HOFFMANN",
+          "guest": false,
+          "out": "2026-10-30T10:04:59-03:00"
+        },
+        {
+          "name": "CLEITO TELLES",
+          "guest": false,
+          "out": "2026-10-30T10:04:56-03:00"
+        },
+        {
+          "name": "JEFERSON MONTAGNA",
+          "guest": false,
+          "out": "2026-10-30T10:04:48-03:00"
+        },
+        {
+          "name": "EDWARD LOPES",
+          "guest": false,
+          "out": "2026-10-30T10:04:44-03:00"
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false,
+          "out": "2026-10-30T10:04:41-03:00"
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false,
+          "out": "2026-10-30T10:04:38-03:00"
+        },
+        {
+          "name": "GABRIEL CANTARELLI",
+          "guest": false,
+          "out": "2026-10-30T10:04:32-03:00"
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false,
+          "out": "2026-10-30T10:04:28-03:00"
+        },
+        {
+          "name": "LEANDRO ANGELO",
+          "guest": false,
+          "out": "2026-10-30T10:04:21-03:00"
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false,
+          "out": "2026-10-30T10:04:16-03:00"
+        },
+        {
+          "name": "JARIO",
+          "guest": true,
+          "out": "2026-10-30T10:04:11-03:00"
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false,
+          "out": "2026-10-30T10:04:06-03:00"
+        },
+        {
+          "name": "VANDERLEI DE SOUZA",
+          "guest": false,
+          "out": "2026-10-30T10:04:00-03:00"
+        },
+        {
+          "name": "JULIANO BORGES",
+          "guest": false,
+          "out": "2026-10-30T10:03:55-03:00"
+        },
+        {
+          "name": "GAUCHO",
+          "guest": true,
+          "out": "2026-10-30T10:03:48-03:00"
+        }
+      ],
+      "startedAt": "2026-10-30T10:03:36-03:00",
+      "endedAt": "2026-10-30T10:05:09-03:00"
     }
   ],
   "players": [
@@ -1100,7 +1200,8 @@
     "RAFAEL GAUCHE",
     "ODILON JUNIOR",
     "VANDERLEI DE SOUZA",
-    "DAVID PEREIRA"
+    "DAVID PEREIRA",
+    "CLEITO TELLES"
   ],
   "totalRounds": 22,
   "roundDates": {
@@ -1128,7 +1229,7 @@
     "22": "2026-11-26"
   },
   "topPositions": 4,
-  "publishedAt": "2026-10-23T12:30:58.112Z",
+  "publishedAt": "2026-10-30T13:09:22.477Z",
   "roundOrganizers": {
     "16": "FABRICIO AVI",
     "17": "FERNANDO MUPPET",
