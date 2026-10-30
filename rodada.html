@@ -198,7 +198,6 @@
   .sheet p b{color:var(--text);}
   .pick{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-bottom:10px;}
   .pick button{text-align:left; min-height:46px;}
-  .pick .same{font-family:var(--f-mono); font-size:10px; color:var(--gold-soft); display:block; margin-top:2px; font-weight:400;}
 
   .toast{position:fixed; left:50%; bottom:calc(84px + env(safe-area-inset-bottom,0px)); transform:translateX(-50%); background:var(--surface-2); border:1px solid var(--gold); color:var(--text); padding:10px 16px; border-radius:10px; font-size:13.5px; font-weight:600; z-index:30; opacity:0; pointer-events:none; transition:opacity .2s; max-width:calc(100% - 32px); text-align:center;}
   .toast.show{opacity:1;}
@@ -224,7 +223,7 @@
 
 <script>
 /* ---------- Versão deste arquivo (atualizar manualmente a cada upload) ---------- */
-const PAGE_VERSION = '2026.10.29-1';
+const PAGE_VERSION = '2026.10.29-2';
 
 /* ---------- Regras ---------- */
 const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
@@ -258,8 +257,7 @@ function blankRound(keep){
     step:1, maxStep:1, closed:false, exportJson:null, search:'',
     participants: (keep.publishedPlayers||[]).map(name=>({name, guest:false, present:false})),
     tables:null, roundPlayers:[], eliminatedOrder:[], elimInfo:{}, startedAt:null, endedAt:null,
-    round:{ roundNumber:null, buyIn:BUY_IN, prizes:null, prizesFor:null },
-    roundManual:false,
+    round:{ roundNumber:null, buyIn:BUY_IN, prizes:null, prizesFor:null, organizer:null },
     publishedPlayers: keep.publishedPlayers || [], roundDates: keep.roundDates || {},
     roundOrganizers: keep.roundOrganizers || {}, seasonLabel: keep.seasonLabel || '', nextRound: keep.nextRound || null
   };
@@ -351,11 +349,6 @@ function sortedPresent(){
   return ps.filter(p=>!p.guest).sort((a,b)=>cmp(a.name,b.name)).concat(ps.filter(p=>p.guest).sort((a,b)=>cmp(a.name,b.name)));
 }
 function alivePlayers(){ return state.roundPlayers.filter(p=>!state.eliminatedOrder.includes(p.name)); }
-function tableOf(name){
-  if(!state.tables) return null;
-  for(let i=0;i<state.tables.length;i++){ if(state.tables[i].some(s=>s.name===name)) return i+1; }
-  return null;
-}
 function getPositionLabels(n){
   if(n <= 1) return ['Dealer'];
   if(n === 2) return ['Dealer/SB','BB'];
@@ -452,32 +445,33 @@ document.getElementById('btnReset').addEventListener('click', ()=>{
 });
 
 /* ---------- 1. Abertura ---------- */
+function calendarOrg(){ const rn = state.round.roundNumber; return rn ? (state.roundOrganizers[rn] || null) : null; }
+function currentOrg(){ return state.round.organizer || calendarOrg(); }
 function s1(){
   const rn = state.round.roundNumber;
   const date = rn ? state.roundDates[rn] : null;
-  const org = rn ? state.roundOrganizers[rn] : null;
+  const org = currentOrg(), cal = calendarOrg();
+  const changed = !!state.round.organizer && state.round.organizer !== cal;
   let warn = '';
-  if(!rn) warn = `<div class="banner muted">Buscando a próxima rodada no site… Se estiver sem internet, informe o número da rodada em "ajustar".</div>`;
-  else if(state.nextRound && rn !== state.nextRound) warn = `<div class="banner">Pelo site, a próxima rodada é a <b>${state.nextRound}</b>. Confira se a rodada ${rn} está certa.</div>`;
-  else if(date && date !== todayIso()) warn = `<div class="banner">A rodada ${rn} está marcada para <b>${fmtDateBR(date)}</b>, e hoje é ${fmtDateBR(todayIso())}. Confira se é a rodada certa.</div>`;
+  if(!rn) warn = `<div class="banner muted">Buscando a próxima rodada no site… É preciso internet para abrir uma rodada nova.</div>`;
+  else if(date && date !== todayIso()) warn = `<div class="banner">A rodada ${rn} está marcada para <b>${fmtDateBR(date)}</b>, e hoje é ${fmtDateBR(todayIso())}.</div>`;
   const resume = resumeOffer ? `<div class="card resume">
       <h2>Rodada em andamento neste aparelho</h2>
       <p><b>Rodada ${resumeOffer.roundNumber || '—'}</b> · parada na etapa ${resumeOffer.step} (${STEPS[resumeOffer.step-1]}) · ${resumeOffer.present} ${plural(resumeOffer.present,'jogador marcado','jogadores marcados')}.</p>
       <div class="row"><button class="btn primary" id="btnResume" type="button">Continuar de onde parou</button><button class="btn danger" id="btnDiscard" type="button">Descartar</button></div></div>` : '';
   return `<div class="screen free">
     <div class="head"><p class="eyebrow">Etapa 1 de 5</p><h1>Abertura da rodada</h1>
-      <p class="lead">Confira os dados da rodada de hoje. Data e organização vêm do calendário publicado no site.</p></div>
+      <p class="lead">Confira os dados da rodada de hoje. Rodada e data vêm do calendário do site; só a organização pode ser trocada aqui.</p></div>
     ${resume}
     <div class="card"><div class="card-head"><h2>Dados da rodada</h2></div>
       <div class="kv">
-        <span class="k">Rodada</span>
-        <span class="v mono" id="rnView">${state.editRound ? `<span class="num-stepper"><button type="button" id="rnMinus" aria-label="Rodada anterior">−</button><span>${rn||'—'}</span><button type="button" id="rnPlus" aria-label="Próxima rodada">+</button></span>` : (rn || '—')}</span>
-        <button class="link" id="rnEdit" type="button">${state.editRound ? 'ok' : 'ajustar'}</button>
+        <span class="k">Rodada</span><span class="v mono">${rn || '—'}</span><span></span>
         <span class="k">Data</span><span class="v mono ${date?'':'empty'}">${date ? fmtDateBR(date) : 'sem data no calendário'}</span><span></span>
-        <span class="k">Organização</span><span class="v ${org?'':'empty'}">${org ? escapeHtml(org) : 'não definida'}</span><span></span>
+        <span class="k">Organização</span><span class="v ${org?'':'empty'}">${org ? escapeHtml(org) : 'não definida'}${changed ? `<span class="muted" style="display:block; font-weight:400; font-size:11.5px;">no calendário: ${cal ? escapeHtml(cal) : 'não definida'}</span>` : ''}</span>
+        <button class="link" id="orgEdit" type="button" ${rn && !resumeOffer ? '' : 'hidden'}>trocar</button>
         <span class="k">Buy-in</span><span class="v mono">${brl(state.round.buyIn)}</span><span></span>
       </div>
-      <p class="lead small" style="margin-top:12px;">Data ou organização errada? Corrija no painel de gestão (Configurações). Aqui é só conferência.</p>
+      ${changed ? '<p class="lead small" style="margin-top:12px;">A troca vai no arquivo da rodada e atualiza a organização no painel de gestão ao importar.</p>' : ''}
     </div>
     ${warn}
   </div>`;
@@ -492,15 +486,23 @@ function bind1(){
   } else {
     const ok = !!state.round.roundNumber;
     dock(`<button class="btn primary" id="next" type="button" ${ok?'':'disabled'}>Confirmar e continuar →</button>`);
-    document.getElementById('next').onclick = ()=>{ state.editRound = false; go(2); };
+    document.getElementById('next').onclick = ()=> go(2);
   }
-  document.getElementById('rnEdit').onclick = ()=>{
-    if(!state.round.roundNumber) state.round.roundNumber = state.nextRound || 1;
-    state.editRound = !state.editRound; render();
-  };
-  const step = d => ()=>{ state.round.roundNumber = Math.max(1, (state.round.roundNumber||1) + d); state.roundManual = true; render(); };
-  const mi = document.getElementById('rnMinus'); if(mi) mi.onclick = step(-1);
-  const pl = document.getElementById('rnPlus'); if(pl) pl.onclick = step(1);
+  document.getElementById('orgEdit').onclick = orgSheet;
+}
+function orgSheet(){
+  const cur = currentOrg(), cal = calendarOrg();
+  const names = members().map(p=>p.name).sort(cmp);
+  openSheet(`<h3>Quem organiza a rodada ${state.round.roundNumber}?</h3>
+    <p>${cal ? `No calendário: <b>${escapeHtml(cal)}</b>.` : 'O calendário não tem organização definida para esta rodada.'}</p>
+    <div class="pick">${names.map(n=>`<button class="btn ${n===cur?'primary':''}" type="button" data-org="${escapeHtml(n)}">${escapeHtml(n)}</button>`).join('')}</div>
+    <button class="btn ghost" id="cancelSheet" type="button" style="width:100%;">Cancelar</button>`);
+  document.querySelectorAll('#overlay [data-org]').forEach(b=> b.addEventListener('click', ()=>{
+    const n = b.dataset.org;
+    state.round.organizer = (n === cal) ? null : n;
+    closeSheet(); render(); showToast(`Organização: ${n}.`);
+  }));
+  document.getElementById('cancelSheet').onclick = closeSheet;
 }
 
 /* ---------- 2. Presença ---------- */
@@ -641,8 +643,8 @@ function s4(){
     </div>
     <div class="card fill">
       <div class="card-head"><h2>Ainda jogando</h2></div>
-      <div class="scroll"><div class="alive-list">${alive.map(p=>{ const t = tableOf(p.name); return `
-        <div class="alive"><span class="nm">${escapeHtml(p.name)}${p.guest?' <span class="guest-tag">Conv.</span>':''}${t?`<span class="mesa">Mesa ${t}</span>`:''}</span>
+      <div class="scroll"><div class="alive-list">${alive.map(p=>{ return `
+        <div class="alive"><span class="nm">${escapeHtml(p.name)}${p.guest?' <span class="guest-tag">Conv.</span>':''}</span>
           <button class="btn elim" type="button" data-n="${escapeHtml(p.name)}">Eliminado</button></div>`; }).join('')}</div></div>
     </div>
     <div class="last-out">${lastName
@@ -676,13 +678,11 @@ function undoLast(){
   render(); showToast(`${name} voltou para a mesa.`);
 }
 function whoSheet(name){
-  const t = tableOf(name);
-  const others = alivePlayers().filter(p=>p.name!==name)
-    .sort((a,b)=> ((t && tableOf(b.name)===t) - (t && tableOf(a.name)===t)) || cmp(a.name,b.name));
+  const others = alivePlayers().filter(p=>p.name!==name).sort((a,b)=>cmp(a.name,b.name));
   const pos = alivePlayers().length;
   openSheet(`<h3>Quem eliminou ${escapeHtml(name)}?</h3>
-    <p>Sai em <b>${pos}º lugar</b> agora (${hhmm(isoLocal())}).${t ? ' Jogadores da mesma mesa aparecem primeiro.' : ''}</p>
-    <div class="pick">${others.map(p=>`<button class="btn" type="button" data-by="${escapeHtml(p.name)}">${escapeHtml(p.name)}${t && tableOf(p.name)===t?'<span class="same">mesma mesa</span>':''}</button>`).join('')}</div>
+    <p>Sai em <b>${pos}º lugar</b> agora (${hhmm(isoLocal())}).</p>
+    <div class="pick">${others.map(p=>`<button class="btn" type="button" data-by="${escapeHtml(p.name)}">${escapeHtml(p.name)}</button>`).join('')}</div>
     <div class="row"><button class="btn ghost" type="button" data-by="" style="flex:1;">Não sei / pular</button><button class="btn ghost" id="cancelSheet" type="button" style="flex:1;">Cancelar</button></div>`);
   document.querySelectorAll('#overlay [data-by]').forEach(b=> b.addEventListener('click', ()=>{ closeSheet(); recordElimination(name, b.dataset.by || null); }));
   document.getElementById('cancelSheet').onclick = closeSheet;
@@ -714,6 +714,7 @@ function buildExport(){
     return e;
   });
   const round = { roundNumber: Number(state.round.roundNumber), buyIn: Number(state.round.buyIn), prizes: [0,1,2,3].map(i=>Number(state.round.prizes[i])||0) };
+  if(currentOrg()) round.organizer = currentOrg();
   if(state.startedAt) round.startedAt = state.startedAt;
   if(state.endedAt) round.endedAt = state.endedAt;
   round.standings = standings;
@@ -727,8 +728,7 @@ function s5(){
     return `<div class="screen"><div class="card done-card"><div class="suit">♠ ♥ ♦ ♣</div><h2>Rodada ${state.round.roundNumber} encerrada</h2>
       <p class="lead">Campeão: <b style="color:var(--gold-soft);">${escapeHtml(f[0].name)}</b> · ${f.length} jogadores · ${elapsedTxt(state.startedAt, state.endedAt)} de jogo</p>
       <div class="row">${canShare ? '<button class="btn primary" id="share" type="button">Enviar pelo WhatsApp</button>' : ''}
-        <button class="btn ${canShare?'':'primary'}" id="dl" type="button">Baixar ${escapeHtml(exportFileName())}</button>
-        <button class="btn ghost" id="copy" type="button">Copiar JSON</button></div>
+        <button class="btn ${canShare?'':'primary'}" id="dl" type="button">Baixar ${escapeHtml(exportFileName())}</button></div>
       <p class="lead small" style="margin-top:14px;">Mande o arquivo para quem importa a rodada no painel de gestão. Ele fica disponível aqui até você começar uma nova rodada.</p></div></div>`;
   }
   return `<div class="screen">
@@ -748,7 +748,6 @@ function bind5(){
     dock(`<button class="btn grow" id="newR" type="button">Começar nova rodada</button>`);
     const sh = document.getElementById('share'); if(sh) sh.onclick = shareJson;
     document.getElementById('dl').onclick = downloadJson;
-    document.getElementById('copy').onclick = copyJson;
     document.getElementById('newR').onclick = ()=> confirmSheet('Começar nova rodada?', 'Confirme que o arquivo desta rodada já foi enviado. Os dados dela serão apagados deste aparelho.', 'Começar nova', ()=>{
       freshRound(); render(); showToast('Pronto para a próxima rodada.');
     });
@@ -784,11 +783,6 @@ async function shareJson(){
     if(e && e.name === 'AbortError') return;
     showToast('Não deu para compartilhar. Use "Baixar" e envie o arquivo.');
   }
-}
-function copyJson(){
-  if(navigator.clipboard && navigator.clipboard.writeText){
-    navigator.clipboard.writeText(state.exportJson).then(()=>showToast('JSON copiado.'), ()=>showToast('Não deu para copiar. Use "Baixar".'));
-  } else showToast('Não deu para copiar. Use "Baixar".');
 }
 
 /* ---------- Folhas ---------- */
@@ -836,7 +830,7 @@ async function loadPublishedData(){
     const rounds = Array.isArray(parsed.rounds) ? parsed.rounds : [];
     state.nextRound = rounds.reduce((m,r)=>Math.max(m, Number(r.roundNumber)||0), 0) + 1;
     if(!started()){
-      if(!state.roundManual || !state.round.roundNumber) state.round.roundNumber = state.nextRound;
+      state.round.roundNumber = state.nextRound;
       players.forEach(name=>{ if(!state.participants.some(p=>!p.guest && p.name.toLowerCase()===name.toLowerCase())) state.participants.push({name, guest:false, present:false}); });
     }
     render();
