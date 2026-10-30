@@ -1060,7 +1060,7 @@
           "guest": false
         },
         {
-          "name": "Peruca",
+          "name": "PERUCA",
           "guest": true
         },
         {
@@ -1169,9 +1169,8 @@
           "out": "2026-10-30T10:03:55-03:00"
         },
         {
-          "name": "GAUCHO",
-          "guest": true,
-          "out": "2026-10-30T10:03:48-03:00"
+          "name": "ODILON JUNIOR",
+          "guest": false
         }
       ],
       "startedAt": "2026-10-30T10:03:36-03:00",
@@ -1229,7 +1228,7 @@
     "22": "2026-11-26"
   },
   "topPositions": 4,
-  "publishedAt": "2026-10-30T13:09:22.477Z",
+  "publishedAt": "2026-10-30T13:15:32.371Z",
   "roundOrganizers": {
     "16": "FABRICIO AVI",
     "17": "FERNANDO MUPPET",
