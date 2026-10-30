@@ -227,7 +227,7 @@
 
 <script>
 /* ---------- Versão deste arquivo (atualizar manualmente a cada upload) ---------- */
-const PAGE_VERSION = '2026.10.29-3';
+const PAGE_VERSION = '2026.10.29-4';
 
 /* ---------- Regras ---------- */
 const POS_POINTS = [26,19,16,13,11,9,7,5,3,2];
@@ -235,11 +235,13 @@ function pointsForPosition(pos){ return pos <= 10 ? POS_POINTS[pos-1] : 1; }
 const MAX_PER_TABLE = 9;
 const BUY_IN = 100;
 
-/* Tabela de premiação padrão por número de jogadores (10 a 20) */
+/* Tabela de premiação padrão por número de jogadores (6 a 25; total = jogadores × R$ 100) */
 const PRIZE_TABLE = {
+  6:[300,200,100,0], 7:[350,200,150,0], 8:[400,250,150,0], 9:[450,250,200,0],
   10:[500,300,200,0], 11:[550,350,200,0], 12:[600,350,250,0], 13:[650,400,250,0],
   14:[650,400,250,100], 15:[700,400,300,100], 16:[750,450,300,100], 17:[800,450,350,100],
-  18:[850,500,350,100], 19:[900,500,400,100], 20:[950,550,400,100]
+  18:[850,500,350,100], 19:[900,500,400,100], 20:[950,550,400,100],
+  21:[1000,550,450,100], 22:[1050,600,450,100], 23:[1100,600,500,100], 24:[1150,650,500,100], 25:[1200,650,550,100]
 };
 const STEPS = ['Abertura','Presença','Sorteio','Partida','Fechamento'];
 
@@ -589,7 +591,7 @@ function s3(){
   return `<div class="screen">
     <div class="head"><p class="eyebrow">Etapa 3 de 5</p><h1>Conferência e sorteio</h1>
       <p class="lead">${ps.length} jogadores · ${ps.length-nG} ${plural(ps.length-nG,'membro','membros')}${nG?` + ${nG} ${plural(nG,'convidado','convidados')}`:''} · buy-in ${brl(state.round.buyIn)}</p></div>
-    ${inTable || prizesOk() ? '' : `<div class="banner">Com ${ps.length} jogadores a premiação fica fora da tabela do clube (10 a 20). Preencha os valores em "ajustar".</div>`}
+    ${inTable || prizesOk() ? '' : `<div class="banner">Com ${ps.length} jogadores a premiação fica fora da tabela do clube (6 a 25). Toque no ✎ e preencha os valores.</div>`}
     <div class="card prize-card"><div class="prize-line"><span class="pl-k">Prêmios R$</span>${state.editPrizes ? '<span class="pl-sp"></span>' : prizeLine}<button class="link" id="editPrize" type="button" aria-label="Ajustar premiação" style="text-decoration:none; font-size:15px;">${state.editPrizes ? '✓ ok' : '✎'}</button></div>${prizeView ? `<div style="margin-top:10px;">${prizeView}</div>` : ''}</div>
     <div class="card fill">
       <div class="card-head"><h2>${state.tables ? 'Mesas sorteadas' : 'Confira a presença'}</h2><button class="link" id="fix" type="button">corrigir presença</button></div>
