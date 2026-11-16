@@ -1269,6 +1269,121 @@
           "out": "2026-11-06T00:40:36-03:00"
         }
       ]
+    },
+    {
+      "id": "r17948272681740b16",
+      "roundNumber": 20,
+      "buyIn": 100,
+      "prizes": [
+        800,
+        450,
+        350,
+        100
+      ],
+      "startedAt": "2026-11-12T21:44:31-03:00",
+      "endedAt": "2026-11-13T00:14:35-03:00",
+      "standings": [
+        {
+          "name": "RAFAEL GAUCHE",
+          "guest": false
+        },
+        {
+          "name": "DAVID PEREIRA",
+          "guest": false,
+          "out": "2026-11-13T00:14:35-03:00",
+          "by": "RAFAEL GAUCHE"
+        },
+        {
+          "name": "VANDERLEI DE SOUZA",
+          "guest": false,
+          "out": "2026-11-13T00:03:08-03:00",
+          "by": "DAVID PEREIRA"
+        },
+        {
+          "name": "VINICIUS TOMELIN",
+          "guest": false,
+          "out": "2026-11-13T00:02:48-03:00",
+          "by": "DAVID PEREIRA"
+        },
+        {
+          "name": "JULIANO BORGES",
+          "guest": false,
+          "out": "2026-11-13T00:02:45-03:00",
+          "by": "DAVID PEREIRA"
+        },
+        {
+          "name": "MARCIONEI DA CUNHA",
+          "guest": false,
+          "out": "2026-11-12T23:54:06-03:00",
+          "by": "RAFAEL GAUCHE"
+        },
+        {
+          "name": "JEFERSON MONTAGNA",
+          "guest": false,
+          "out": "2026-11-12T23:50:55-03:00",
+          "by": "DAVID PEREIRA"
+        },
+        {
+          "name": "VANDERLEI RAZINI",
+          "guest": false,
+          "out": "2026-11-12T23:47:29-03:00",
+          "by": "VANDERLEI DE SOUZA"
+        },
+        {
+          "name": "JEAN PIERRE",
+          "guest": false,
+          "out": "2026-11-12T23:47:23-03:00",
+          "by": "RAFAEL GAUCHE"
+        },
+        {
+          "name": "JONATHAN CAYE",
+          "guest": false,
+          "out": "2026-11-12T23:47:17-03:00",
+          "by": "MARCIONEI DA CUNHA"
+        },
+        {
+          "name": "ETTI HILLER",
+          "guest": false,
+          "out": "2026-11-12T23:47:02-03:00",
+          "by": "VINICIUS TOMELIN"
+        },
+        {
+          "name": "LEANDRO ANGELO",
+          "guest": false,
+          "out": "2026-11-12T22:32:20-03:00",
+          "by": "JEFERSON MONTAGNA"
+        },
+        {
+          "name": "JEAN HOFFMANN",
+          "guest": false,
+          "out": "2026-11-12T22:20:07-03:00",
+          "by": "VANDERLEI DE SOUZA"
+        },
+        {
+          "name": "FERNANDO MUPPET",
+          "guest": false,
+          "out": "2026-11-12T22:08:29-03:00",
+          "by": "DAVID PEREIRA"
+        },
+        {
+          "name": "NILSON TOMELIN",
+          "guest": false,
+          "out": "2026-11-12T22:08:23-03:00",
+          "by": "DAVID PEREIRA"
+        },
+        {
+          "name": "CLEITO TELLES",
+          "guest": false,
+          "out": "2026-11-12T21:56:16-03:00",
+          "by": "ETTI HILLER"
+        },
+        {
+          "name": "FABIANO MACHADO",
+          "guest": false,
+          "out": "2026-11-12T21:53:54-03:00",
+          "by": "VANDERLEI RAZINI"
+        }
+      ]
     }
   ],
   "players": [
@@ -1322,13 +1437,13 @@
     "22": "2026-11-26"
   },
   "topPositions": 4,
-  "publishedAt": "2026-11-06T12:12:37.341Z",
+  "publishedAt": "2026-11-16T11:08:16.498Z",
   "roundOrganizers": {
     "16": "FABRICIO AVI",
     "17": "FERNANDO MUPPET",
     "18": "JEAN HOFFMANN",
     "19": "JEAN HOFFMANN",
-    "20": "JEFERSON MONTAGNA",
+    "20": "JEAN PIERRE",
     "21": "CHARLES DE SOUZA",
     "22": "JONATHAN CAYE"
   },
